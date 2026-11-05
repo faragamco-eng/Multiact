@@ -1,0 +1,7 @@
+firmware/build/
+firmware/cmsis/
+*.o
+*.elf
+*.bin
+*.map
+__pycache__/
