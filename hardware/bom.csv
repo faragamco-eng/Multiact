@@ -1,0 +1,63 @@
+Ref,Qty,Value,Description,Package,Example MPN,Note
+J1,1,3P 10A,AC input terminal L/N/PE,7.5 mm pitch,Phoenix MKDS 1.5/3-7.62,
+F1,1,10A T,Fuse time-lag 250 VAC + holder,5x20,Littelfuse 0215010.MXP,
+RV1,1,275VAC,MOV 14 mm,Radial,EPCOS S14K275,
+CX1;CX2,2,0.47uF X2,X2 safety capacitor 310 VAC,Radial 15 mm,KEMET R46KN347000P1M,
+R1;R2,2,470k,X-cap discharge,1206,,200 V rated
+L1,1,2x6.8mH 8A,Common-mode choke,Radial,Wurth 7448640395 class,check current rating
+CY1;CY2,2,2.2nF Y2,Y2 safety capacitor,Radial,Vishay VY2222M35Y5US63V7,
+BR1,1,GBU1006,Bridge rectifier 10 A 600 V,GBU,Diodes GBU1006,on heatsink
+NTC1,1,5R,Inrush NTC 5 ohm,Disc 20 mm,EPCOS B57364S0509M,energy rating vs 940 uF at 264 VAC
+K1,1,12V 16A,Power relay SPST-NO,PCB,Omron G5LE-1A4 DC12 class,
+R3,1,100R,Relay coil series resistor 0.5 W,2010,,
+D1,1,1N4148W,Relay flyback diode,SOD-123,,
+Q1,1,2N7002,Relay driver N-MOSFET,SOT-23,,
+R4,1,100k,Gate pull-down,0603,,
+C1;C2,2,470uF 450V,Bulk electrolytic 105C ripple >= 3.6 A at 100 Hz,Snap-in 35x45,Nichicon LGN2W471MELB45 class,
+C3,1,1uF 630V,DC-link film MKP,Radial,KEMET R76QR3100SE30J class,
+C4,1,100nF 630V,DC-link snubber film at IPM,Radial,,<10 mm from IPM P/N
+R5;R6,2,100k 1W,Bleeder (series with LED_HV),2512 or THT,,
+LED_HV,1,red HE,High-voltage present indicator,0805,,
+RF1,1,10R 1W,Fusible flame-proof resistor,THT,Vishay NFR25H,
+CF1;CF2,2,4.7uF 400V,Aux supply input filter,Radial 8x12,,
+LF1,1,1mH 0.3A,Aux supply filter inductor,Radial,,
+U2,1,LNK306DN,Off-line buck switcher (15 V aux),SO-8C,Power Integrations LNK306DN,
+C5,1,100nF,LNK bypass,0805,,
+D2,1,UF1005,Ultrafast freewheel diode 600 V,DO-41 or SMA (ES1J),,
+L2,1,1mH 0.4A,Aux buck inductor,Radial,,
+R7;R8,2,16.5k;2.05k,Aux feedback divider,0805,,verify with PI design tool
+C6,1,100uF 25V,+15V bulk,Radial,,
+D3,1,SMBJ18A,+15V TVS,SMB,,
+R9,1,3.3k,Aux minimum load,0805,,
+U3,1,TPS560430X3F,Buck 15 V -> 3.3 V,SOT-23-6,TI TPS560430X3FDBVR,or equivalent
+L3,1,10uH 1A,3V3 buck inductor,4x4,,
+C7;C8,2,10uF;100nF,+3V3 decoupling,0805,,
+FB1,1,600R@100MHz,Ferrite bead analog supply,0603,,
+U1,1,STGIB15CH60TS-L,IPM 600 V 15 A SLLIMM 2nd series,SDIP2B-26L,ST STGIB15CH60TS-L,alt: Infineon IKCM15L60GD / onsemi FNB41560 (check input polarity)
+C10;C11,2,10uF 25V;100nF,IPM VCC decoupling,0805,,
+C12;C13;C14,3,4.7uF 25V X7R,Bootstrap capacitors (+100 nF each),0805,,
+RS1;RS2,2,68m 2W 1%,DC-link shunt (parallel = 33 mOhm),2512,Vishay WSL2512R0680FEA,
+R10;C15,1+1,100R;1nF C0G,Shunt filter to MCU,0603,,
+CIN RC,1+1,1k;1nF,IPM CIN filter,0603,,
+R_fault,1,10k,IPM fault pull-up,0603,,
+C_fault,1,1nF,IPM smart-shutdown timing,0603,,per IPM datasheet
+R_gate,6,100R,Gate input series,0603,,
+R_pd,6,10k,Gate input pull-down (or pull-up for active-low LIN),0603,,
+R_div_top,12,330k 1%,BEMF/VBUS divider (3 per branch),1206,,200 V working voltage
+R_div_bot,4,7.5k 0.1%,BEMF/VBUS divider bottom,0805,,matched ratio matters
+C_div,4,220pF C0G,BEMF/VBUS filter,0603,,
+D_clamp,3,BAT54S,ADC input clamps,SOT-23,,
+RT1,1,NTC 10k B3435,Heatsink temperature,Screw lug,,
+R11,1,10k 1%,NTC pull-up,0603,,
+RV2,1,10k,Speed potentiometer insulated shaft,Panel,,bench use
+U4,1,STM32G431CBT6,MCU Cortex-M4F 170 MHz,LQFP48,ST STM32G431CBT6,
+C_mcu,6,100nF;4.7uF;1uF,MCU decoupling,0603,,see netlist sheet 5
+R_boot0,1,10k,BOOT0 pull-down,0603,,
+LED_RUN;LED_FLT,2,green;red,Status LEDs + 1 k,0805,,
+SW1,1,tactile,START/STOP button insulated cap,6x6,,hot circuit
+U9,1,ISO7721,Reinforced digital isolator 1F/1R,SOIC-16 wide,TI ISO7721DWR,8 mm creepage
+J2,1,4P,Isolated UART header,2.54 mm,,
+J3,1,2x5 1.27,SWD header (HOT),1.27 mm,,isolated debugger only
+J4,1,4P 10A,Motor terminal U/V/W/PE,7.5 mm pitch,,
+HS1,1,<=2.0 K/W,Heatsink for IPM + bridge,Extrusion,,earthed to PE
+TP1,1,,Thermal pad/paste + insulating pad for BR1 if needed,,,
