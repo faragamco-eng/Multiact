@@ -1,0 +1,5 @@
+# ESP-IDF 5.x project: cooler panel (ESP32-S3 for the touch version, ESP32-C3 for keys + 7-segment)
+cmake_minimum_required(VERSION 3.16)
+set(EXTRA_COMPONENT_DIRS "")
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(cooler_panel)

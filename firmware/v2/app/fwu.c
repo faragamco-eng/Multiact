@@ -5,6 +5,9 @@
 #include <stddef.h>
 #include <string.h>
 
+_Static_assert((int)FWU_RECEIVING == (int)FWS_RECEIVING && (int)FWU_ERROR == (int)FWS_ERROR && (int)FWU_READY == (int)FWS_READY,
+               "IR_FWU_STATE numbering must match comm/cooler_regs.h");
+
 bool img_check(const uint8_t *img, uint32_t slot, img_info_t *info)
 {
     img_info_t h;

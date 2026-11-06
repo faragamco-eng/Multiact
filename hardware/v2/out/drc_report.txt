@@ -1,5 +1,5 @@
 ** Drc report for out/kicad/bldc_cooler_v2.kicad_pcb **
-** Created on 2026-11-06 09:33:55 **
+** Created on 2026-11-06 09:52:31 **
 
 ** Found 421 DRC violations **
 [silk_overlap]: Silkscreen overlap

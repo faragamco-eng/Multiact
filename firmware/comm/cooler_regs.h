@@ -109,6 +109,8 @@ enum {
 #define FWU_DATA_REGS 48u
 enum { IR_FWU_STATE = 0x0200, IR_FWU_RX_LO, IR_FWU_RX_HI, IR_FWU_ERROR };
 enum { FWU_CMD_BEGIN = 1, FWU_CMD_COMMIT = 2, FWU_CMD_ABORT = 3 };
+/* IR_FWU_STATE values (same numbering as fwu_state_t in the drive) */
+enum { FWS_IDLE = 0, FWS_ERASING = 1, FWS_RECEIVING = 2, FWS_READY = 3, FWS_ERROR = 4 };
 
 /* IR_ALARM_DETAIL values */
 enum {
