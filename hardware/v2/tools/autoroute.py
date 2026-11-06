@@ -460,8 +460,10 @@ for it in range(60):
     if not fails or stuck >= len(fails): break
     net, p, q = fails[0]
     b = blockers(net, p, q)
-    b = {x for x in (b or set()) if x != net and ripped_count.get(x, 0) < 3}
-    print(f"rip-up {it + 1}: {net} {p['ref']}.{p['num']} blocked by {sorted(b) if b else 'nothing removable'}", flush=True)
+    allb = {x for x in (b or set()) if x != net}
+    b = {x for x in allb if ripped_count.get(x, 0) < 6}
+    info = sorted(b) if b else ("nothing removable" + (f" (rip limit reached: {sorted(allb)})" if allb else " (no free path even on an empty board)"))
+    print(f"rip-up {it + 1}: {net} {p['ref']}.{p['num']} blocked by {info}", flush=True)
     if not b:
         fails.append(fails.pop(0))
         stuck += 1
