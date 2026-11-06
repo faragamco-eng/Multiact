@@ -377,8 +377,10 @@ def route_net(net):
     todo = [p for p in pads if p is not first]
     tree_add_pad(tree, first)
     fails = []
+    retried = []
     while todo:
-        p, q = min(((p, q) for p in todo for q in done), key=lambda pq: math.hypot(pq[0]["x"] - pq[1]["x"], pq[0]["y"] - pq[1]["y"]))
+        cand = [p for p in todo if p not in retried] or todo
+        p, q = min(((p, q) for p in cand for q in done), key=lambda pq: math.hypot(pq[0]["x"] - pq[1]["x"], pq[0]["y"] - pq[1]["y"]))
         todo.remove(p)
         # same pad position already part of the tree (stacked pads like USB GND A1/B12)
         if pad_on_tree(tree, p):
@@ -391,6 +393,9 @@ def route_net(net):
                 if path: break
             if path: break
         if not path:
+            if p not in retried:            # try again once more pads of the net are connected
+                retried.append(p); todo.append(p)
+                continue
             fails.append((net, p, q))
             continue
         commit(net, nc, w, path, tree)
