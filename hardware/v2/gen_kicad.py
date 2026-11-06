@@ -218,7 +218,7 @@ open(os.path.join(OUT, f"{PROJECT}.kicad_sch"), "w").write(dump(root) + "\n")
 # ======================================================================
 # PCB
 # ======================================================================
-BX0, BY0, BW, BH = 20.0, 20.0, 250.0, 160.0
+BX0, BY0, BW, BH = 20.0, 20.0, 250.0, 180.0
 BX1, BY1 = BX0 + BW, BY0 + BH
 SLOT_X = 216.0          # vertical creepage slot (hot | SELV), runs under T1 and U7
 SLOT_Y = 84.0           # horizontal part of the SELV boundary
@@ -232,9 +232,12 @@ FIXED = {
     "J1": (27, 40, 270), "F1": (45, 28, 0), "L1": (40, 62, 0),
     "K1": (34, 128, 0), "K2": (74, 128, 0),
     "BR1": (40, HS_Y, 0), "Q3": (66, HS_Y, 0), "Q1": (90, HS_Y, 0), "D6": (112, HS_Y, 0),
-    "L2": (130, 48, 0), "C12": (108, 140, 0), "C13": (142, 140, 0),
+    "L2": (130, 48, 0), "C12": (110, 140, 0), "C13": (147, 140, 0), "C61": (184, 140, 0),
+    # discrete inverter: 6 x TO-247 on the heatsink, each driver socket right above its leg
+    **{f"Q{9+i}": (128 + 17.5 * i, HS_Y, 0) for i in range(6)},
+    "U5": (136, 166, 0), "U12": (168, 166, 0), "U13": (203, 166, 0),
     "J9": (104, 112, 0), "F4": (122, 112, 0),
-    "U5": (168, 124, 0), "J2": (232, 166, 0),
+    "J2": (238, 180, 0),
     "T1": (SLOT_X - 7.6, 40, 0), "U7": (SLOT_X, 68, 0),
     "U9": (232, 26, 0), "U10": (248, 26, 0), "J7": (263, 40, 90), "J8": (263, 64, 90),
     "J5": (263, 112, 90), "K3": (226, 112, 0), "K4": (226, 128, 0), "F2": (224, 96, 0),
@@ -245,7 +248,7 @@ REGIONS = {
     "ac":   (24, 22, 96, 150),
     "pfc":  (96, 76, 166, 124),
     "aux":  (166, 22, SLOT_X - 11, 84),
-    "inv":  (166, 86, 214, 158),
+    "inv":  (124, 159, 234, 190),
     "mcu":  (SLOT_X + 2, 88, 254, 158),
     "selv": (SLOT_X + 4, 36, 256, 80),
 }
@@ -278,7 +281,7 @@ HV_NETS = None
 HV_PATS = ["AC_*", "L_SW", "L_LOAD", "PRE_L", "PUMP_L", "DRAIN_L", "PUMP_SN", "DRAIN_SN", "RECT_P", "SW_PFC",
            "VBUS", "VBUS_EXT", "AUX_RAW", "AUX_HV", "MOT_*", "OUTU", "OUTV", "OUTW", "VBOOT?", "VIP_D", "P6K_A",
            "PRE_G", "XDIS", "SURGE_PE", "VIN_?_A", "VIN_?_B", "BLD1", "BLD2", "BLD3", "VBD1", "VBD2",
-           "PFC_FBD?", "PFC_IND?", "PREG?", "PREZ?"]
+           "PFC_FBD?", "PFC_IND?", "PREG?", "PREZ?", "VB_M?", "VBM1D", "HO_?", "GH_?"]
 HV_NETS = sorted(n for n in nets_all if any(fnmatch.fnmatch(n, pt) for pt in HV_PATS))
 def is_hv(p):
     return any(n in HV_NETS for n in p["pins"].values())
@@ -452,10 +455,11 @@ json.dump(proj, open(os.path.join(OUT, f"{PROJECT}.kicad_pro"), "w"), indent=2)
 # custom DRC rules: package-internal pin spacing is set by the manufacturer; creepage to SELV is checked
 # against the slot (see Dwgs.User note); everything else uses the net classes above.
 DRU = ['(version 1)']
-for ref, mn in (("U5", 0.5), ("U2", 0.6), ("T1", 1.0), ("Q1", 1.0), ("Q3", 1.0), ("D6", 1.0), ("BR1", 1.0),
+for ref, mn in (("U5", 0.5), ("U12", 0.5), ("U13", 0.5), *((f"Q{9+i}", 1.0) for i in range(6)), ("U2", 0.6), ("T1", 1.0), ("Q1", 1.0), ("Q3", 1.0), ("D6", 1.0), ("BR1", 1.0),
                 ("U1", 0.25), ("U6", 0.15), ("U7", 0.2), ("K1", 1.0), ("K2", 1.0), ("K3", 1.0), ("K4", 1.0),
                 ("D4", 0.2), ("D5", 0.2), ("RV1", 1.0), ("CX1", 1.0), ("L1", 1.0),
                 # only volts across these parts although both nets float at bus potential
+                ("R107", 0.2), ("R108", 0.2), ("R111", 0.2), ("R112", 0.2), ("R115", 0.2), ("R116", 0.2),
                 ("C28", 0.2), ("C29", 0.2), ("C30", 0.2), ("C31", 0.2), ("C32", 0.2), ("C33", 0.2), ("LED1", 0.2)):
     DRU.append(f'(rule "package pitch {ref}" (condition "A.insideCourtyard(\'{ref}\') && B.insideCourtyard(\'{ref}\')")'
                f' (constraint clearance (min {mn}mm)))')

@@ -22,9 +22,14 @@ Irms_sh = P / (eta * Vac_min)
 row("PFC shunt 25 mOhm loss", f"{Irms_sh**2*0.025:.2f} W", "2 x 50 mOhm 3 W 2512 in parallel")
 Imos = P / (eta * Vac_min) * math.sqrt(1 - 8 * math.sqrt(2) * Vac_min / (3 * math.pi * Vout))
 row("MOSFET rms current", f"{Imos:.1f} A", f"95 mOhm @ 100 C (x1.8): {Imos**2*0.095*1.8:.1f} W conduction")
-C = 660e-6
-row("bus 100 Hz ripple at 1.2 kW", f"{1200/(2*math.pi*50*C*Vout):.1f} V p-p", "2 x 330 uF / 450 V")
+C = 1200e-6 / 3
+row("bus capacitance", "400 uF / 600 V", "3 x Nichicon 1200 uF 200 V in series (owner stock)")
+row("bus 100 Hz ripple at 1.2 kW", f"{1200/(2*math.pi*50*C*Vout):.1f} V p-p", "PFC loop must tolerate this")
 row("hold-up 390 -> 300 V at 600 W", f"{0.5*C*(Vout**2-300**2)/600*1e3:.0f} ms", "rides through short dips")
+row("cap voltage at 445 V bus (OV trip)", f"{445/3:.0f} V", "+/- 10 % balancing tolerance -> 163 V < 200 V")
+row("balancing 68k per cap at 390 V", f"{(130**2)/68e3:.2f} W each, {130/68e3*1e3:.1f} mA",
+    "must be >> leakage difference; 1 W resistors")
+row("imbalance alarm", "VB_M1 outside VBUS/3 +/- 12 %", "measured on PA5 (VBM_SENSE, 1:101)")
 
 # ---------------- aux flyback
 Pout = 2.25 + 0.3 + 3.7
@@ -39,7 +44,7 @@ N15 = round(Np * (15 + 0.7) / VOR)
 N31 = round(N15 * (31 + 0.7) / (15 + 0.7))
 N5 = round(N15 * (5.5 + 0.4) / (15 + 0.7))
 head("Auxiliary flyback (VIPer26LN, 60 kHz, EF20)")
-row("loads", f"{Pout:.1f} W", "15 V 150 mA (IPM, relays, buck 3.3 V) + SELV 5 V 60 mA + SELV 31 V 120 mA")
+row("loads", f"{Pout:.1f} W", "15 V 150 mA (3 x IRS2186, relays, buck 3.3 V) + SELV 5 V 60 mA + SELV 31 V 120 mA")
 row("design power", f"{Pd:.0f} W")
 row("input range (after 1500 V pre-regulator)", "200 ... 395 V", "440 VAC neutral loss -> clamped")
 row("primary inductance", f"{Lp*1e3:.1f} mH", f"DCM, Dmax {Dmax} at {Vmin:.0f} V")
@@ -48,6 +53,23 @@ row("turns P / 15 V hot / 31 V SELV / 5.5 V SELV", f"{Np} / {N15} / {N31} / {N5}
 row("drain stress at 395 V in", f"{395 + VOR + 200:.0f} V max", "with P6KE200 clamp -> < 800 V rating")
 row("insulation", "reinforced", "triple-insulated wire on SELV windings, 6.4 mm creepage on bobbin")
 row("pre-regulator Q3 loss at 440 VAC", f"{(440*math.sqrt(2)*0.9-395)*Pd/0.8/300:.1f} W", "approx (average); on main heatsink")
+
+# ---------------- inverter: discrete MOSFET options (sinusoidal 3-phase, 16 kHz, 390 V)
+head("Inverter switch losses per device set (1.2 kW, 3.6 A rms, 16 kHz, 390 V, Tj 100 C)")
+Iph, fsw, Vb = 3.6, 16e3, 390.0
+Ipk_ph = Iph * math.sqrt(2)
+def inv_loss(rds25, tr_tf_ns, qrr_uc, k_t=1.9):
+    cond = 6 * (Iph ** 2 / 2) * rds25 * k_t                     # each device conducts ~half
+    sw = 6 * 0.5 * Vb * (2 / math.pi) * Ipk_ph * tr_tf_ns * 1e-9 * fsw
+    rr = 6 * 0.5 * Vb * qrr_uc * 1e-6 * fsw                     # body-diode reverse recovery (avg ~0.5 Qrr)
+    return cond, sw, rr
+for name, rds, t, qrr, note in (("IRF840 (500 V, 0.85 ohm, trr 460 ns)", 0.85, 60, 4.2, "NOT suitable: 500 V = 1.28 x margin, recovery losses"),
+                                ("STW24N60DM2 (600 V, 0.19 ohm, fast diode)", 0.19, 40, 0.35, "chosen"),
+                                ("STGW20H60DF IGBT + co-pack diode", 0.0, 60, 0.25, "alternative (Vce 1.6 V)")):
+    c, sw, rr = inv_loss(rds, t, qrr)
+    if rds == 0.0:
+        c = 6 * 1.6 * Ipk_ph / math.pi / 2 * 1.0
+    row(name, f"{c + sw + rr:.1f} W", f"cond {c:.1f} + sw {sw:.1f} + recovery {rr:.1f} W; {note}")
 
 # ---------------- current sensing (3 shunts, level shift, PGA x4)
 Rsh, gain_div, off, pga = 0.025, 10 / 11, 3.3 / 11, 4.0

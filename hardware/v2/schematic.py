@@ -163,13 +163,25 @@ C("C10", "220pF", "PFC_VM", "PGND")
 C("C11", "1uF", "PFC_VCTRL", "PGND", C0805, "voltage-loop compensation (verify)")
 NMOS_SMD("Q2", "2N7002", "PFC_OFF", "PGND", "PFC_FB")      # MCU pulls FB/SD low -> PFC off
 R("R28", "100k", "PFC_OFF", "GND")
-# DC bus
-CP("C12", "330uF 450V", "VBUS", "PGND", "Capacitor_THT:CP_Radial_D30.0mm_P10.00mm_SnapIn",
-   mpn="105 C snap-in, ripple >= 2.5 A")
-CP("C13", "330uF 450V", "VBUS", "PGND", "Capacitor_THT:CP_Radial_D30.0mm_P10.00mm_SnapIn")
+# DC bus: 3 x Nichicon 1200 uF / 200 V in series (owner stock, reformed and tested before use)
+#   = 400 uF / 600 V, hold-up ~21 ms at 1.2 kW, 100 Hz ripple ~25 V p-p.  Balancing 68k 1 W per cap,
+#   lower mid-point measured by the MCU (VBM_SENSE) -> alarm on imbalance (aged / leaky capacitor).
+SNAP35 = "Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn"
+for k, (hi, lo) in enumerate((("VBUS", "VB_M2"), ("VB_M2", "VB_M1"), ("VB_M1", "PGND"))):
+    ref = ("C12", "C13", "C61")[k]
+    CP(ref, "1200uF 200V", hi, lo, SNAP35, mpn="Nichicon LS/LQ 1200 uF 200 V snap-in (3 in series)",
+       note="series stack; reform 2 h through 1k before first use, check ESR/leakage")
+    R(f"R{100+k}", "68k 1W", hi, lo, "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal",
+      "balancing resistor, one per capacitor")
 for k in range(3):   # bleeder + HV LED
     R(f"R{29+k}", "150k", "VBUS" if k == 0 else f"BLD{k}", f"BLD{k+1}", R1206)
 P("LED1", "Device:LED", "red HV", LED0805, {1: "PGND", 2: "BLD3"}, mpn="high-efficiency red, 'HIGH VOLTAGE'")
+# lower mid-point sense 1:101 (VB_M1 nominal 130 V -> 1.29 V; 200 V -> 1.98 V)
+R("R103", "330k 1%", "VB_M1", "VBM1D", R1206)
+R("R104", "330k 1%", "VBM1D", "VBM2D", R1206)
+R("R105", "6.65k 0.1%", "VBM2D", "GND")
+C("C62", "1nF", "VBM2D", "GND")
+R("R106", "1k", "VBM2D", "VBM_SENSE")
 
 # ========================================================================
 sheet("3 Auxiliary supply (VIPer26 flyback, 1500 V pre-regulator)")
@@ -224,53 +236,74 @@ D("D20", "ES1D", "V31S", "T_S31", SMA)
 CP("C25", "470uF 50V", "V31S", "GND_S", "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm")
 
 # ========================================================================
-sheet("4 Inverter (STGIPS20K60 IPM), 3-shunt sensing")
+sheet("4 Inverter (discrete: 3 x IRS2186 + 6 x TO-247 MOSFET), 3-shunt sensing")
 # ========================================================================
-P("U5", "Transistor_Power_Module:STGIPS20K60", "STGIPS20K60", "Transistor_Power_Module:ST_SDIP-25L",
-  {1: "OUTU", 2: "VBOOTU", 3: "LIN_U", 4: "HIN_U", 5: "+15V", 6: "OUTV", 7: "VBOOTV", 8: "GND",
-   9: "LIN_V", 10: "HIN_V", 11: "OUTW", 12: "VBOOTW", 13: "LIN_W", 14: "HIN_W", 15: "IPM_SD", 16: "IPM_CIN",
-   17: "SH_W", 18: "MOT_W", 19: "VBUS", 20: "SH_V", 21: "MOT_V", 22: "VBUS", 23: "SH_U", 24: "MOT_U", 25: "VBUS"},
-  names={3: "~{LINU}", 4: "HINU", 9: "~{LINV}", 10: "HINV", 13: "~{LINW}", 14: "HINW", 15: "~{SD}/OD", 16: "CIN",
-         17: "NW", 18: "W", 19: "P", 20: "NV", 21: "V", 23: "NU", 24: "U"},
-  mpn="ST STGIPS20K60 (600 V 20 A SLLIMM)", note="LIN inputs active LOW -> pull-ups, firmware IPM_LIN_ACTIVE_LOW=1")
+# Repairable power stage: socketed DIP-8 drivers, MOSFETs screwed to the heatsink (insulating pads).
+# IRS2186: no internal dead time / interlock -> dead time from TIM1 (>= 1 us), inputs 3.3 V compatible
+# (VIH 2.5 V), both inputs active HIGH (firmware IPM_LIN_ACTIVE_LOW = 0).
+DRV = {"U": "U5", "V": "U12", "W": "U13"}
+FET = "Package_TO_SOT_THT:TO-247-3_Vertical"
+for ph, k in (("U", 0), ("V", 1), ("W", 2)):
+    P(DRV[ph], "Driver_FET:IRS2186", "IRS2186PBF", "Package_DIP:DIP-8_W7.62mm_Socket",
+      {1: f"HIN_{ph}", 2: f"LIN_{ph}", 3: "PGND", 4: f"LO_{ph}", 5: "+15V", 6: f"OUT{ph}", 7: f"HO_{ph}", 8: f"VBOOT{ph}"},
+      names={1: "HIN", 2: "LIN", 3: "COM", 4: "LO", 5: "VCC", 6: "VS", 7: "HO", 8: "VB"},
+      mpn="Infineon IRS2186PBF (DIP-8 in socket)", note="COM to the shunt star (PGND), 4 A / 4 A gate drive")
+    qh, ql = f"Q{9+2*k}", f"Q{10+2*k}"
+    P(qh, "Device:Q_NMOS_GDS", "600V 18A", FET, {1: f"GH_{ph}", 2: "VBUS", 3: f"OUT{ph}"},
+      names={1: "G", 2: "D", 3: "S"}, mpn="ST STW24N60DM2 (fast body diode) / alt. STGW20H60DF IGBT",
+      note="high side, on heatsink with insulating pad")
+    P(ql, "Device:Q_NMOS_GDS", "600V 18A", FET, {1: f"GL_{ph}", 2: f"OUT{ph}", 3: f"SH_{ph}"},
+      names={1: "G", 2: "D", 3: "S"}, mpn="ST STW24N60DM2 (fast body diode) / alt. STGW20H60DF IGBT",
+      note="low side, source to its own shunt")
+    # gate drive: 10R on, G-S 10k; bootstrap 10R + UF4007 + 4.7 uF/100 nF
+    R(f"R{107+4*k}", "10R", f"HO_{ph}", f"GH_{ph}", R1206, "gate resistor (tune for dv/dt <= 10 V/ns)")
+    R(f"R{108+4*k}", "10k", f"GH_{ph}", f"OUT{ph}", R0603)
+    R(f"R{109+4*k}", "10R", f"LO_{ph}", f"GL_{ph}", R1206, "gate resistor")
+    R(f"R{110+4*k}", "10k", f"GL_{ph}", f"SH_{ph}", R0603)
+    R(f"R{119+k}", "10R", "+15V", f"BST_{ph}", R1206, "bootstrap charge current limit")
+    D(f"D{26+k}", "UF4007", f"VBOOT{ph}", f"BST_{ph}", DO41, mpn="UF4007 (1000 V, 75 ns)")
+    C(f"C{28+2*k}", "4.7uF 25V X7R", f"VBOOT{ph}", f"OUT{ph}", C1206, "bootstrap")
+    C(f"C{29+2*k}", "100nF", f"VBOOT{ph}", f"OUT{ph}")
+    C(f"C{63+2*k}", "10uF 25V", "+15V", "PGND", C1206, "driver VCC, at the socket")
+    C(f"C{64+2*k}", "100nF", "+15V", "PGND")
 C("C26", "10uF 25V", "+15V", "GND", C1206)
 C("C27", "100nF", "+15V", "GND")
-for ph, n in (("U", 0), ("V", 1), ("W", 2)):
-    C(f"C{28+2*n}", "4.7uF 25V X7R", f"VBOOT{ph}", f"OUT{ph}", C1206, "bootstrap")
-    C(f"C{29+2*n}", "100nF", f"VBOOT{ph}", f"OUT{ph}")
 P("C34", "Device:C", "1uF 630V", "Capacitor_THT:C_Rect_L26.5mm_W8.5mm_P22.50mm_MKS4", {1: "VBUS", 2: "PGND"},
-  note="< 10 mm from IPM P/N")
-P("C35", "Device:C", "100nF 630V", "Capacitor_THT:C_Rect_L18.0mm_W6.0mm_P15.00mm_FKS3_FKP3", {1: "VBUS", 2: "PGND"})
-# gate inputs: series 100R near MCU, HIN pull-down / LIN pull-up near the IPM
+  note="bus film cap, across the three legs")
+for k, ref in enumerate(("C35", "C40", "C36")):   # one snubber per leg, between high-side drain and shunt ground
+    P(ref, "Device:C", "100nF 630V", "Capacitor_THT:C_Rect_L18.0mm_W6.0mm_P15.00mm_FKS3_FKP3", {1: "VBUS", 2: "PGND"},
+      note=f"leg {'UVW'[k]} decoupling, < 15 mm from the MOSFETs")
+# gate inputs: series 100R near MCU, pull-downs near the drivers (both inputs active HIGH)
 for ph, k in (("U", 0), ("V", 1), ("W", 2)):
     R(f"R{40+4*k}", "100R", f"PWM_{ph}H", f"HIN_{ph}")
     R(f"R{41+4*k}", "10k", f"HIN_{ph}", "GND")
     R(f"R{42+4*k}", "100R", f"PWM_{ph}L", f"LIN_{ph}")
-    R(f"R{43+4*k}", "10k", f"LIN_{ph}", "+3V3")
-# fault / shutdown (open drain, active low) -> TIM1_BKIN
-R("R52", "10k", "IPM_SD", "+3V3")
-C("C36", "2.2nF", "IPM_SD", "GND", note="smart-shutdown timing (verify vs datasheet)")
-R("R53", "100R", "IPM_SD", "MCU_BKIN")
-# shunts in the open emitters + level shift (offset 0.3 V, gain 0.909) to the OPAMP/COMP inputs
+    R(f"R{43+4*k}", "10k", f"LIN_{ph}", "GND")
+# heatsink thermal switch (NC bimetal 90 C) -> TIM1_BKIN, high = trip (open switch or unplugged = safe)
+R("R52", "10k", "+3V3", "HS_TSW")
+C("C69", "10nF", "HS_TSW", "GND")
+R("R53", "1k", "HS_TSW", "MCU_BKIN")
+P("J10", "Connector_Generic:Conn_01x02", "TSW 90C NC", "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+  {1: "HS_TSW", 2: "GND"}, mpn="KSD301 90 C normally closed, on heatsink")
+# over-current: OPAMP outputs -> COMP1/2/4 -> TIM1_BKIN2 (internal, ~45 A peak, no external parts)
+# shunts in the low-side sources + level shift (offset 0.3 V, gain 0.909) to the OPAMP/COMP inputs
 for ph, k in (("U", 0), ("V", 1), ("W", 2)):
     R(f"R{54+k}", "25m 2W", f"SH_{ph}", "PGND", R2512, "kelvin to PGND star")
     R(f"R{57+k}", "1k 0.1%", f"SH_{ph}", f"ISENSE_{ph}")
     R(f"R{60+k}", "10k 0.1%", f"ISENSE_{ph}", "+3V3A")
     C(f"C{37+k}", "470pF C0G", f"ISENSE_{ph}", "GND")
-    R(f"R{63+k}", "1k", f"SH_{ph}", "IPM_CIN")      # average of the 3 shunts -> CIN (short-circuit only)
-C("C40", "1nF", "IPM_CIN", "GND")
 P("NT1", "Device:NetTie_2", "STAR", "NetTie:NetTie-2_SMD_Pad0.5mm", {1: "PGND", 2: "GND"},
   note="single connection of signal ground to power ground, at the shunt star point")
 P("J2", "Connector:Screw_Terminal_01x04", "MOTOR U/V/W/PE",
   "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal",
-  {1: "MOT_U", 2: "MOT_V", 3: "MOT_W", 4: "PE"})
+  {1: "OUTU", 2: "OUTV", 3: "OUTW", 4: "PE"})
 # DC bus voltage sense 1:150 (445 V -> 2.97 V)
 for k in range(3):
     R(f"R{66+k}", "330k 1%", "VBUS" if k == 0 else f"VBD{k}", f"VBD{k+1}", R1206)
 R("R69", "6.65k 0.1%", "VBD3", "GND")
 C("C41", "1nF", "VBD3", "GND")
 R("R70", "1k", "VBD3", "VBUS_SENSE")
-# heatsink NTC (screw-lug, on the heatsink next to the IPM)
+# heatsink NTC (screw-lug, on the heatsink between the MOSFETs)
 P("J3", "Connector_Generic:Conn_01x02", "NTC 10k B3435", "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
   {1: "NTC_HS", 2: "GND"}, mpn="screw-lug NTC 10k B3435 on heatsink")
 R("R71", "10k 1%", "+3V3A", "NTC_HS")
@@ -283,7 +316,7 @@ MCU = {
     1: ("VBAT", "+3V3"), 2: ("PC13", "NC_PC13"), 3: ("PC14", "NC_PC14"), 4: ("PC15", "NC_PC15"),
     5: ("PF0", "NC_PF0"), 6: ("PF1", "NC_PF1"), 7: ("PG10", "NRST"),
     8: ("PA0", "VBUS_SENSE"), 9: ("PA1", "ISENSE_U"), 10: ("PA2", "VIN_L"), 11: ("PA3", "VIN_N"),
-    12: ("PA4", "TP_DAC"), 13: ("PA5", "NC_PA5"), 14: ("PA6", "NTC_HS"), 15: ("PA7", "ISENSE_V"),
+    12: ("PA4", "TP_DAC"), 13: ("PA5", "VBM_SENSE"), 14: ("PA6", "NTC_HS"), 15: ("PA7", "ISENSE_V"),
     16: ("PB0", "ISENSE_W"), 17: ("PB1", "NC_PB1"), 18: ("PB2", "NC_PB2"), 19: ("VSSA", "GND"),
     20: ("VREF+", "+3V3A"), 21: ("VDDA", "+3V3A"), 22: ("PB10", "K3_ON"), 23: ("VSS", "GND"), 24: ("VDD", "+3V3"),
     25: ("PB11", "K4_ON"), 26: ("PB12", "MCU_BKIN"), 27: ("PB13", "PWM_UL"), 28: ("PB14", "PWM_VL"),
@@ -297,7 +330,7 @@ P("U6", "MCU_ST_STM32G4:STM32G431CBTx", "STM32G431CBT6", "Package_QFP:LQFP-48_7x
   {k: v[1] for k, v in MCU.items()}, names={k: v[0] for k, v in MCU.items()}, mpn="ST STM32G431CBT6")
 # required alternate functions (validated against ST open pin data)
 MCU_FUNCS = {
-    "PA0": "ADC1_IN1", "PA1": "OPAMP1_VINP", "PA2": "ADC1_IN3", "PA3": "ADC1_IN4", "PA6": "ADC2_IN3",
+    "PA0": "ADC1_IN1", "PA5": "ADC2_IN13", "PA1": "OPAMP1_VINP", "PA2": "ADC1_IN3", "PA3": "ADC1_IN4", "PA6": "ADC2_IN3",
     "PA7": "OPAMP2_VINP", "PB0": "OPAMP3_VINP", "PA4": "DAC1_OUT1",
     "PA8": "TIM1_CH1", "PA9": "TIM1_CH2", "PA10": "TIM1_CH3", "PB13": "TIM1_CH1N", "PB14": "TIM1_CH2N",
     "PB15": "TIM1_CH3N", "PB12": "TIM1_BKIN", "PB6": "USART1_TX", "PB7": "USART1_RX",

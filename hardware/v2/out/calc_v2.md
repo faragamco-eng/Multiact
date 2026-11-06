@@ -11,14 +11,18 @@
 | stored energy 1/2 L I^2 | 34 mJ | toroid ~ 46 mm OD |
 | PFC shunt 25 mOhm loss | 1.44 W | 2 x 50 mOhm 3 W 2512 in parallel |
 | MOSFET rms current | 5.1 A | 95 mOhm @ 100 C (x1.8): 4.4 W conduction |
-| bus 100 Hz ripple at 1.2 kW | 14.8 V p-p | 2 x 330 uF / 450 V |
-| hold-up 390 -> 300 V at 600 W | 34 ms | rides through short dips |
+| bus capacitance | 400 uF / 600 V | 3 x Nichicon 1200 uF 200 V in series (owner stock) |
+| bus 100 Hz ripple at 1.2 kW | 24.5 V p-p | PFC loop must tolerate this |
+| hold-up 390 -> 300 V at 600 W | 21 ms | rides through short dips |
+| cap voltage at 445 V bus (OV trip) | 148 V | +/- 10 % balancing tolerance -> 163 V < 200 V |
+| balancing 68k per cap at 390 V | 0.25 W each, 1.9 mA | must be >> leakage difference; 1 W resistors |
+| imbalance alarm | VB_M1 outside VBUS/3 +/- 12 % | measured on PA5 (VBM_SENSE, 1:101) |
 
 ### Auxiliary flyback (VIPer26LN, 60 kHz, EF20)
 
 | quantity | value | note |
 |---|---|---|
-| loads | 6.2 W | 15 V 150 mA (IPM, relays, buck 3.3 V) + SELV 5 V 60 mA + SELV 31 V 120 mA |
+| loads | 6.2 W | 15 V 150 mA (3 x IRS2186, relays, buck 3.3 V) + SELV 5 V 60 mA + SELV 31 V 120 mA |
 | design power | 8 W |  |
 | input range (after 1500 V pre-regulator) | 200 ... 395 V | 440 VAC neutral loss -> clamped |
 | primary inductance | 5.3 mH | DCM, Dmax 0.4 at 200 V |
@@ -27,6 +31,14 @@
 | drain stress at 395 V in | 685 V max | with P6KE200 clamp -> < 800 V rating |
 | insulation | reinforced | triple-insulated wire on SELV windings, 6.4 mm creepage on bobbin |
 | pre-regulator Q3 loss at 440 VAC | 5.5 W | approx (average); on main heatsink |
+
+### Inverter switch losses per device set (1.2 kW, 3.6 A rms, 16 kHz, 390 V, Tj 100 C)
+
+| quantity | value | note |
+|---|---|---|
+| IRF840 (500 V, 0.85 ohm, trr 460 ns) | 145.1 W | cond 62.8 + sw 3.6 + recovery 78.6 W; NOT suitable: 500 V = 1.28 x margin, recovery losses |
+| STW24N60DM2 (600 V, 0.19 ohm, fast diode) | 23.0 W | cond 14.0 + sw 2.4 + recovery 6.6 W; chosen |
+| STGW20H60DF IGBT + co-pack diode | 16.1 W | cond 7.8 + sw 3.6 + recovery 4.7 W; alternative (Vce 1.6 V) |
 
 ### Phase current sensing (3 x 25 mOhm, offset 0.3 V, OPAMP PGA x4)
 

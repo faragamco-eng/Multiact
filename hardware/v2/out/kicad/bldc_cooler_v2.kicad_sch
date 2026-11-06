@@ -99,13 +99,13 @@
     (fill
       (color 0 0 0 0))
     (uuid "ac892e0e-4777-549e-bcb1-b287f583c91e")
-    (property "Sheetname" "4 Inverter (STGIPS20K60 IPM), 3-shunt sensing"
+    (property "Sheetname" "4 Inverter (discrete: 3 x IRS2186 + 6 x TO-247 MOSFET), 3-shunt sensing"
       (at 25.4 74.23 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left bottom)))
-    (property "Sheetfile" "s4_4_inverter__stgips20k60_ipm.kicad_sch"
+    (property "Sheetfile" "s4_4_inverter__discrete__3_x_irs2.kicad_sch"
       (at 25.4 95.83 0)
       (effects
         (font

@@ -1,0 +1,1448 @@
+(kicad_sch
+  (version 20230121)
+  (generator eeschema)
+  (uuid "64826f90-0846-5357-a379-c528dab37512")
+  (paper "A1")
+  (title_block
+    (title "8 OPTION battery module (DNP in the mains-only version), mechanics, test points")
+    (date "2026-11-06")
+    (rev "2.0")
+    (company "Multiact")
+    (comment 1 "Generated from hardware/v2/schematic.py - validated against KiCad 7.0.11 libs and ST pin data")
+    (comment 2 "DANGER: mains-referenced except the SELV area (panel bus, RS-485)"))
+  (lib_symbols
+    (symbol "Device:Fuse"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "F"
+        (at 2.032 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "Fuse"
+        (at -1.905 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at -1.778 0 90)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "fuse"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Fuse"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "*Fuse*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "Fuse_0_1"
+        (rectangle
+          (start -0.762 -2.54)
+          (end 0.762 2.54)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0 2.54)
+            (xy 0 -2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "Fuse_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Connector:Screw_Terminal_01x03"
+      (pin_names
+        (offset 1.016) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "J"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "Screw_Terminal_01x03"
+        (at 0 -5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "screw terminal"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Generic screw terminal, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "TerminalBlock*:*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "Screw_Terminal_01x03_1_1"
+        (rectangle
+          (start -1.27 3.81)
+          (end 1.27 -3.81)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type background)))
+        (circle
+          (center 0 -2.54)
+          (radius 0.635)
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -0.5334 -2.2098)
+            (xy 0.3302 -3.048))
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -0.5334 0.3302)
+            (xy 0.3302 -0.508))
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -0.5334 2.8702)
+            (xy 0.3302 2.032))
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -0.3556 -2.032)
+            (xy 0.508 -2.8702))
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -0.3556 0.508)
+            (xy 0.508 -0.3302))
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -0.3556 3.048)
+            (xy 0.508 2.2098))
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 0 0)
+          (radius 0.635)
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 0 2.54)
+          (radius 0.635)
+          (stroke
+            (width 0.1524)
+            (type default))
+          (fill
+            (type none)))
+        (pin passive line
+          (at -5.08 2.54 0)
+          (length 3.81)
+          (name "Pin_1"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at -5.08 0 0)
+          (length 3.81)
+          (name "Pin_2"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at -5.08 -2.54 0)
+          (length 3.81)
+          (name "Pin_3"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Mechanical:MountingHole"
+      (pin_names
+        (offset 1.016))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "H"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "MountingHole"
+        (at 0 3.175 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "mounting hole"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Mounting Hole without connection"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "MountingHole*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "MountingHole_0_1"
+        (circle
+          (center 0 0)
+          (radius 1.27)
+          (stroke
+            (width 1.27)
+            (type default))
+          (fill
+            (type none)))))
+    (symbol "Mechanical:Fiducial"
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "FID"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "Fiducial"
+        (at 0 3.175 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "fiducial marker"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Fiducial Marker"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "Fiducial*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "Fiducial_0_1"
+        (circle
+          (center 0 0)
+          (radius 1.27)
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type background)))))
+    (symbol "Connector:TestPoint"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0.762) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "TP"
+        (at 0 6.858 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "TestPoint"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 5.08 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 5.08 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "test point tp"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "test point"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "Pin* Test*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "TestPoint_0_1"
+        (circle
+          (center 0 3.302)
+          (radius 0.762)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "TestPoint_1_1"
+        (pin passive line
+          (at 0 0 90)
+          (length 2.54)
+          (name "1"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27))))))))
+  (symbol
+    (lib_id "Device:Fuse")
+    (at 27.94 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp yes)
+    (uuid "05df597a-9113-55bc-8ae8-f16c07b0b5a7")
+    (property "Reference" "F4"
+      (at 30.48 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "5A 500VDC"
+      (at 30.48 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Fuse:Fuseholder_Cylinder-5x20mm_Bulgin_FX0457_Horizontal_Closed"
+      (at 27.94 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 27.94 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "5x20 ceramic, DC rated >= 500 V (e.g. Littelfuse 505 series)"
+      (at 27.94 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "b97ce52b-b1b7-5dbe-b139-ac3ac9b8c9f0"))
+    (pin "2"
+      (uuid "1f07e14f-cd4b-5bf4-b525-41f29691b235"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "F4")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 27.94 46.99)
+      (xy 27.94 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a99e305f-5d49-5765-ba73-1e4392284229"))
+  (global_label "VBUS"
+    (shape passive)
+    (at 27.94 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "fd7adf64-0669-5eec-b60d-6a6d1204d56f")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 27.94 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 27.94 54.61)
+      (xy 27.94 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "9d372457-d727-5d64-bdf0-edf929cef438"))
+  (global_label "VBUS_EXT"
+    (shape passive)
+    (at 27.94 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "ff845b14-c3dc-5c5f-b261-a3378ae4ee29")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 27.94 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:Screw_Terminal_01x03")
+    (at 68.58 38.1 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp yes)
+    (uuid "02fce5be-244d-5456-932d-0d11e0d992e1")
+    (property "Reference" "J9"
+      (at 68.58 33.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "BATT MODULE DC BUS"
+      (at 68.58 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal"
+      (at 68.58 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 68.58 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 68.58 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "a4662391-2b86-5054-851f-8271aaf1b528"))
+    (pin "2"
+      (uuid "c0bf6462-2d6f-56d1-9abf-ae704b50d20b"))
+    (pin "3"
+      (uuid "cf7b6460-ef65-571e-aa26-8d2b26f56098"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "J9")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 63.5 35.56)
+      (xy 60.96 35.56))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e88934de-331a-5c37-888a-f24ce86724a7"))
+  (global_label "VBUS_EXT"
+    (shape passive)
+    (at 60.96 35.56 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "76e42798-022e-55de-9ae0-afde25ec4a8a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 60.96 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (no_connect
+    (at 63.5 38.1)
+    (uuid "496d0722-5115-5518-a07c-7c2e986ca58e"))
+  (wire
+    (pts
+      (xy 63.5 40.64)
+      (xy 60.96 40.64))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "2cc3496c-19fb-5ffa-987a-22b93518a443"))
+  (global_label "PGND"
+    (shape passive)
+    (at 60.96 40.64 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "a56cf196-5d0b-5482-bb84-b304bd5bb7a9")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 60.96 40.64 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 83.82 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "28e014dd-9c8c-5361-ac76-1ae9b9106e0e")
+    (property "Reference" "H1"
+      (at 86.36 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 86.36 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 83.82 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 83.82 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 83.82 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "H1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 102.87 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "91353898-5e50-5748-9a17-bb6061600645")
+    (property "Reference" "H2"
+      (at 105.41 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 105.41 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 102.87 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 102.87 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 102.87 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "H2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 123.19 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a6324c33-c0ac-56d6-b51a-b9661c871cf2")
+    (property "Reference" "H3"
+      (at 125.73 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 125.73 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 123.19 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 123.19 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 123.19 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "H3")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 142.24 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b1ee988e-3875-5abf-b6fd-939ff6b3a8ba")
+    (property "Reference" "H4"
+      (at 144.78 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 144.78 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 142.24 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 142.24 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 142.24 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "H4")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:Fiducial")
+    (at 161.29 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "7d911cef-cca3-5d30-a150-97a83f031842")
+    (property "Reference" "FID1"
+      (at 163.83 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "FID"
+      (at 163.83 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Fiducial:Fiducial_1mm_Mask2mm"
+      (at 161.29 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 161.29 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 161.29 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "FID1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:Fiducial")
+    (at 181.61 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ddbf12e5-264e-5bf8-842a-88006437cd2d")
+    (property "Reference" "FID2"
+      (at 184.15 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "FID"
+      (at 184.15 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Fiducial:Fiducial_1mm_Mask2mm"
+      (at 181.61 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 181.61 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 181.61 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "FID2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:Fiducial")
+    (at 200.66 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "0bc6fe7b-229b-566a-b47e-422205f03187")
+    (property "Reference" "FID3"
+      (at 203.2 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "FID"
+      (at 203.2 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Fiducial:Fiducial_1mm_Mask2mm"
+      (at 200.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 200.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 200.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "FID3")
+          (unit 1)))))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 220.98 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "bfe7d83b-f862-5b0f-b89b-66154a6e1c23")
+    (property "Reference" "TP2"
+      (at 223.52 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "+15V"
+      (at 223.52 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 220.98 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 220.98 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 220.98 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "f7bf68e7-c447-589b-9c64-e3891b2d1e68"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP2")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 220.98 35.56)
+      (xy 220.98 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "793e2ccb-c0d2-5a95-a1b6-8b4787acc3a1"))
+  (global_label "+15V"
+    (shape passive)
+    (at 220.98 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "8ae8134d-a12f-5475-ac00-fa8eebd846a8")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 220.98 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 241.3 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "86ccb876-a898-5a41-b0ce-036f5dbbaf2c")
+    (property "Reference" "TP3"
+      (at 243.84 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "+3V3"
+      (at 243.84 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 241.3 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 241.3 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 241.3 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "d4c8dd68-6531-505d-b6cb-357b3ce61653"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP3")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 241.3 35.56)
+      (xy 241.3 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "fbe771ae-c787-5f1f-9de0-ceeb88d02bf9"))
+  (global_label "+3V3"
+    (shape passive)
+    (at 241.3 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "9a79c2b6-b06e-5b68-a561-fc80db669d29")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 241.3 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 262.89 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ea679db1-e803-5e5c-8b3f-b241683ced5e")
+    (property "Reference" "TP4"
+      (at 265.43 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "GND"
+      (at 265.43 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 262.89 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 262.89 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 262.89 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "81b4a790-6f19-5f5e-8b8b-485b3d1d72ee"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP4")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 262.89 35.56)
+      (xy 262.89 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0c38dcfe-8271-5b45-aa10-20fb51dd44ac"))
+  (global_label "GND"
+    (shape passive)
+    (at 262.89 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "2f6b3ab4-2e03-5c08-89fe-1228962878c7")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 262.89 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 283.21 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "453e9f5f-6c58-5af0-8fec-01223c3c51cc")
+    (property "Reference" "TP5"
+      (at 285.75 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "PFC_DRV"
+      (at 285.75 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 283.21 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 283.21 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 283.21 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "2fb209dd-e72a-5023-8f4e-aef9255fb2bd"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP5")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 283.21 35.56)
+      (xy 283.21 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e30d3303-b9a3-56fc-b67c-d3d60860537a"))
+  (global_label "PFC_DRV"
+    (shape passive)
+    (at 283.21 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "6c6abade-decf-5cf1-90a2-e88bfe6d36aa")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 283.21 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 304.8 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "002a915e-b049-54d8-b701-a6eb6f090e62")
+    (property "Reference" "TP6"
+      (at 307.34 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "ISENSE_U"
+      (at 307.34 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 304.8 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 304.8 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 304.8 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "f00fab84-9e86-5f4c-8aeb-a3d6171b8f63"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP6")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 304.8 35.56)
+      (xy 304.8 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "8a36aa2e-0318-52bb-8c78-d1829b7fabb4"))
+  (global_label "ISENSE_U"
+    (shape passive)
+    (at 304.8 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "31783683-04b7-54f7-840d-e8e2cbadc196")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 304.8 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 327.66 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "4e6b1ca2-1aa0-5a71-91bf-e7a52053d115")
+    (property "Reference" "TP7"
+      (at 330.2 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "UART_H_TX"
+      (at 330.2 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 327.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 327.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 327.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "120904ae-0d59-56a8-acb2-2b8f56a9f31b"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP7")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 327.66 35.56)
+      (xy 327.66 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a8cb01df-5659-5165-855e-45a8ad2cc196"))
+  (global_label "UART_H_TX"
+    (shape passive)
+    (at 327.66 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "9e2505a8-ae91-5343-a989-e4c271698859")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 327.66 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 349.25 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "85196a77-9ef6-52ed-9148-48049a4dfa50")
+    (property "Reference" "TP8"
+      (at 351.79 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "+3V3S"
+      (at 351.79 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 349.25 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 349.25 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 349.25 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "52156ee5-7e5c-5ab1-9ca6-bcda6bbf04c4"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP8")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 349.25 35.56)
+      (xy 349.25 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e2922dc8-4aa5-5014-8eb0-427f24f63edd"))
+  (global_label "+3V3S"
+    (shape passive)
+    (at 349.25 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "bfde700a-118c-55df-9e95-9ee83a4c8c07")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 349.25 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 370.84 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "729235c9-a16b-5a28-8c05-859bd4c220e8")
+    (property "Reference" "TP9"
+      (at 373.38 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "GND_S"
+      (at 373.38 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 370.84 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 370.84 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 370.84 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "44ea795b-6964-5b28-8ebd-baac9157b60e"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP9")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 370.84 35.56)
+      (xy 370.84 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5a9442a7-e0e1-525f-bef2-8a5777f7a99b"))
+  (global_label "GND_S"
+    (shape passive)
+    (at 370.84 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "efa8d06e-dc80-5370-84cd-a6b29c3cfbf3")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 370.84 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 392.43 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b1839de7-4c78-5949-adde-589c4170f344")
+    (property "Reference" "TP10"
+      (at 394.97 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "PANEL_P"
+      (at 394.97 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 392.43 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 392.43 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 392.43 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "d636eb6a-893f-5ad6-b086-ea92bfedb83b"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/64826f90-0846-5357-a379-c528dab37512"
+          (reference "TP10")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 392.43 35.56)
+      (xy 392.43 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "bd0246f6-4639-5235-805e-e12396da94ab"))
+  (global_label "PANEL_P"
+    (shape passive)
+    (at 392.43 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "fa4e9e45-68d6-525f-90ee-685c328faff0")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 392.43 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))))

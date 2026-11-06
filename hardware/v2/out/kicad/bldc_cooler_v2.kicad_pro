@@ -116,23 +116,35 @@
       },
       {
         "netclass": "HV_mains",
+        "pattern": "GH_U"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "GH_V"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "GH_W"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "HO_U"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "HO_V"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "HO_W"
+      },
+      {
+        "netclass": "HV_mains",
         "pattern": "L_LOAD"
       },
       {
         "netclass": "HV_mains",
         "pattern": "L_SW"
-      },
-      {
-        "netclass": "HV_mains",
-        "pattern": "MOT_U"
-      },
-      {
-        "netclass": "HV_mains",
-        "pattern": "MOT_V"
-      },
-      {
-        "netclass": "HV_mains",
-        "pattern": "MOT_W"
       },
       {
         "netclass": "HV_mains",
@@ -236,6 +248,10 @@
       },
       {
         "netclass": "HV_mains",
+        "pattern": "VBM1D"
+      },
+      {
+        "netclass": "HV_mains",
         "pattern": "VBOOTU"
       },
       {
@@ -253,6 +269,14 @@
       {
         "netclass": "HV_mains",
         "pattern": "VBUS_EXT"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VB_M1"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VB_M2"
       },
       {
         "netclass": "HV_mains",
@@ -316,7 +340,7 @@
     ],
     [
       "ac892e0e-4777-549e-bcb1-b287f583c91e",
-      "4 Inverter (STGIPS20K60 IPM), 3-shunt sensing"
+      "4 Inverter (discrete: 3 x IRS2186 + 6 x TO-247 MOSFET), 3-shunt sensing"
     ],
     [
       "dd12c1bf-5524-59e2-8732-4090aa3542d1",
