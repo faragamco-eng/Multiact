@@ -10,7 +10,7 @@ python3 $V2/check_and_build.py --design . --symbols "$L/sym7" --footprints "$L/f
 python3 $V2/gen_kicad.py --design . --symbols "$L/sym7" --footprints "$L/fp7"
 if [ -z "$NOROUTE" ]; then                                        # two-layer autorouting (~4 min)
   cp out/kicad/cooler_panel.kicad_pcb out/placed_unrouted.kicad_pcb
-  python3 -u $V2/tools/autoroute.py out/placed_unrouted.kicad_pcb out/kicad/cooler_panel.kicad_pcb | tail -3
+  python3 -u $V2/tools/autoroute.py out/placed_unrouted.kicad_pcb out/kicad/cooler_panel.kicad_pcb | grep -E 'rip-up|FAIL|routed|Traceback|Error'
 fi
 if command -v kicad-cli >/dev/null; then
   (cd out/kicad && kicad-cli sch export netlist --format kicadsexpr -o ../sch_export.net cooler_panel.kicad_sch >/dev/null)
