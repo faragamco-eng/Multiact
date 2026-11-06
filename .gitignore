@@ -10,3 +10,4 @@ hardware/v2/out/sch_export.net
 firmware/v2/build/
 firmware/panel/build/
 hardware/panel/out/sch_export.net
+hardware/panel/out/placed_unrouted.kicad_pcb

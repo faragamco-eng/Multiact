@@ -40,7 +40,7 @@ P = a.pitch
 LAYERS = [pcbnew.F_Cu, pcbnew.B_Cu]
 
 # ---------------------------------------------------------------- net classes (from the .kicad_pro)
-pro = json.load(open(os.path.splitext(a.inp)[0] + ".kicad_pro"))
+pro = json.load(open(os.path.splitext(a.out)[0] + ".kicad_pro"))      # project next to OUT
 cls_w = {c["name"]: c.get("track_width", 0.25) for c in pro["net_settings"]["classes"]}
 import fnmatch
 def net_width(name):
@@ -177,6 +177,7 @@ for fp in board.GetFootprints():
                 px, py = grid_xy(j0, j1, i0, i1)
                 keep[li][j0:j1, i0:i1] = np.minimum(keep[li][j0:j1, i0:i1], poly_dist(px, py, pl))
 print(f"fields built in {time.time() - t0:.1f} s, grid {NX} x {NY} x 2, {len(pads_of_net)} nets")
+STATIC = ([x.copy() for x in d1], [x.copy() for x in n1], [x.copy() for x in d2], dh.copy())
 
 # ---------------------------------------------------------------- routing
 DIRS = [(1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0),
@@ -282,6 +283,23 @@ def astar(nc, w, src_pad, tree, target_xy, margin):
     return None
 
 tracks_of_net = {}                  # net -> list of [li, ax, ay, bx, by, w, PCB_TRACK]
+vias_of_net = {}                    # net -> list of [x, y, PCB_VIA]
+
+def rebuild_fields():
+    """static (pads, holes) + every track and via still on the board"""
+    for li in range(2):
+        d1[li][:] = STATIC[0][li]; n1[li][:] = STATIC[1][li]; d2[li][:] = STATIC[2][li]
+    dh[:] = STATIC[3]
+    for net, trs in tracks_of_net.items():
+        for li, ax, ay, bx, by, w, t in trs: add_seg(li, ax, ay, bx, by, w, code(net))
+    for net, vs in vias_of_net.items():
+        for x_, y_, v in vs:
+            for li in range(2): add_circle(li, x_, y_, VIA_D / 2, code(net))
+            add_hole(x_, y_, VIA_DRILL / 2)
+
+def rip(net):
+    for tr in tracks_of_net.pop(net, []): board.Remove(tr[6])
+    for v in vias_of_net.pop(net, []): board.Remove(v[2])
 
 def xy(j, i): return round(float(X0 + int(i) * P), 4), round(float(Y0 + int(j) * P), 4)
 
@@ -322,6 +340,7 @@ def commit(net, nc, w, path, tree):
             v.SetPosition(pcbnew.VECTOR2I(MM(x_), MM(y_))); v.SetWidth(MM(VIA_D)); v.SetDrill(MM(VIA_DRILL))
             v.SetNet(netinfo)
             board.Add(v)
+            vias_of_net.setdefault(net, []).append([x_, y_, v])
             for li in range(2): add_circle(li, x_, y_, VIA_D / 2, nc)
             add_hole(x_, y_, VIA_DRILL / 2)
     # the end of the path touches the tree: split a track there so KiCad sees a junction
@@ -367,7 +386,7 @@ def route_net(net):
                 if path: break
             if path: break
         if not path:
-            fails.append(f"{net}: {p['ref']}.{p['num']} -> {q['ref']}.{q['num']}")
+            fails.append((net, p, q))
             continue
         commit(net, nc, w, path, tree)
         tree_add_pad(tree, p)
@@ -388,6 +407,56 @@ for k, net in enumerate(order):
     fails += f
     print(f"[{k + 1}/{len(order)}] {net:12s} pads {len(pads_of_net[net]):3d}  {'FAILED ' + str(len(f)) if f else 'ok'}  ({time.time() - t0:.0f} s)", flush=True)
 
+# ---------------------------------------------------------------- rip-up and reroute
+def blockers(net, p, q):
+    """nets whose tracks/vias block the path that exists with pads only"""
+    saved = ([x.copy() for x in d1], [x.copy() for x in n1], [x.copy() for x in d2], dh.copy())
+    for li in range(2):
+        d1[li][:] = STATIC[0][li]; n1[li][:] = STATIC[1][li]; d2[li][:] = STATIC[2][li]
+    dh[:] = STATIC[3]
+    tree = [np.zeros((NY, NX), bool) for _ in range(2)]
+    tree_add_pad(tree, q)
+    path = None
+    for w in (0.25, 0.2):
+        path = astar(code(net), w, p, tree, (q["x"], q["y"]), 12.0)
+        if path: break
+    for li in range(2):
+        d1[li][:] = saved[0][li]; n1[li][:] = saved[1][li]; d2[li][:] = saved[2][li]
+    dh[:] = saved[3]
+    if not path: return None
+    nc = code(net)
+    inv = {v: k for k, v in netcode.items()}
+    found = set()
+    for li, j, i in path:
+        if n1[li][j, i] != nc and d1[li][j, i] < CLR + 0.2 and n1[li][j, i] > 0:
+            m = inv.get(int(n1[li][j, i]))
+            if m in tracks_of_net or m in vias_of_net: found.add(m)
+    return found
+
+ripped_count = {}
+stuck = 0
+for it in range(60):
+    if not fails or stuck >= len(fails): break
+    net, p, q = fails[0]
+    b = blockers(net, p, q)
+    b = {x for x in (b or set()) if x != net and ripped_count.get(x, 0) < 3}
+    print(f"rip-up {it + 1}: {net} {p['ref']}.{p['num']} blocked by {sorted(b) if b else 'nothing removable'}", flush=True)
+    if not b:
+        fails.append(fails.pop(0))
+        stuck += 1
+        continue
+    stuck = 0
+    for x in b | {net}:
+        ripped_count[x] = ripped_count.get(x, 0) + 1
+        rip(x)
+    rebuild_fields()
+    fails = [f_ for f_ in fails if f_[0] not in b | {net}]
+    for x in [net] + sorted(b, key=span):
+        f = route_net(x)
+        fails += f
+        print(f"   reroute {x:12s} {'FAILED ' + str(len(f)) if f else 'ok'}", flush=True)
+fails = [f"{n_}: {p_['ref']}.{p_['num']} -> {q_['ref']}.{q_['num']}" for n_, p_, q_ in fails]
+
 # ---------------------------------------------------------------- pours
 for net in a.pour:
     ni = board.FindNet(net)
@@ -403,9 +472,12 @@ for net in a.pour:
         for x_, y_ in ((X0 + 0.3, Y0 + 0.3), (X1 - 0.3, Y0 + 0.3), (X1 - 0.3, Y1 - 0.3), (X0 + 0.3, Y1 - 0.3)):
             ol.Append(MM(x_), MM(y_))
         board.Add(z)
+pcbnew.SaveBoard(a.out, board)
+# fill the pours with the project's rules (.kicad_pro / .kicad_dru must sit next to OUT)
+board = pcbnew.LoadBoard(a.out)
 pcbnew.ZONE_FILLER(board).Fill(board.Zones())
+pcbnew.SaveBoard(a.out, board)
 board.BuildConnectivity()
 uc = board.GetConnectivity().GetUnconnectedCount(True) if hasattr(board.GetConnectivity(), "GetUnconnectedCount") else -1
-pcbnew.SaveBoard(a.out, board)
 print(f"routed {len(order)} nets in {time.time() - t0:.0f} s; failed connections {len(fails)}; unconnected after pours {uc}")
 for f in fails: print("  FAIL", f)
