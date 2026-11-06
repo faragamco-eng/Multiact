@@ -20,7 +20,7 @@ APP_OBJ  = $(APP_SRC:%.c=$(B)/app/%.o) $(B)/app/startup.o
 BOOT_OBJ = $(BOOT_SRC:%.c=$(B)/boot/%.o) $(B)/boot/startup.o
 LDCOMMON = $(M4) --specs=nano.specs --specs=nosys.specs -Wl,--gc-sections -lm
 
-all: $(B)/drive_v2.elf $(B)/boot_v2.elf
+all: $(B)/drive_v2.elf $(B)/boot_v2.elf $(B)/phy.elf
 
 $(B)/app/%.o: %.c
 	@mkdir -p $(dir $@)
@@ -41,6 +41,22 @@ $(B)/boot_v2.elf: $(BOOT_OBJ) linker/boot.ld
 	$(OBJCOPY) -O binary $@ $(B)/boot_v2.bin
 	$(SIZE) $@
 
+# ---------------- PHY (STM32C011, Cortex-M0+) ----------------
+M0       = -mcpu=cortex-m0plus -mthumb
+PHY_SRC  = phy/phy_main.c phy/phy_core.c $(CMSIS)/src/system_stm32c0xx.c
+PHY_OBJ  = $(PHY_SRC:%.c=$(B)/phy/%.o) $(B)/phy/startup.o
+$(B)/phy/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(M0) $(COMMON) -Os -DSTM32C011xx -Iphy -I$(CMSIS)/include -c $< -o $@
+$(B)/phy/startup.o: $(CMSIS)/src/startup_stm32c011xx.s
+	@mkdir -p $(dir $@)
+	$(CC) $(M0) -c $< -o $@
+$(B)/phy.elf: $(PHY_OBJ) linker/phy.ld
+	$(CC) $(PHY_OBJ) $(M0) --specs=nano.specs --specs=nosys.specs -Wl,--gc-sections -Tlinker/phy.ld -Wl,-Map=$(B)/phy.map -o $@
+	$(OBJCOPY) -O binary $@ $(B)/phy.bin
+	$(SIZE) $@
+phy: $(B)/phy.elf
+
 pack: $(B)/drive_v2.elf
 	python3 tools/fw_pack.py $(B)/drive_v2.bin $(B)/drive_v2_update.bin
 
@@ -51,8 +67,12 @@ $(B)/test_drive: test/test_drive.c app/*.c app/*.h ../comm/*.c ../comm/*.h
 	@mkdir -p $(B)
 	$(HOSTCC) $(HFLAGS) test/test_drive.c app/drive.c app/mains.c app/params.c app/fwu.c app/crc32.c \
 	  app/motorlib.c ../comm/modbus_slave.c ../comm/cooler_regs.c -lm -o $@
-test: $(B)/test_drive
+$(B)/test_phy: test/test_phy.c phy/phy_core.c phy/phy_core.h ../comm/*.c ../comm/*.h
+	@mkdir -p $(B)
+	$(HOSTCC) $(HFLAGS) -Iphy test/test_phy.c phy/phy_core.c ../comm/modbus_slave.c ../comm/cooler_regs.c -lm -o $@
+test: $(B)/test_drive $(B)/test_phy
 	./$(B)/test_drive
+	./$(B)/test_phy
 
 clean:
 	rm -rf $(B)
