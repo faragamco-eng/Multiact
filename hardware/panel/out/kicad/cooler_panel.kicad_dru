@@ -1,4 +1,4 @@
 (version 1)
 (rule "package pitch U4" (condition "A.insideCourtyard('U4') && B.insideCourtyard('U4')") (constraint clearance (min 0.15mm)))
 (rule "USB-C locating pegs" (condition "A.insideCourtyard('J2')") (constraint hole_clearance (min 0.1mm)))
-(rule "pour spokes" (condition "A.Type == 'Zone'") (constraint min_resolved_spokes (min 1)))
+(rule "pour spokes" (condition "A.Type == 'Zone'") (constraint min_resolved_spokes 1))

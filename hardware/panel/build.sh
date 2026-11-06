@@ -20,4 +20,14 @@ if command -v kicad-cli >/dev/null; then
   (cd out/kicad && kicad-cli sch export pdf -o ../cooler_panel_schematic.pdf cooler_panel.kicad_sch >/dev/null \
      && kicad-cli pcb export pdf --layers "F.Cu,F.SilkS,Edge.Cuts,F.Fab,Dwgs.User" -o ../cooler_panel_placement.pdf cooler_panel.kicad_pcb >/dev/null)
 fi
+if command -v kicad-cli >/dev/null && [ -z "$NOROUTE" ]; then                     # fabrication files
+  rm -rf out/gerbers && mkdir -p out/gerbers
+  kicad-cli pcb export gerbers --layers "F.Cu,B.Cu,F.Paste,B.Paste,F.SilkS,B.SilkS,F.Mask,B.Mask,Edge.Cuts" \
+     --subtract-soldermask -o out/gerbers/ out/kicad/cooler_panel.kicad_pcb >/dev/null
+  kicad-cli pcb export drill --format excellon --excellon-separate-th -o out/gerbers/ out/kicad/cooler_panel.kicad_pcb >/dev/null
+  kicad-cli pcb export pos --format csv --units mm --side front -o out/cooler_panel_pick_and_place.csv out/kicad/cooler_panel.kicad_pcb >/dev/null
+  (cd out/gerbers && rm -f ../cooler_panel_gerbers.zip && zip -q ../cooler_panel_gerbers.zip *)
+  (cd out/kicad && kicad-cli pcb export pdf --layers "F.Cu,F.SilkS,Edge.Cuts" -o ../cooler_panel_routed_top.pdf cooler_panel.kicad_pcb >/dev/null \
+     && kicad-cli pcb export pdf --layers "B.Cu,Edge.Cuts" -o ../cooler_panel_routed_bottom.pdf cooler_panel.kicad_pcb >/dev/null)
+fi
 echo "all checks passed"
