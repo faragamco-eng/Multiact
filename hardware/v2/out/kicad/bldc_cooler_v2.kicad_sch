@@ -1,0 +1,224 @@
+(kicad_sch
+  (version 20230121)
+  (generator eeschema)
+  (uuid "01a28193-96eb-5a30-929c-cc04ac09cd41")
+  (paper "A3")
+  (title_block
+    (title "BLDC cooler motor drive v2 (220 VAC, PFC, sensorless FOC)")
+    (date "2026-11-06")
+    (rev "2.0")
+    (company "Multiact")
+    (comment 1 "Generated from hardware/v2/schematic.py - validated against KiCad 7.0.11 libs and ST pin data")
+    (comment 2 "DANGER: mains-referenced except the SELV area (panel bus, RS-485)"))
+  (lib_symbols)
+  (sheet
+    (at 25.4 39.37)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "acde259b-e8a3-59fe-8bb9-a24988448b8d")
+    (property "Sheetname" "1 AC input, protection, relays, mains sensing"
+      (at 25.4 38.67 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s1_1_ac_input__protection__relays.kicad_sch"
+      (at 25.4 60.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "2")))))
+  (sheet
+    (at 120.65 39.37)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "f6fe3b90-06c8-5585-af29-1e34646719b8")
+    (property "Sheetname" "2 Rectifier and PFC (CCM, NCP1653, 390 V)"
+      (at 120.65 38.67 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s2_2_rectifier_and_pfc__ccm__ncp1.kicad_sch"
+      (at 120.65 60.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "3")))))
+  (sheet
+    (at 215.9 39.37)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "106a71b7-169f-5405-a0fa-b4daf03a7cdf")
+    (property "Sheetname" "3 Auxiliary supply (VIPer26 flyback, 1500 V pre-regulator)"
+      (at 215.9 38.67 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s3_3_auxiliary_supply__viper26_fl.kicad_sch"
+      (at 215.9 60.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "4")))))
+  (sheet
+    (at 25.4 74.93)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "ac892e0e-4777-549e-bcb1-b287f583c91e")
+    (property "Sheetname" "4 Inverter (STGIPS20K60 IPM), 3-shunt sensing"
+      (at 25.4 74.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s4_4_inverter__stgips20k60_ipm.kicad_sch"
+      (at 25.4 95.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "5")))))
+  (sheet
+    (at 120.65 74.93)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "dd12c1bf-5524-59e2-8732-4090aa3542d1")
+    (property "Sheetname" "5 MCU STM32G431CBT6 (hot side)"
+      (at 120.65 74.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s5_5_mcu_stm32g431cbt6__hot_side.kicad_sch"
+      (at 120.65 95.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "6")))))
+  (sheet
+    (at 215.9 74.93)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "157c2f4f-74e8-57b7-b331-d2e48e2a3da9")
+    (property "Sheetname" "6 Relay drivers, pump and drain outputs (220 VAC)"
+      (at 215.9 74.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s6_6_relay_drivers__pump_and_drai.kicad_sch"
+      (at 215.9 95.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "7")))))
+  (sheet
+    (at 25.4 110.49)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "64826f90-0846-5357-a379-c528dab37512")
+    (property "Sheetname" "7 Isolated side: isolator, PHY MCU, 2-wire panel bus, RS-485 to battery module"
+      (at 25.4 109.79 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s7_7_isolated_side__isolator__phy.kicad_sch"
+      (at 25.4 131.39 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "8")))))
+  (sheet
+    (at 120.65 110.49)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "83fe4d66-1dd1-590a-88c3-1d1a35a73398")
+    (property "Sheetname" "8 OPTION battery module (DNP in the mains-only version), mechanics, test points"
+      (at 120.65 109.79 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s8_8_option_battery_module__dnp_i.kicad_sch"
+      (at 120.65 131.39 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "9")))))
+  (sheet_instances
+    (path "/"
+      (page "1"))))

@@ -1,0 +1,5199 @@
+(kicad_sch
+  (version 20230121)
+  (generator eeschema)
+  (uuid "f6fe3b90-06c8-5585-af29-1e34646719b8")
+  (paper "A1")
+  (title_block
+    (title "2 Rectifier and PFC (CCM, NCP1653, 390 V)")
+    (date "2026-11-06")
+    (rev "2.0")
+    (company "Multiact")
+    (comment 1 "Generated from hardware/v2/schematic.py - validated against KiCad 7.0.11 libs and ST pin data")
+    (comment 2 "DANGER: mains-referenced except the SELV area (panel bus, RS-485)"))
+  (lib_symbols
+    (symbol "Device:D_Bridge_+AA-"
+      (pin_names
+        (offset 0))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "D"
+        (at 2.54 6.985 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "D_Bridge_+AA-"
+        (at 2.54 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "rectifier ACDC"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Diode bridge, +ve/AC/AC/-ve"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "D*Bridge* D*Rectifier*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "D_Bridge_+AA-_0_1"
+        (circle
+          (center -5.08 0)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (circle
+          (center 0 -5.08)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (polyline
+          (pts
+            (xy -2.54 3.81)
+            (xy -1.27 2.54))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -1.27 -2.54)
+            (xy -2.54 -3.81))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 -1.27)
+            (xy 3.81 -2.54))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 1.27)
+            (xy 3.81 2.54))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -3.81 2.54)
+            (xy -2.54 1.27)
+            (xy -1.905 3.175)
+            (xy -3.81 2.54))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -2.54 -1.27)
+            (xy -3.81 -2.54)
+            (xy -1.905 -3.175)
+            (xy -2.54 -1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 2.54)
+            (xy 2.54 3.81)
+            (xy 3.175 1.905)
+            (xy 1.27 2.54))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 3.175 -1.905)
+            (xy 1.27 -2.54)
+            (xy 2.54 -3.81)
+            (xy 3.175 -1.905))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -5.08 0)
+            (xy 0 -5.08)
+            (xy 5.08 0)
+            (xy 0 5.08)
+            (xy -5.08 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 0 5.08)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (circle
+          (center 5.08 0)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline))))
+      (symbol "D_Bridge_+AA-_1_1"
+        (pin passive line
+          (at 7.62 0 180)
+          (length 2.54)
+          (name "+"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 7.62 270)
+          (length 2.54)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -7.62 90)
+          (length 2.54)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at -7.62 0 0)
+          (length 2.54)
+          (name "-"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "4"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:C"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0.254))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "C"
+        (at 0.635 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "C"
+        (at 0.635 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0.9652 -3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "cap capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Unpolarized capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "C_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "C_0_1"
+        (polyline
+          (pts
+            (xy -2.032 -0.762)
+            (xy 2.032 -0.762))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -2.032 0.762)
+            (xy 2.032 0.762))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "C_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:L"
+      (pin_numbers hide)
+      (pin_names
+        (offset 1.016) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "L"
+        (at -1.27 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "L"
+        (at 1.905 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "inductor choke coil reactor magnetic"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Inductor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "L_0_1"
+        (arc
+          (start 0 -2.54)
+          (mid 0.6323 -1.905)
+          (end 0 -1.27)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (arc
+          (start 0 -1.27)
+          (mid 0.6323 -0.635)
+          (end 0 0)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (arc
+          (start 0 0)
+          (mid 0.6323 0.635)
+          (end 0 1.27)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (arc
+          (start 0 1.27)
+          (mid 0.6323 1.905)
+          (end 0 2.54)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "L_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 1.27)
+          (name "1"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 1.27)
+          (name "2"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:D"
+      (pin_numbers hide)
+      (pin_names
+        (offset 1.016) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "D"
+        (at 0 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "D"
+        (at 0 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Sim.Device" "D"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Sim.Pins" "1=K 2=A"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "D_0_1"
+        (polyline
+          (pts
+            (xy -1.27 1.27)
+            (xy -1.27 -1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 0)
+            (xy -1.27 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 1.27)
+            (xy 1.27 -1.27)
+            (xy -1.27 0)
+            (xy 1.27 1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "D_1_1"
+        (pin passive line
+          (at -3.81 0 0)
+          (length 2.54)
+          (name "K"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 3.81 0 180)
+          (length 2.54)
+          (name "A"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:Q_NMOS_GDS"
+      (pin_names
+        (offset 0) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "Q"
+        (at 5.08 1.27 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "Q_NMOS_GDS"
+        (at 5.08 -1.27 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 5.08 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "transistor NMOS N-MOS N-MOSFET"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "N-MOSFET transistor, gate/drain/source"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "Q_NMOS_GDS_0_1"
+        (polyline
+          (pts
+            (xy 0.254 0)
+            (xy -2.54 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.254 1.905)
+            (xy 0.254 -1.905))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 -1.27)
+            (xy 0.762 -2.286))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 0.508)
+            (xy 0.762 -0.508))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 2.286)
+            (xy 0.762 1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 2.54)
+            (xy 2.54 1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 -2.54)
+            (xy 2.54 0)
+            (xy 0.762 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 -1.778)
+            (xy 3.302 -1.778)
+            (xy 3.302 1.778)
+            (xy 0.762 1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.016 0)
+            (xy 2.032 0.381)
+            (xy 2.032 -0.381)
+            (xy 1.016 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (polyline
+          (pts
+            (xy 2.794 0.508)
+            (xy 2.921 0.381)
+            (xy 3.683 0.381)
+            (xy 3.81 0.254))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 3.302 0.381)
+            (xy 2.921 -0.254)
+            (xy 3.683 -0.254)
+            (xy 3.302 0.381))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 1.651 0)
+          (radius 2.794)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 2.54 -1.778)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (circle
+          (center 2.54 1.778)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline))))
+      (symbol "Q_NMOS_GDS_1_1"
+        (pin input line
+          (at -5.08 0 0)
+          (length 2.54)
+          (name "G"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 5.08 270)
+          (length 2.54)
+          (name "D"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 -5.08 90)
+          (length 2.54)
+          (name "S"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:R"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "R"
+        (at 2.032 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "R"
+        (at 0 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at -1.778 0 90)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "R res resistor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Resistor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "R_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "R_0_1"
+        (rectangle
+          (start -1.016 -2.54)
+          (end 1.016 2.54)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "R_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:D_Zener"
+      (pin_numbers hide)
+      (pin_names
+        (offset 1.016) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "D"
+        (at 0 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "D_Zener"
+        (at 0 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Zener diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "D_Zener_0_1"
+        (polyline
+          (pts
+            (xy 1.27 0)
+            (xy -1.27 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -1.27 -1.27)
+            (xy -1.27 1.27)
+            (xy -0.762 1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 -1.27)
+            (xy 1.27 1.27)
+            (xy -1.27 0)
+            (xy 1.27 -1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "D_Zener_1_1"
+        (pin passive line
+          (at -3.81 0 0)
+          (length 2.54)
+          (name "K"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 3.81 0 180)
+          (length 2.54)
+          (name "A"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Regulator_Controller:NCP1653"
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "U"
+        (at -7.62 8.89 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "NCP1653"
+        (at 1.27 8.89 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27) italic) hide))
+      (property "Datasheet" "https://www.onsemi.com/pub/Collateral/NCP1653-D.PDF"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "PFC SMPS Controller"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Compact, Fixed-Frequency, Continuous Conduction Mode PFC Controller, 100kHz, DIP-8/SOIC-8"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "SOIC*3.9x4.9mm*P1.27mm* DIP*W7.62mm*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "NCP1653_0_0"
+        (rectangle
+          (start -7.62 7.62)
+          (end 7.62 -7.62)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type background))))
+      (symbol "NCP1653_1_1"
+        (pin input line
+          (at 10.16 5.08 180)
+          (length 2.54)
+          (name "FB/SD"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at -10.16 0 0)
+          (length 2.54)
+          (name "VCONTROL"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin input line
+          (at -10.16 -5.08 0)
+          (length 2.54)
+          (name "IN"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin input line
+          (at -10.16 5.08 0)
+          (length 2.54)
+          (name "CS"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "4"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 10.16 -5.08 180)
+          (length 2.54)
+          (name "VM"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "5"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin power_in line
+          (at 0 -10.16 90)
+          (length 2.54)
+          (name "GND"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "6"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin output line
+          (at 10.16 0 180)
+          (length 2.54)
+          (name "DRV"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "7"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin power_in line
+          (at 0 10.16 270)
+          (length 2.54)
+          (name "VCC"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "8"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:C_Polarized"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0.254))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "C"
+        (at 0.635 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "C_Polarized"
+        (at 0.635 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0.9652 -3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "cap capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Polarized capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "CP_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "C_Polarized_0_1"
+        (rectangle
+          (start -2.286 0.508)
+          (end 2.286 1.016)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -1.778 2.286)
+            (xy -0.762 2.286))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -1.27 2.794)
+            (xy -1.27 1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (rectangle
+          (start 2.286 -0.508)
+          (end -2.286 -1.016)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline))))
+      (symbol "C_Polarized_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Transistor_FET:2N7002"
+      (pin_names hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "Q"
+        (at 5.08 1.905 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "2N7002"
+        (at 5.08 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+        (at 5.08 -1.905 0)
+        (effects
+          (font
+            (size 1.27 1.27) italic)
+          (justify left) hide))
+      (property "Datasheet" "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF"
+        (at 5.08 -3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left) hide))
+      (property "ki_keywords" "N-Channel Switching MOSFET"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "0.115A Id, 60V Vds, N-Channel MOSFET, SOT-23"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "SOT?23*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "2N7002_0_1"
+        (polyline
+          (pts
+            (xy 0.254 0)
+            (xy -2.54 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.254 1.905)
+            (xy 0.254 -1.905))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 -1.27)
+            (xy 0.762 -2.286))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 0.508)
+            (xy 0.762 -0.508))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 2.286)
+            (xy 0.762 1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 2.54)
+            (xy 2.54 1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 -2.54)
+            (xy 2.54 0)
+            (xy 0.762 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.762 -1.778)
+            (xy 3.302 -1.778)
+            (xy 3.302 1.778)
+            (xy 0.762 1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.016 0)
+            (xy 2.032 0.381)
+            (xy 2.032 -0.381)
+            (xy 1.016 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (polyline
+          (pts
+            (xy 2.794 0.508)
+            (xy 2.921 0.381)
+            (xy 3.683 0.381)
+            (xy 3.81 0.254))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 3.302 0.381)
+            (xy 2.921 -0.254)
+            (xy 3.683 -0.254)
+            (xy 3.302 0.381))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 1.651 0)
+          (radius 2.794)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 2.54 -1.778)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (circle
+          (center 2.54 1.778)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline))))
+      (symbol "2N7002_1_1"
+        (pin input line
+          (at -5.08 0 0)
+          (length 2.54)
+          (name "G"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 -5.08 90)
+          (length 2.54)
+          (name "S"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 5.08 270)
+          (length 2.54)
+          (name "D"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:LED"
+      (pin_numbers hide)
+      (pin_names
+        (offset 1.016) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "D"
+        (at 0 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "LED"
+        (at 0 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "LED diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Light emitting diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "LED_0_1"
+        (polyline
+          (pts
+            (xy -1.27 -1.27)
+            (xy -1.27 1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -1.27 0)
+            (xy 1.27 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 -1.27)
+            (xy 1.27 1.27)
+            (xy -1.27 0)
+            (xy 1.27 -1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -3.048 -0.762)
+            (xy -4.572 -2.286)
+            (xy -3.81 -2.286)
+            (xy -4.572 -2.286)
+            (xy -4.572 -1.524))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -1.778 -0.762)
+            (xy -3.302 -2.286)
+            (xy -2.54 -2.286)
+            (xy -3.302 -2.286)
+            (xy -3.302 -1.524))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "LED_1_1"
+        (pin passive line
+          (at -3.81 0 0)
+          (length 2.54)
+          (name "K"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 3.81 0 180)
+          (length 2.54)
+          (name "A"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "power:PWR_FLAG"
+      (power)
+      (pin_numbers hide)
+      (pin_names
+        (offset 0) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "#FLG"
+        (at 0 1.905 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Value" "PWR_FLAG"
+        (at 0 3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "flag power"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Special symbol for telling ERC where power comes from"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "PWR_FLAG_0_0"
+        (pin power_out line
+          (at 0 0 90)
+          (length 0)
+          (name "pwr"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27))))))
+      (symbol "PWR_FLAG_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 1.27)
+            (xy -1.016 1.905)
+            (xy 0 2.54)
+            (xy 1.016 1.905)
+            (xy 0 1.27))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))))
+  (symbol
+    (lib_id "Device:D_Bridge_+AA-")
+    (at 48.26 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "497f9760-f42e-59af-98d7-3fab35c5234b")
+    (property "Reference" "BR1"
+      (at 48.26 40.64 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "GBU1010"
+      (at 48.26 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Diode_THT:Diode_Bridge_Vishay_GBU"
+      (at 48.26 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 48.26 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "GBU1010 (10 A 1000 V) on heatsink"
+      (at 48.26 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "a454e1eb-5cac-5f48-bfb6-566032a8ffca"))
+    (pin "2"
+      (uuid "cad3a68b-5337-517b-90e8-2cf3e81d32ba"))
+    (pin "3"
+      (uuid "8e647685-7fa8-5fa4-9954-0f915e2cec52"))
+    (pin "4"
+      (uuid "abe89db6-10cf-526e-bd02-68bec32008c3"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "BR1")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 55.88 50.8)
+      (xy 58.42 50.8))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "577705da-185d-5cec-afe1-b4e9162961b8"))
+  (global_label "RECT_P"
+    (shape passive)
+    (at 58.42 50.8 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "e6821d34-447f-59a1-a28e-b62a6375cc0a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 58.42 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 48.26 43.18)
+      (xy 48.26 40.64))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "1b2ed810-5cce-58cf-ae98-5efb9eb812a0"))
+  (global_label "L_SW"
+    (shape passive)
+    (at 48.26 40.64 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "05da9655-d95e-594f-8d33-5bb0b410ffc1")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 48.26 40.64 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 48.26 58.42)
+      (xy 48.26 60.96))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d428598e-94c5-5c84-a41a-e4ffd2068e51"))
+  (global_label "AC_NF"
+    (shape passive)
+    (at 48.26 60.96 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "ab03afe6-64a3-567b-b813-92e03c911412")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 48.26 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 40.64 50.8)
+      (xy 38.1 50.8))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "37cabac0-575f-5709-9019-bc0464df5fab"))
+  (global_label "PFC_RTN"
+    (shape passive)
+    (at 38.1 50.8 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "f637dd0e-9aa4-5f82-9250-a5018027f649")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 38.1 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C")
+    (at 88.9 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ee71cde4-057e-5097-8496-1e55a0d9e6f1")
+    (property "Reference" "C4"
+      (at 91.44 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1uF 630V"
+      (at 91.44 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_THT:C_Rect_L26.5mm_W8.5mm_P22.50mm_MKS4"
+      (at 88.9 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 88.9 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 88.9 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "0599f609-5f9c-5416-a36d-78d61b9663f5"))
+    (pin "2"
+      (uuid "7b6dba3b-a3ac-589a-91ef-0a613e1a9b8d"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C4")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 88.9 45.72)
+      (xy 88.9 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3652086f-e237-5c2e-9371-31f6ac48efad"))
+  (global_label "RECT_P"
+    (shape passive)
+    (at 88.9 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "d0bd7a37-fa7c-50b9-a182-25a9037f2199")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 88.9 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 88.9 53.34)
+      (xy 88.9 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "1a83d569-7db9-5551-922d-05dd840cd148"))
+  (global_label "PFC_RTN"
+    (shape passive)
+    (at 88.9 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "17272a44-21b5-50d2-8646-ea8c272f18a4")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 88.9 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:L")
+    (at 110.49 48.26 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f2ba4c9e-02e5-5029-9862-c38579f140f9")
+    (property "Reference" "L2"
+      (at 113.03 46.99 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470uH 13A"
+      (at 113.03 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Inductor_THT:L_Toroid_Vertical_L46.0mm_W19.1mm_P21.80mm_Bourns_5700"
+      (at 110.49 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 110.49 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "toroid ~46 mm OD (e.g. Kool Mu 0077083A7 or High Flux 58083), 470 uH at 11 A, Isat >= 13 A"
+      (at 110.49 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "27edb264-ad5b-5352-a00f-02e60a72898f"))
+    (pin "2"
+      (uuid "fe0badda-9ec1-5d81-b2d4-4653efa71d53"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "L2")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 110.49 44.45)
+      (xy 110.49 41.91))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "eebcba8a-6284-5f3c-ba7b-904f725a6567"))
+  (global_label "RECT_P"
+    (shape passive)
+    (at 110.49 41.91 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "1db0e64d-5ec1-5b03-8bf2-ad2e956a894e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 110.49 41.91 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 110.49 52.07)
+      (xy 110.49 54.61))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "de49342e-5856-54a0-976a-30eff0041a48"))
+  (global_label "SW_PFC"
+    (shape passive)
+    (at 110.49 54.61 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "b73bc28f-1386-57eb-bf76-7446a32db3e9")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 110.49 54.61 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:D")
+    (at 146.05 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "8f7bb018-1f5f-584c-b3fc-b16c8bff5a53")
+    (property "Reference" "D6"
+      (at 146.05 33.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "SiC 650V 8A"
+      (at 146.05 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Package_TO_SOT_THT:TO-220-2_Vertical"
+      (at 146.05 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 146.05 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "Wolfspeed C3D08065A / Infineon IDH08G65C6"
+      (at 146.05 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "b8bcdf54-1916-555b-a21b-0fa9e9b798c5"))
+    (pin "2"
+      (uuid "0ea7ead0-e8ee-55e9-ba09-90d42c53923f"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "D6")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 142.24 35.56)
+      (xy 139.7 35.56))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5fdf378f-4e08-5db0-8c8f-9638c55c323b"))
+  (global_label "VBUS"
+    (shape passive)
+    (at 139.7 35.56 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "f6d1f4f6-9987-52bc-8d6e-d251c1ac34ac")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 139.7 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 149.86 35.56)
+      (xy 152.4 35.56))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0dba8c05-3262-5c35-9302-89202234867f"))
+  (global_label "SW_PFC"
+    (shape passive)
+    (at 152.4 35.56 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "5a58dd21-5009-56fd-a0e4-7640e60c7aee")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 152.4 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:D")
+    (at 194.31 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f2021546-ba72-56be-8767-cd678621432f")
+    (property "Reference" "D7"
+      (at 194.31 33.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "P600M"
+      (at 194.31 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
+      (at 194.31 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 194.31 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "P600M / 1N5408 inrush bypass"
+      (at 194.31 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "a17d8b71-441b-5df4-89bb-050fe020a261"))
+    (pin "2"
+      (uuid "c9e904a4-2898-59af-8c2c-df2e61093348"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "D7")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 190.5 35.56)
+      (xy 187.96 35.56))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "2b9679cd-3e7f-5db0-a671-aa20fb515e25"))
+  (global_label "VBUS"
+    (shape passive)
+    (at 187.96 35.56 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "bf4c3553-c330-5e91-b55a-40d1287be96e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 187.96 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 198.12 35.56)
+      (xy 200.66 35.56))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "7c195579-d0d5-5f85-8802-85db3147cb38"))
+  (global_label "RECT_P"
+    (shape passive)
+    (at 200.66 35.56 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "dd4a980c-4187-514e-aef3-7e8c934aac14")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 200.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:Q_NMOS_GDS")
+    (at 246.38 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "94f5426f-fda9-5bb6-b765-bb84e398f0d8")
+    (property "Reference" "Q1"
+      (at 246.38 41.91 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "650V 95mOhm SJ"
+      (at 246.38 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Package_TO_SOT_THT:TO-247-3_Vertical"
+      (at 246.38 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 246.38 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "Infineon IPW65R095C7 / ST STW40N60M6 (heatsink, insulated)"
+      (at 246.38 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "da3a079d-87e0-57f5-ae8f-00ed224216c7"))
+    (pin "2"
+      (uuid "cb513cdb-6bb1-5dbf-a224-ac67afc20a1e"))
+    (pin "3"
+      (uuid "225aefed-e8f8-5bb3-a698-3fb2478c1a0c"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "Q1")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 241.3 49.53)
+      (xy 238.76 49.53))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e1e15098-6842-5642-b1b9-3081a90bf8bc"))
+  (global_label "PFC_G"
+    (shape passive)
+    (at 238.76 49.53 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "8ae5da35-21d0-5a5c-8460-27e3e9fb28cb")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 238.76 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 248.92 44.45)
+      (xy 248.92 41.91))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d387cbcd-cf15-54ef-bf88-972daa0e73f2"))
+  (global_label "SW_PFC"
+    (shape passive)
+    (at 248.92 41.91 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "809fd300-1de3-545d-944c-e77cd121d2ab")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 248.92 41.91 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 248.92 54.61)
+      (xy 248.92 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "9ff4d0b9-456c-542a-8915-629081784f7e"))
+  (global_label "PGND"
+    (shape passive)
+    (at 248.92 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "1207b077-d4fd-5970-a343-63d5dd41071e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 248.92 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 270.51 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "67dd4868-e729-5271-953c-2dc6fd67987a")
+    (property "Reference" "R13"
+      (at 273.05 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10R"
+      (at 273.05 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+      (at 270.51 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 270.51 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 270.51 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "6bf47239-e7da-5ce4-ad22-1e4a8b5c3f4f"))
+    (pin "2"
+      (uuid "65b55c8c-4019-5319-975a-f0a267e08d76"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R13")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 270.51 45.72)
+      (xy 270.51 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "60e70326-70a5-5de9-8618-d18426937788"))
+  (global_label "PFC_DRV"
+    (shape passive)
+    (at 270.51 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "ab73c9e4-ca5c-58c7-bf49-28194faea872")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 270.51 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 270.51 53.34)
+      (xy 270.51 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f88c5fd9-5b1a-5a00-a1bf-c54e9ea6d481"))
+  (global_label "PFC_G"
+    (shape passive)
+    (at 270.51 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "f3f37798-edf5-5d28-a207-b3af0f76ea1f")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 270.51 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 292.1 46.99 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ded31ee0-9701-54f5-b5ff-c9d9adcf00e3")
+    (property "Reference" "R14"
+      (at 294.64 45.72 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10k"
+      (at 294.64 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+      (at 292.1 46.99 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 292.1 46.99 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 292.1 46.99 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "a0a716eb-1eff-5828-a1c5-9ef7210abe5c"))
+    (pin "2"
+      (uuid "e2d0d612-493e-54c1-9053-0f99732260d8"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R14")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 292.1 43.18)
+      (xy 292.1 40.64))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c4c8ec13-985b-5197-a05c-8eeb83abb1a3"))
+  (global_label "PFC_G"
+    (shape passive)
+    (at 292.1 40.64 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "a20da074-b6e9-5ba4-8d70-56b4c4827914")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 292.1 40.64 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 292.1 50.8)
+      (xy 292.1 53.34))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "028877f4-963e-5b16-9028-c8e90ca0d2be"))
+  (global_label "PGND"
+    (shape passive)
+    (at 292.1 53.34 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "4dc77dfe-f897-51eb-b0cd-44ee619bae58")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 292.1 53.34 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:D_Zener")
+    (at 327.66 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b1f8cdbb-2bc2-526e-8a52-1530616951bb")
+    (property "Reference" "D8"
+      (at 327.66 33.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "BZT52C18"
+      (at 327.66 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 327.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 327.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "BZT52C18"
+      (at 327.66 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "b1944c1c-6c24-5358-93fb-b5351687c719"))
+    (pin "2"
+      (uuid "0853bdad-0883-553a-852f-fab821f07387"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "D8")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 323.85 35.56)
+      (xy 321.31 35.56))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "81e8fb79-e008-57d4-a9e6-ff4e03679a86"))
+  (global_label "PFC_G"
+    (shape passive)
+    (at 321.31 35.56 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "8e24692c-5feb-5026-926a-2e74a82fcc61")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 321.31 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 331.47 35.56)
+      (xy 334.01 35.56))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "db3801d5-4c16-5210-9b0f-4b1a118d82a9"))
+  (global_label "PGND"
+    (shape passive)
+    (at 334.01 35.56 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "6616eee6-fd4a-5a43-b5c3-dbb4d3bae795")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 334.01 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 360.68 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c07bd510-f221-57b9-84ab-561601bf95b1")
+    (property "Reference" "R15"
+      (at 363.22 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "50m 3W"
+      (at 363.22 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_2512_6332Metric"
+      (at 360.68 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 360.68 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 360.68 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "51c2a6eb-4714-552e-94a4-7fdbf85d14fc"))
+    (pin "2"
+      (uuid "ec96d23e-aaa5-5e85-9eaa-fc3e48212beb"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R15")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 360.68 45.72)
+      (xy 360.68 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "23163ce7-f595-5918-a397-16fd833a163a"))
+  (global_label "PFC_RTN"
+    (shape passive)
+    (at 360.68 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "7dfeec5f-35a8-58b3-aa82-0f7e5614e77c")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 360.68 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 360.68 53.34)
+      (xy 360.68 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ed81a133-2614-5b27-987b-d1e14d2a45c4"))
+  (global_label "PGND"
+    (shape passive)
+    (at 360.68 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "232b49df-0048-5aeb-b593-f824a53b5a73")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 360.68 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 382.27 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c929d4a8-3363-5842-8d18-4e5414b2c656")
+    (property "Reference" "R16"
+      (at 384.81 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "50m 3W"
+      (at 384.81 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_2512_6332Metric"
+      (at 382.27 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 382.27 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 382.27 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "8eb5bbcb-5a47-5d91-b720-d3333e4375d4"))
+    (pin "2"
+      (uuid "9f322de3-ddcc-5d68-9698-14c87ce849db"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R16")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 382.27 45.72)
+      (xy 382.27 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "25568072-d247-562c-96ef-54a1d2adda1b"))
+  (global_label "PFC_RTN"
+    (shape passive)
+    (at 382.27 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "3bdac75b-857b-5050-a83b-5c0f7b4c60be")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 382.27 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 382.27 53.34)
+      (xy 382.27 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e651575b-0ec2-559b-9444-969b86d08796"))
+  (global_label "PGND"
+    (shape passive)
+    (at 382.27 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "c8b1b632-fcd5-5296-b061-627feeb75e63")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 382.27 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Regulator_Controller:NCP1653")
+    (at 429.26 55.88 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "36712276-04d2-5186-9161-72f22680316a")
+    (property "Reference" "U1"
+      (at 429.26 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "NCP1653"
+      (at 429.26 68.58 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+      (at 429.26 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 429.26 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "onsemi NCP1653ADR2G (67 kHz)"
+      (at 429.26 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "f8ac4466-3dd9-5bc6-a813-c44cb316fa51"))
+    (pin "2"
+      (uuid "4c7b6d2b-f88f-5edd-bef3-42ddc5238c40"))
+    (pin "3"
+      (uuid "f07cb6d5-44c9-5de6-8df1-e941b93f1eac"))
+    (pin "4"
+      (uuid "cbf5828c-4554-58dd-b804-9a5f9cbcac47"))
+    (pin "5"
+      (uuid "8ac3abcc-b1e0-5acb-8753-8ff3146ef0d4"))
+    (pin "6"
+      (uuid "69e3b994-adbd-557b-81c3-614c11d2e4f3"))
+    (pin "7"
+      (uuid "ccecfa57-db3b-5ea4-9108-bfa690449919"))
+    (pin "8"
+      (uuid "baa7eb11-6f68-5644-b4e6-641fb59efa64"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "U1")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 439.42 50.8)
+      (xy 441.96 50.8))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "dbbcf017-9be1-5777-8ec7-d2380668557d"))
+  (global_label "PFC_FB"
+    (shape passive)
+    (at 441.96 50.8 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "35258542-b514-5b74-b0f2-157e39d97735")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 441.96 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 419.1 55.88)
+      (xy 416.56 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "964b9822-9bc5-50f4-a14b-b5e86611e197"))
+  (global_label "PFC_VCTRL"
+    (shape passive)
+    (at 416.56 55.88 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "96de6e49-659c-5cae-ace8-a464e2c59943")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 416.56 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 419.1 60.96)
+      (xy 416.56 60.96))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "8b8bd9db-dad3-5625-a5cb-86ee8e2b1b5b"))
+  (global_label "PFC_IN"
+    (shape passive)
+    (at 416.56 60.96 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "06c069e1-7a40-5dd6-aae7-f48dfa02e9fb")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 416.56 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 419.1 50.8)
+      (xy 416.56 50.8))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e69a4e74-ed17-5588-80e6-246bcaad9eb1"))
+  (global_label "PFC_CS"
+    (shape passive)
+    (at 416.56 50.8 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "bc3dfa3c-bb2e-54ee-a312-7278a83882f8")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 416.56 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 439.42 60.96)
+      (xy 441.96 60.96))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "28d05299-af03-5631-b9e8-94927af3c977"))
+  (global_label "PFC_VM"
+    (shape passive)
+    (at 441.96 60.96 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "11eafc57-0061-5fe5-8567-4e25533a2a48")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 441.96 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 429.26 66.04)
+      (xy 429.26 68.58))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "06d61237-f2d7-584c-8a54-b0a35ef396ad"))
+  (global_label "PGND"
+    (shape passive)
+    (at 429.26 68.58 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "099a4bbe-238a-5e1c-ad82-fc8016929a6a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 429.26 68.58 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 439.42 55.88)
+      (xy 441.96 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a0072e4f-d7de-52b3-a2a2-48f56bd45cb5"))
+  (global_label "PFC_DRV"
+    (shape passive)
+    (at 441.96 55.88 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "7c2246c8-feac-55b4-b688-a44a0707b88e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 441.96 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 429.26 45.72)
+      (xy 429.26 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "592a9062-92af-5e12-b08f-50f8f095ca44"))
+  (global_label "PFC_VCC"
+    (shape passive)
+    (at 429.26 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "e406ad80-6883-5afb-8cdc-e1bbee100d5b")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 429.26 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 473.71 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ab78bd01-1ff2-5132-8c5c-3acd12502bff")
+    (property "Reference" "R17"
+      (at 476.25 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10R"
+      (at 476.25 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+      (at 473.71 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 473.71 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 473.71 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "042188e7-970a-5f16-9667-b9b0517a20eb"))
+    (pin "2"
+      (uuid "a76797cd-84fc-5597-bcae-7bdc65f89414"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R17")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 473.71 45.72)
+      (xy 473.71 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "50e4d70e-dbd3-5840-bb3f-a60f75cc35aa"))
+  (global_label "+15V"
+    (shape passive)
+    (at 473.71 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "f806ed60-4986-514b-9774-0bf8d821d23a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 473.71 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 473.71 53.34)
+      (xy 473.71 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3489d467-4131-541f-9045-70c3ab98acb0"))
+  (global_label "PFC_VCC"
+    (shape passive)
+    (at 473.71 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "0ff2180b-5c77-51fc-9d4b-42d5396062de")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 473.71 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C_Polarized")
+    (at 495.3 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a8e7558b-0adc-5f5d-aa88-dc8b31274427")
+    (property "Reference" "C5"
+      (at 497.84 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "22uF 25V"
+      (at 497.84 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm"
+      (at 495.3 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 495.3 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 495.3 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "e8987467-eda1-516e-b617-3a881449d29e"))
+    (pin "2"
+      (uuid "5d58229c-c199-5673-a913-70c551cf5599"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C5")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 495.3 45.72)
+      (xy 495.3 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0efb62db-d6de-5bcf-b297-e84fb3f6c339"))
+  (global_label "PFC_VCC"
+    (shape passive)
+    (at 495.3 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "73ce84da-268a-5437-ba9c-55da2787fec8")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 495.3 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 495.3 53.34)
+      (xy 495.3 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a101e7d9-0986-5439-82fa-b8b986ff49a7"))
+  (global_label "PGND"
+    (shape passive)
+    (at 495.3 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "5b54e411-7946-5e5f-a877-e24b0986f30f")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 495.3 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C")
+    (at 516.89 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "8579628a-95ae-5aaa-882a-268c3fa5a941")
+    (property "Reference" "C6"
+      (at 519.43 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100nF"
+      (at 519.43 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+      (at 516.89 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 516.89 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 516.89 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "2fe748bb-866c-557a-8194-cae61eeedfa5"))
+    (pin "2"
+      (uuid "60e42338-8f83-50fd-8a61-9e4d65468a63"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C6")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 516.89 45.72)
+      (xy 516.89 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "32bc1f19-7ab8-547b-adcb-780d1fe424db"))
+  (global_label "PFC_VCC"
+    (shape passive)
+    (at 516.89 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "e94e0a5e-7465-5cbb-a083-a51f695a8d82")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 516.89 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 516.89 53.34)
+      (xy 516.89 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3b54b17e-b970-5d61-bdd2-b176fa242af2"))
+  (global_label "PGND"
+    (shape passive)
+    (at 516.89 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "f19b8138-950a-573c-83d4-8fe3a07e545d")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 516.89 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 538.48 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "efe46262-a0ea-5fc7-8f50-ecf3ae6e4f5d")
+    (property "Reference" "R18"
+      (at 541.02 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470k 1%"
+      (at 541.02 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 538.48 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 538.48 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 538.48 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "be79b925-587a-5284-85eb-f81b4854f391"))
+    (pin "2"
+      (uuid "1d0434f2-626c-524f-b9f2-3a9bb546001a"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R18")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 538.48 46.99)
+      (xy 538.48 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "cd9d580d-9116-5f6e-97d9-aab09274fec0"))
+  (global_label "VBUS"
+    (shape passive)
+    (at 538.48 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "e0833672-7415-5ed9-92c6-a51def8dda35")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 538.48 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 538.48 54.61)
+      (xy 538.48 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "470cedc0-8e70-56cd-b870-9eb429eb4956"))
+  (global_label "PFC_FBD1"
+    (shape passive)
+    (at 538.48 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "6672dd9a-64ec-5a80-804a-a8f0921f607a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 538.48 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 561.34 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "098d8619-609d-507f-a722-1c8ae71208b6")
+    (property "Reference" "R19"
+      (at 563.88 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470k 1%"
+      (at 563.88 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 561.34 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 561.34 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 561.34 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "4723372e-0cdb-5ecd-8c09-a5e4a6fddb24"))
+    (pin "2"
+      (uuid "0f8d237c-9029-527f-a453-00573719d8f7"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R19")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 561.34 46.99)
+      (xy 561.34 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ec415d45-3545-5062-ab03-1cf49726e7f3"))
+  (global_label "PFC_FBD1"
+    (shape passive)
+    (at 561.34 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "cd5bdd8b-b59f-5264-8108-07174987da5e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 561.34 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 561.34 54.61)
+      (xy 561.34 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "2062d140-f907-5779-b89f-5c925a8ff198"))
+  (global_label "PFC_FBD2"
+    (shape passive)
+    (at 561.34 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "9fe68a48-6e54-5630-846e-a37ff74b529a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 561.34 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 582.93 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "252b7160-3f6b-5b97-8151-549fa26afc2a")
+    (property "Reference" "R20"
+      (at 585.47 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470k 1%"
+      (at 585.47 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 582.93 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 582.93 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 582.93 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "01914871-b267-5f0c-8c6b-2cfd484e0bf2"))
+    (pin "2"
+      (uuid "c9ce787f-ee83-540f-9554-0328aa26ff3c"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R20")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 582.93 46.99)
+      (xy 582.93 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f13bc49c-3584-59ce-86ee-8088049dbf34"))
+  (global_label "PFC_FBD2"
+    (shape passive)
+    (at 582.93 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "71c0888e-2ab9-5e7d-bd92-18f4a5993c17")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 582.93 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 582.93 54.61)
+      (xy 582.93 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "700c17db-6975-5716-8aa3-a6ec34382795"))
+  (global_label "PFC_FBD3"
+    (shape passive)
+    (at 582.93 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "47cc9a52-03ed-50f5-b616-11a4be5c01d9")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 582.93 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 604.52 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "12a6fc1d-ca54-5cdd-aeac-2f169f1e64fc")
+    (property "Reference" "R21"
+      (at 607.06 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470k 1%"
+      (at 607.06 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 604.52 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 604.52 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 604.52 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "974a86f8-bd75-54da-b796-901186014687"))
+    (pin "2"
+      (uuid "bf067179-5989-574f-a0aa-cfc2c96c06ef"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R21")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 604.52 46.99)
+      (xy 604.52 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "6b13d1f9-e431-558d-92e0-1a3ff70bf09a"))
+  (global_label "PFC_FBD3"
+    (shape passive)
+    (at 604.52 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "ec0ab091-fa4f-551a-8622-38577070d6eb")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 604.52 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 604.52 54.61)
+      (xy 604.52 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "fb9462f3-7b90-5256-afbb-5458fa9508e3"))
+  (global_label "PFC_FB"
+    (shape passive)
+    (at 604.52 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "4257007b-93c3-500c-ae5d-ab42f7d9d284")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 604.52 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C")
+    (at 626.11 48.26 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "773fb3da-15e8-520f-add7-caba278bbd57")
+    (property "Reference" "C7"
+      (at 628.65 46.99 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1nF"
+      (at 628.65 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+      (at 626.11 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 626.11 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 626.11 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "3b642300-0694-5c0d-a913-cc10962307b7"))
+    (pin "2"
+      (uuid "d6141640-2e57-5b0f-96ea-d650815e02a2"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C7")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 626.11 44.45)
+      (xy 626.11 41.91))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "1580798c-33d7-50a8-9be5-84f51ae377df"))
+  (global_label "PFC_FB"
+    (shape passive)
+    (at 626.11 41.91 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "26d42a52-94b5-537c-b937-cf8d38d552fd")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 626.11 41.91 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 626.11 52.07)
+      (xy 626.11 54.61))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "69c48a9f-468f-5f72-a04f-35544f5de44d"))
+  (global_label "PGND"
+    (shape passive)
+    (at 626.11 54.61 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "6e690bc3-c1d3-5e51-806a-12f178c505dc")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 626.11 54.61 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 647.7 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "481ba853-853d-5af6-a4cd-844a392c0254")
+    (property "Reference" "R22"
+      (at 650.24 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1M"
+      (at 650.24 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 647.7 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 647.7 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 647.7 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "6c32da0e-0a1b-54a4-a161-59ba21152540"))
+    (pin "2"
+      (uuid "2cfb41e6-5ca1-56ec-bfc4-78c589729e72"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R22")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 647.7 46.99)
+      (xy 647.7 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3b3c303e-cd64-5ee3-a6d0-2944053d7e34"))
+  (global_label "RECT_P"
+    (shape passive)
+    (at 647.7 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "24ac3d0d-c214-5a4c-a2c8-671ca4876b0c")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 647.7 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 647.7 54.61)
+      (xy 647.7 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "84f538ba-5d10-5c20-b6e2-36377b19cf95"))
+  (global_label "PFC_IND1"
+    (shape passive)
+    (at 647.7 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "09c8e164-e49a-570b-a602-e10b7f604846")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 647.7 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 670.56 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "9da7b5a7-bc52-508f-aaca-d759b68a1f28")
+    (property "Reference" "R23"
+      (at 673.1 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1M"
+      (at 673.1 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 670.56 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 670.56 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 670.56 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "dc6c5476-f76b-5fdb-8fbe-678528571510"))
+    (pin "2"
+      (uuid "07db0483-14be-5d00-b72c-d3864c90f7c4"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R23")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 670.56 46.99)
+      (xy 670.56 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "957437d5-48b6-5253-be72-c69a669dd4cd"))
+  (global_label "PFC_IND1"
+    (shape passive)
+    (at 670.56 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "1fb47227-debf-50fd-93c9-50e4a37a0ddd")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 670.56 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 670.56 54.61)
+      (xy 670.56 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d9f4c288-a49e-5673-abb5-18b769e7a6b1"))
+  (global_label "PFC_IND2"
+    (shape passive)
+    (at 670.56 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "19b07a50-f5db-52d8-9def-f8dda213ad04")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 670.56 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 692.15 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "62941ad5-8903-5493-9a3f-ab2b4109a9e7")
+    (property "Reference" "R24"
+      (at 694.69 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1M"
+      (at 694.69 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 692.15 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 692.15 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 692.15 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "557d273f-5845-5c54-b1b5-05ebec031d06"))
+    (pin "2"
+      (uuid "0736e35d-8c01-54fb-a6d1-595ac67ffb8f"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R24")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 692.15 46.99)
+      (xy 692.15 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "85bde5f7-79b4-5903-ada8-6904814e1434"))
+  (global_label "PFC_IND2"
+    (shape passive)
+    (at 692.15 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "3944b3c2-6657-5470-b561-367d18fb93d0")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 692.15 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 692.15 54.61)
+      (xy 692.15 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "de075fe6-a364-5cc6-a089-ca32e2b0c740"))
+  (global_label "PFC_IND3"
+    (shape passive)
+    (at 692.15 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "96fe318b-c6bc-5c02-a57f-aa3aa16ab826")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 692.15 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 713.74 50.8 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5b3b0edf-3991-536d-825e-035152412242")
+    (property "Reference" "R25"
+      (at 716.28 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1M"
+      (at 716.28 52.07 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 713.74 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 713.74 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 713.74 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "419247ba-c111-5335-aba0-3487f40d5585"))
+    (pin "2"
+      (uuid "30709195-06c3-54c0-a2ff-e784f0663fc3"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R25")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 713.74 46.99)
+      (xy 713.74 44.45))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "4f9d5930-6915-5772-9361-77173b7557f7"))
+  (global_label "PFC_IND3"
+    (shape passive)
+    (at 713.74 44.45 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "ffb10872-7cad-5738-847c-010ebb340cdf")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 713.74 44.45 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 713.74 54.61)
+      (xy 713.74 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f30a019c-3a45-5724-a60c-6d4a7666ae02"))
+  (global_label "PFC_IN"
+    (shape passive)
+    (at 713.74 57.15 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "c4e67973-b9af-5ee3-b53e-d35483d8c628")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 713.74 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C")
+    (at 735.33 48.26 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f0f119a5-7023-5062-882f-be519b0f1b0c")
+    (property "Reference" "C8"
+      (at 737.87 46.99 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1nF"
+      (at 737.87 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+      (at 735.33 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 735.33 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 735.33 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "a1a6b595-68ab-5b1e-84a9-706681ff9bab"))
+    (pin "2"
+      (uuid "832f4699-9d69-5f85-8343-cb95a3ff15c2"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C8")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 735.33 44.45)
+      (xy 735.33 41.91))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "caa5e4c4-f267-5a24-b66a-b120c40e0b4b"))
+  (global_label "PFC_IN"
+    (shape passive)
+    (at 735.33 41.91 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "70b51394-52e2-57a1-b3c8-0c766ac9249c")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 735.33 41.91 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 735.33 52.07)
+      (xy 735.33 54.61))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d5067a44-f64f-5851-ba43-0e1d0d69ef6b"))
+  (global_label "PGND"
+    (shape passive)
+    (at 735.33 54.61 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "8ec3e78d-0756-5556-8f03-4bd2c871692e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 735.33 54.61 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 756.92 49.53 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "531d3390-0b8a-51af-aa55-e07eca4e73ba")
+    (property "Reference" "R26"
+      (at 759.46 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "4.7k"
+      (at 759.46 50.8 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+      (at 756.92 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 756.92 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 756.92 49.53 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "36baf00f-858c-57ea-9410-0df2b3770c3b"))
+    (pin "2"
+      (uuid "1345dff5-f000-52a5-a0c6-eb0d0ab7ede4"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R26")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 756.92 45.72)
+      (xy 756.92 43.18))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d4d0a50f-8f84-53e2-a16a-b1067c2432ca"))
+  (global_label "PFC_RTN"
+    (shape passive)
+    (at 756.92 43.18 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "e2eaed3b-a88d-54fe-96d0-ca77f2bd27a9")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 756.92 43.18 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 756.92 53.34)
+      (xy 756.92 55.88))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a6536bcd-9f4c-54c9-97c4-a97df0bfb5cb"))
+  (global_label "PFC_CS"
+    (shape passive)
+    (at 756.92 55.88 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "23bfb5f1-90aa-5de6-b98a-60920fc78143")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 756.92 55.88 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C")
+    (at 27.94 105.41 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "6de56556-58f1-559e-a850-1adfb6e18e3d")
+    (property "Reference" "C9"
+      (at 30.48 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100pF"
+      (at 30.48 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+      (at 27.94 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 27.94 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 27.94 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "bd7ae481-335e-5003-ac05-30af6a8a1b8a"))
+    (pin "2"
+      (uuid "f405db91-7112-503b-bc5b-78133438615d"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C9")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 27.94 101.6)
+      (xy 27.94 99.06))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "decf8a95-175f-51d2-bbb1-2e9c5d287466"))
+  (global_label "PFC_CS"
+    (shape passive)
+    (at 27.94 99.06 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "81c8af1e-8df0-534a-9f89-eed18a62d195")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 27.94 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 27.94 109.22)
+      (xy 27.94 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "80b668ef-acb0-5ad7-b107-4dafbc4be7f5"))
+  (global_label "PGND"
+    (shape passive)
+    (at 27.94 111.76 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "d78881b2-664f-5632-b653-4eaf035b15be")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 27.94 111.76 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 49.53 105.41 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ed914f93-3299-55d1-b57d-c11179109c6b")
+    (property "Reference" "R27"
+      (at 52.07 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "22k"
+      (at 52.07 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+      (at 49.53 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 49.53 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 49.53 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "fda907ef-c597-5592-89d1-1fa28ea97385"))
+    (pin "2"
+      (uuid "8698632b-a399-5185-b01a-8e59016da6ea"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R27")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 49.53 101.6)
+      (xy 49.53 99.06))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "45f66885-ddc9-5d6b-a030-04c2c427e727"))
+  (global_label "PFC_VM"
+    (shape passive)
+    (at 49.53 99.06 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "5af5a3f1-f789-579b-9f5d-8680aed7c2ea")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 49.53 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 49.53 109.22)
+      (xy 49.53 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "606f9830-0376-5c57-a12d-a800f814e758"))
+  (global_label "PGND"
+    (shape passive)
+    (at 49.53 111.76 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "8c9732da-264b-5184-837b-d77ea094e10a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 49.53 111.76 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C")
+    (at 71.12 105.41 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "11e8ebdb-269e-59fa-bc82-746a0693a0ef")
+    (property "Reference" "C10"
+      (at 73.66 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "220pF"
+      (at 73.66 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+      (at 71.12 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 71.12 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 71.12 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "a6487979-89cc-5807-884a-df2258937a52"))
+    (pin "2"
+      (uuid "7219ba11-ae00-5d47-9964-42ccde603f12"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C10")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 71.12 101.6)
+      (xy 71.12 99.06))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "20c92c71-3af0-5751-b7b6-2786d7ce3532"))
+  (global_label "PFC_VM"
+    (shape passive)
+    (at 71.12 99.06 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "491c491e-1299-55f2-be81-d5ce6bb480f4")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 71.12 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 71.12 109.22)
+      (xy 71.12 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "27fa0a82-f0e4-52ed-95c9-3b92c54f8137"))
+  (global_label "PGND"
+    (shape passive)
+    (at 71.12 111.76 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "5378805d-92d3-55a8-ad78-c30a4a9768f7")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 71.12 111.76 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C")
+    (at 92.71 107.95 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "dbaa2d1c-4483-5ebb-8839-cb27474f6556")
+    (property "Reference" "C11"
+      (at 95.25 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1uF"
+      (at 95.25 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 92.71 107.95 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 92.71 107.95 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 92.71 107.95 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "4bf8ccbe-798e-5bdf-83d7-90892b3bb884"))
+    (pin "2"
+      (uuid "8ded6803-82d2-503d-8575-5b479a76c149"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C11")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 92.71 104.14)
+      (xy 92.71 101.6))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b43d599e-52db-5163-a94e-b3fefc5d9a76"))
+  (global_label "PFC_VCTRL"
+    (shape passive)
+    (at 92.71 101.6 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "dde1730d-71b1-5240-a9ac-4762c6399ea6")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 92.71 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 92.71 111.76)
+      (xy 92.71 114.3))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "53269a34-34f6-5250-a51a-0f389001b179"))
+  (global_label "PGND"
+    (shape passive)
+    (at 92.71 114.3 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "6c9a1f31-a514-56af-b9f4-9cb10801dfaf")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 92.71 114.3 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Transistor_FET:2N7002")
+    (at 132.08 106.68 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "713d3a93-2a7f-5991-8b08-b2e2af0f1184")
+    (property "Reference" "Q2"
+      (at 132.08 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "2N7002"
+      (at 132.08 114.3 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 132.08 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 132.08 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "2N7002"
+      (at 132.08 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "accac67b-ddfb-5523-b77c-c9da0dd89baf"))
+    (pin "2"
+      (uuid "9c915de4-40db-59b6-bf46-01bfa365b9d9"))
+    (pin "3"
+      (uuid "f228ce80-718a-54d9-a07d-5226ad3e9ada"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "Q2")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 127 106.68)
+      (xy 124.46 106.68))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a508ba02-40bf-527e-a0e8-d55784c7ec2a"))
+  (global_label "PFC_OFF"
+    (shape passive)
+    (at 124.46 106.68 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "642c6159-b68f-5bc8-a0c0-0904dbe43d14")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 124.46 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 134.62 111.76)
+      (xy 134.62 114.3))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "06f2bb4e-8991-5429-8bef-6797f2ff0bcf"))
+  (global_label "PGND"
+    (shape passive)
+    (at 134.62 114.3 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "ef038377-53ec-5e2a-add9-1c48b19603e7")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 134.62 114.3 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 134.62 101.6)
+      (xy 134.62 99.06))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "1a769633-265e-54eb-8284-2dd855c7ca98"))
+  (global_label "PFC_FB"
+    (shape passive)
+    (at 134.62 99.06 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "34dba80d-9a2b-5f01-a269-0b9f32bf286f")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 134.62 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 156.21 105.41 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b25e44e1-7a34-5d21-a3cc-bb0195ab1417")
+    (property "Reference" "R28"
+      (at 158.75 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100k"
+      (at 158.75 106.68 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+      (at 156.21 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 156.21 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 156.21 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "09fb784e-18ee-5baf-9e4f-ed479905602d"))
+    (pin "2"
+      (uuid "f765dd44-d784-5fda-b589-db4f2256a9e8"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R28")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 156.21 101.6)
+      (xy 156.21 99.06))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "94d02d71-39a7-5d62-8260-f5c0e4a7f539"))
+  (global_label "PFC_OFF"
+    (shape passive)
+    (at 156.21 99.06 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "b47adee1-008c-537e-9ff1-6e66ae7e90b3")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 156.21 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 156.21 109.22)
+      (xy 156.21 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e5a6b059-73fc-58ea-9639-959c3b4f0731"))
+  (global_label "GND"
+    (shape passive)
+    (at 156.21 111.76 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "d93a150e-5f57-5245-8feb-79fa53b33e89")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 156.21 111.76 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C_Polarized")
+    (at 177.8 102.87 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "cfed8bee-4f12-5e58-8d71-82db07b2c28a")
+    (property "Reference" "C12"
+      (at 180.34 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "330uF 450V"
+      (at 180.34 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_THT:CP_Radial_D30.0mm_P10.00mm_SnapIn"
+      (at 177.8 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 177.8 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "105 C snap-in, ripple >= 2.5 A"
+      (at 177.8 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "1250feeb-004b-5294-9c0d-151074acca02"))
+    (pin "2"
+      (uuid "cbd8e2ca-bc91-5cf3-87ac-2696e1bf0343"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C12")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 177.8 99.06)
+      (xy 177.8 96.52))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e4de407b-6d2c-57b1-a51f-f53af23d919c"))
+  (global_label "VBUS"
+    (shape passive)
+    (at 177.8 96.52 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "2ac84b74-9493-5d0e-ab02-5e57dcbf9cad")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 177.8 96.52 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 177.8 106.68)
+      (xy 177.8 109.22))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "4c753590-8d40-581a-97ba-d22b2d5be8d7"))
+  (global_label "PGND"
+    (shape passive)
+    (at 177.8 109.22 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "9c8ba396-0c12-55be-9bca-0d3e8c392231")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 177.8 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:C_Polarized")
+    (at 199.39 102.87 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "87387c81-c260-5e4b-90ab-3185d09d549b")
+    (property "Reference" "C13"
+      (at 201.93 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "330uF 450V"
+      (at 201.93 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_THT:CP_Radial_D30.0mm_P10.00mm_SnapIn"
+      (at 199.39 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 199.39 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 199.39 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "4e783f04-8f80-5d55-a09a-ce961f5b23d8"))
+    (pin "2"
+      (uuid "4a5b720f-5127-5639-8c97-cc6d1d452965"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "C13")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 199.39 99.06)
+      (xy 199.39 96.52))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5f89d974-eb22-51e0-bc5c-42b9ab7e82b5"))
+  (global_label "VBUS"
+    (shape passive)
+    (at 199.39 96.52 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "80b00906-2b00-55c4-a547-818c5b9399d0")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 199.39 96.52 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 199.39 106.68)
+      (xy 199.39 109.22))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "030f9069-91e7-592d-b3e1-8eb7e48f480b"))
+  (global_label "PGND"
+    (shape passive)
+    (at 199.39 109.22 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "c8734bbd-4b23-56c2-8422-a0f4383b86cf")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 199.39 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 219.71 102.87 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "bf2c2f88-a3fb-5c68-9c4e-e7ec9a7cc5dc")
+    (property "Reference" "R29"
+      (at 222.25 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "150k"
+      (at 222.25 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 219.71 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 219.71 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 219.71 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "e9a98deb-a138-5770-bb88-49db3b7613f9"))
+    (pin "2"
+      (uuid "12190948-e8b0-57c0-a0c3-de69fe26d9e5"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R29")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 219.71 99.06)
+      (xy 219.71 96.52))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b0262933-0138-569a-aa48-d44b50e51dae"))
+  (global_label "VBUS"
+    (shape passive)
+    (at 219.71 96.52 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "3dab599a-e447-5f81-84fb-2770c8b803ac")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 219.71 96.52 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 219.71 106.68)
+      (xy 219.71 109.22))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "717214c6-39d9-5ecc-948f-ddc888968372"))
+  (global_label "BLD1"
+    (shape passive)
+    (at 219.71 109.22 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "721392ed-ad10-5dee-8dc7-81cd3520305a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 219.71 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 241.3 102.87 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "464df1cb-234e-5d82-ab87-94628759e2b7")
+    (property "Reference" "R30"
+      (at 243.84 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "150k"
+      (at 243.84 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 241.3 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 241.3 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 241.3 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "cebeced7-34e1-5b65-ba2a-98133c164921"))
+    (pin "2"
+      (uuid "31f31f64-5a9a-5abe-b7ec-5f38454fc78e"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R30")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 241.3 99.06)
+      (xy 241.3 96.52))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a3593d79-3b55-5673-9349-b95764040445"))
+  (global_label "BLD1"
+    (shape passive)
+    (at 241.3 96.52 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "febd203a-815a-5988-a577-1b7130225ef7")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 241.3 96.52 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 241.3 106.68)
+      (xy 241.3 109.22))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "756e4b36-4578-5bf8-9508-05f2a840b828"))
+  (global_label "BLD2"
+    (shape passive)
+    (at 241.3 109.22 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "df82520d-f78d-5564-b1e9-bb74684fcfba")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 241.3 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:R")
+    (at 262.89 102.87 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "efb19340-00bc-520e-9183-9f7538d6983e")
+    (property "Reference" "R31"
+      (at 265.43 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "150k"
+      (at 265.43 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 262.89 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 262.89 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 262.89 102.87 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "8fe2fdff-803e-5408-b181-5312b6be1bad"))
+    (pin "2"
+      (uuid "a674e32b-8e70-56ff-9cfc-eab234fb2b17"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "R31")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 262.89 99.06)
+      (xy 262.89 96.52))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "87839148-012f-5afa-b3e1-42ff627b08c1"))
+  (global_label "BLD2"
+    (shape passive)
+    (at 262.89 96.52 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "d2ad90bf-d51d-50da-86af-e4e7969d8b26")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 262.89 96.52 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 262.89 106.68)
+      (xy 262.89 109.22))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "370dc44d-029b-55f0-aae4-07e264abc2c7"))
+  (global_label "BLD3"
+    (shape passive)
+    (at 262.89 109.22 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "079390e8-d595-5da1-b16b-a1f0d94daffa")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 262.89 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Device:LED")
+    (at 297.18 91.44 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c21781f2-d06c-5a88-b6b1-7d07b2461048")
+    (property "Reference" "LED1"
+      (at 297.18 88.9 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "red HV"
+      (at 297.18 93.98 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "LED_SMD:LED_0805_2012Metric"
+      (at 297.18 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 297.18 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" "high-efficiency red, 'HIGH VOLTAGE'"
+      (at 297.18 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "5ea96cf0-703e-52e0-b92a-9a58be895bcb"))
+    (pin "2"
+      (uuid "08ede67a-c464-509b-9951-259faa7a7e8e"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "LED1")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 293.37 91.44)
+      (xy 290.83 91.44))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "8331ae69-8bb2-58ad-92a2-31c725f5c032"))
+  (global_label "PGND"
+    (shape passive)
+    (at 290.83 91.44 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "a2d5f990-d6ab-59ee-a5e1-7337c32ed5c2")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 290.83 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (wire
+    (pts
+      (xy 300.99 91.44)
+      (xy 303.53 91.44))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "23e60fee-2bb0-5c5c-8cf6-f57c5dc26adc"))
+  (global_label "BLD3"
+    (shape passive)
+    (at 303.53 91.44 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "2abeb466-3a03-53e6-95a4-f571c2080d1f")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 303.53 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "power:PWR_FLAG")
+    (at 27.94 146.05 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1d927920-e84e-51a1-bf97-7d70a95ec357")
+    (property "Reference" "#FLG0200"
+      (at 27.94 139.7 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "PWR_FLAG"
+      (at 27.94 142.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 27.94 146.05 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 27.94 146.05 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "899c086b-88cc-5ef5-a2b0-a2128ff676d1"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "#FLG0200")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 27.94 146.05)
+      (xy 27.94 148.59))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f4580b89-d86d-54fb-a65d-39d5ff949907"))
+  (global_label "PFC_VCC"
+    (shape passive)
+    (at 27.94 148.59 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "1b1e7d52-754e-53bf-a249-3f942a077f55")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 27.94 146.05 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "power:PWR_FLAG")
+    (at 40.64 146.05 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "55d406af-ef5b-54bc-a729-f63ef65f5836")
+    (property "Reference" "#FLG0201"
+      (at 40.64 139.7 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "PWR_FLAG"
+      (at 40.64 142.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 40.64 146.05 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 40.64 146.05 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "0d75ddde-64bb-544a-9ba8-0f221507f794"))
+    (instances
+      (project "bldc_cooler_v2"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/f6fe3b90-06c8-5585-af29-1e34646719b8"
+          (reference "#FLG0201")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 40.64 146.05)
+      (xy 40.64 148.59))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "9ce486ca-365b-5e60-ba43-3d5af535cbe5"))
+  (global_label "+15V"
+    (shape passive)
+    (at 40.64 148.59 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "aa49081f-4b1d-5001-a221-c67cbe83bb8e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 40.64 146.05 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))))

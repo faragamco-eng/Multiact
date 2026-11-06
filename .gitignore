@@ -5,3 +5,5 @@ firmware/cmsis/
 *.bin
 *.map
 __pycache__/
+.libcache/
+hardware/v2/out/sch_export.net

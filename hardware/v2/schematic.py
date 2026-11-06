@@ -82,15 +82,15 @@ P("RV1", "Device:Varistor", "S14K385", "Varistor:RV_Disc_D15.5mm_W11mm_P7.5mm",
   {1: "AC_LF0", 2: "AC_N"}, mpn="EPCOS S14K385", note="385 VAC: survives 380-440 V neutral loss")
 P("RV2", "Device:Varistor", "S14K385", "Varistor:RV_Disc_D15.5mm_W11mm_P7.5mm", {1: "AC_LF0", 2: "SURGE_PE"})
 P("RV3", "Device:Varistor", "S14K385", "Varistor:RV_Disc_D15.5mm_W11mm_P7.5mm", {1: "AC_N", 2: "SURGE_PE"})
-P("GDT1", "Device:GDT_2Pin", "GDT 600V", "Fuse:GDT_Bourns_2038", {1: "SURGE_PE", 2: "PE"},
-  mpn="Bourns 2038-60-SM (or equiv. 600 V)", note="footprint has 3 pads; pad 3 = NC")
+P("GDT1", "Device:GDT_2Pin", "GDT 600V", "Custom:GDT_Axial_P15.24mm", {1: "SURGE_PE", 3: "PE"},
+  mpn="axial 2-electrode GDT 600 V (e.g. Bourns 2026-60 / EPCOS EC600X)")
 P("CX1", "Device:C", "470nF X2", "Capacitor_THT:C_Rect_L18.0mm_W7.0mm_P15.00mm_FKS3_FKP3",
   {1: "AC_LF0", 2: "AC_N"}, mpn="X2 310VAC")
 R("R1", "470k", "AC_LF0", "XDIS", R1206, "X-cap discharge")
 R("R2", "470k", "XDIS", "AC_N", R1206, "X-cap discharge")
-P("L1", "Filter:Choke_CommonMode_FerriteCore_1234", "2x4.7mH 10A",
-  "Inductor_THT:L_CommonMode_Toroid_Vertical_L22.0mm_W12.0mm_Px9.00mm_Py8.00mm_PRODTech_PDMCAT18107-102ML",
-  {1: "AC_LF0", 2: "AC_LF", 3: "AC_N", 4: "AC_NF"}, mpn="CM choke >= 10 A (verify footprint vs part)")
+P("L1", "Device:Filter_EMI_CommonMode", "2x4.7mH 10A",
+  "Custom:CMC_Toroid_4P_25x15mm",
+  {1: "AC_LF0", 2: "AC_LF", 3: "AC_N", 4: "AC_NF"}, mpn="toroidal CM choke 2 x 4.7 mH, >= 10 A (e.g. Schaffner RN series); verify pin map")
 P("CX2", "Device:C", "470nF X2", "Capacitor_THT:C_Rect_L18.0mm_W7.0mm_P15.00mm_FKS3_FKP3", {1: "AC_LF", 2: "AC_NF"})
 P("CY1", "Device:C", "2.2nF Y2", "Capacitor_THT:C_Disc_D11.0mm_W5.0mm_P7.50mm", {1: "AC_LF", 2: "PE"}, mpn="Y2 300VAC")
 P("CY2", "Device:C", "2.2nF Y2", "Capacitor_THT:C_Disc_D11.0mm_W5.0mm_P7.50mm", {1: "AC_NF", 2: "PE"}, mpn="Y2 300VAC")
@@ -134,7 +134,7 @@ P("L2", "Device:L", "470uH 13A", "Inductor_THT:L_Toroid_Vertical_L46.0mm_W19.1mm
 P("D6", "Device:D", "SiC 650V 8A", "Package_TO_SOT_THT:TO-220-2_Vertical", {1: "VBUS", 2: "SW_PFC"},
   mpn="Wolfspeed C3D08065A / Infineon IDH08G65C6", note="TO-220-2: pad 1 = K (verify part)")
 P("D7", "Device:D", "P600M", DO201, {1: "VBUS", 2: "RECT_P"}, mpn="P600M / 1N5408 inrush bypass")
-P("Q1", "Transistor_FET:Q_NMOS_GDS", "650V 95mOhm SJ", "Package_TO_SOT_THT:TO-247-3_Vertical",
+P("Q1", "Device:Q_NMOS_GDS", "650V 95mOhm SJ", "Package_TO_SOT_THT:TO-247-3_Vertical",
   {1: "PFC_G", 2: "SW_PFC", 3: "PGND"}, names={1: "G", 2: "D", 3: "S"}, mpn="Infineon IPW65R095C7 / ST STW40N60M6 (heatsink, insulated)")
 R("R13", "10R", "PFC_DRV", "PFC_G", R0603)
 R("R14", "10k", "PFC_G", "PGND", R0603)
@@ -175,7 +175,7 @@ P("LED1", "Device:LED", "red HV", LED0805, {1: "PGND", 2: "BLD3"}, mpn="high-eff
 sheet("3 Auxiliary supply (VIPer26 flyback, 1500 V pre-regulator)")
 # ========================================================================
 # source follower clamps the flyback input to ~395 V so 440 VAC (622 V peak) is survived
-P("Q3", "Transistor_FET:Q_NMOS_GDS", "1500V 4A", "Package_TO_SOT_THT:TO-247-3_Vertical",
+P("Q3", "Device:Q_NMOS_GDS", "1500V 4A", "Package_TO_SOT_THT:TO-247-3_Vertical",
   {1: "PRE_G", 2: "AUX_RAW", 3: "AUX_HV"}, names={1: "G", 2: "D", 3: "S"}, mpn="ST STW4N150 (on main heatsink, insulated)")
 for k in range(4):
     R(f"R{32+k}", "1M", "AUX_RAW" if k == 0 else f"PREG{k}", "PRE_G" if k == 3 else f"PREG{k+1}", R1206)
@@ -349,11 +349,13 @@ for i, (n, l) in enumerate((("PUMP", "PUMP_L"), ("DRAIN", "DRAIN_L"))):     # sn
 # ========================================================================
 sheet("7 Isolated side: isolator, PHY MCU, 2-wire panel bus, RS-485 to battery module")
 # ========================================================================
-P("U7", "Isolator:ISO7721D", "ISO7721D", "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
-  {1: "+3V3", 2: "UART_H_RX", 3: "UART_H_TX", 4: "GND", 5: "GND_S", 6: "UART_S_RX", 7: "UART_S_TX", 8: "+3V3S"},
-  names={1: "VCC1", 2: "OUTA", 3: "INB", 4: "GND1", 5: "GND2", 6: "OUTB", 7: "INA", 8: "VCC2"},
-  mpn="TI ISO7721DWR recommended (wide body, 8 mm creepage); D = narrow body",
-  note="slot under the package; nothing hot-side may pass under the SELV half")
+P("U7", "Isolator:ISO7762DW", "ISO7762DW", "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm",
+  {1: "+3V3", 2: "UART_H_TX", 3: "GND", 4: "GND", 5: "GND", 6: "UART_H_RX", 7: "NC_ISO_OUTF", 8: "GND",
+   9: "GND_S", 10: "GND_S", 11: "UART_S_TX", 12: "NC_ISO_OUTD", 13: "NC_ISO_OUTC", 14: "NC_ISO_OUTB",
+   15: "UART_S_RX", 16: "+3V3S"},
+  names={1: "Vcc1", 2: "INA", 6: "OUTE", 8: "GND1", 9: "GND2", 11: "INE", 15: "OUTA", 16: "Vcc2"},
+  mpn="TI ISO7762DWR (reinforced 5 kVrms, SOIC-16 wide)",
+  note="ch A hot->SELV, ch E SELV->hot; unused inputs grounded; slot under the package, 8 mm creepage")
 C("C52", "100nF", "+3V3", "GND")
 C("C53", "100nF", "+3V3S", "GND_S")
 PHY = {1: ("PB7", "UART_S_RX"), 2: ("PC14", "NC_S14"), 3: ("PC15", "NC_S15"), 4: ("VDD", "+3V3S"), 5: ("VSS", "GND_S"),
@@ -397,22 +399,35 @@ R("R98", "10k 1%", "PB_VSNS", "GND_S")
 P("J7", "Connector:Screw_Terminal_01x02", "PANEL 2-WIRE", "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",
   {1: "PANEL_P", 2: "PANEL_N"}, note="SELV: 24 V mark / 16 V space; panel is polarity-free")
 # RS-485 to the battery module (SELV)
-P("U11", "Interface_UART:THVD1450D", "THVD1450D", "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+P("U11", "Interface_UART:SP3485EN", "SP3485EN", "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
   {1: "RS485_RO", 2: "RS485_DE", 3: "RS485_DE", 4: "RS485_DI", 5: "GND_S", 6: "RS485_A", 7: "RS485_B", 8: "+3V3S"},
-  names={1: "RO", 2: "~{RE}", 3: "DE", 4: "DI", 5: "GND", 6: "A", 7: "B", 8: "VCC"}, mpn="TI THVD1450DR")
-C("C60", "100nF", "+3V3S", "GND_S")
-R("R99", "120R", "RS485_A", "RS485_T", note="termination (DNP if not end of line)")
+  names={1: "RO", 2: "~{RE}", 3: "DE", 4: "DI", 5: "GND", 6: "A", 7: "B", 8: "VCC"},
+  mpn="MaxLinear SP3485EN (3.3 V half duplex)", dnp=True, note="OPTION battery module")
+P("C60", "Device:C", "100nF", C0603, {1: "+3V3S", 2: "GND_S"}, dnp=True, note="OPTION battery module")
+P("R99", "Device:R", "120R", R0603, {1: "RS485_A", 2: "RS485_T"}, dnp=True, note="OPTION battery module: termination")
 P("JP1", "Jumper:SolderJumper_2_Open", "TERM", "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm",
-  {1: "RS485_T", 2: "RS485_B"})
+  {1: "RS485_T", 2: "RS485_B"}, dnp=True, note="OPTION battery module")
 P("J8", "Connector:Screw_Terminal_01x03", "BATT MODULE RS-485",
   "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",
-  {1: "RS485_A", 2: "RS485_B", 3: "GND_S"})
+  {1: "RS485_A", 2: "RS485_B", 3: "GND_S"}, dnp=True, note="OPTION battery module")
 
 # ========================================================================
-sheet("8 Battery module DC-bus connector (HV)")
+sheet("8 OPTION battery module (DNP in the mains-only version), mechanics, test points")
 # ========================================================================
 P("F4", "Device:Fuse", "5A 500VDC", "Fuse:Fuseholder_Cylinder-5x20mm_Bulgin_FX0457_Horizontal_Closed",
-  {1: "VBUS", 2: "VBUS_EXT"}, mpn="5x20 ceramic, DC rated >= 500 V (e.g. Littelfuse 505 series)")
+  {1: "VBUS", 2: "VBUS_EXT"}, mpn="5x20 ceramic, DC rated >= 500 V (e.g. Littelfuse 505 series)", dnp=True,
+  note="OPTION battery module")
 P("J9", "Connector:Screw_Terminal_01x03", "BATT MODULE DC BUS",
   "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",
-  {1: "VBUS_EXT", 2: "NC_J9", 3: "PGND"}, note="middle position left empty for creepage; module does its own pre-charge")
+  {1: "VBUS_EXT", 2: "NC_J9", 3: "PGND"}, dnp=True,
+  note="OPTION battery module; middle position empty for creepage; module does its own pre-charge")
+
+# --- mechanics and production aids (all versions) ---------------------------
+for i, (x) in enumerate(range(4)):
+    P(f"H{i+1}", "Mechanical:MountingHole", "M3", "MountingHole:MountingHole_3.2mm_M3", {},
+      note="non-plated: no creepage path from mounting screws")
+for i in range(3):
+    P(f"FID{i+1}", "Mechanical:Fiducial", "FID", "Fiducial:Fiducial_1mm_Mask2mm", {})
+for i, n in enumerate(["+15V", "+3V3", "GND", "PFC_DRV", "ISENSE_U", "UART_H_TX", "+3V3S", "GND_S", "PANEL_P"]):
+    P(f"TP{i+2}", "Connector:TestPoint", n, "TestPoint:TestPoint_Pad_D1.5mm", {1: n})
+# supply flags (schematic ERC only, no footprint)

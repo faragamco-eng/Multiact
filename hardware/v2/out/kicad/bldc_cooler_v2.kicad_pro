@@ -1,0 +1,338 @@
+{
+  "board": {
+    "design_settings": {
+      "rules": {
+        "min_clearance": 0.2,
+        "min_track_width": 0.2
+      }
+    }
+  },
+  "meta": {
+    "filename": "bldc_cooler_v2.kicad_pro",
+    "version": 1
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "name": "Default",
+        "clearance": 0.2,
+        "track_width": 0.25,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)"
+      },
+      {
+        "name": "HV_mains",
+        "clearance": 1.5,
+        "track_width": 1.5,
+        "via_diameter": 1.6,
+        "via_drill": 0.8,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(194, 0, 0, 1.000)",
+        "pcb_color": "rgba(194, 0, 0, 1.000)"
+      },
+      {
+        "name": "Power_GND",
+        "clearance": 0.4,
+        "track_width": 2.0,
+        "via_diameter": 1.2,
+        "via_drill": 0.6,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)"
+      }
+    ],
+    "meta": {
+      "version": 3
+    },
+    "netclass_patterns": [
+      {
+        "netclass": "HV_mains",
+        "pattern": "AC_L"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "AC_LF"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "AC_LF0"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "AC_N"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "AC_NF"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "AUX_HV"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "AUX_RAW"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "BLD1"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "BLD2"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "BLD3"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "DRAIN_L"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "DRAIN_SN"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "L_LOAD"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "L_SW"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "MOT_U"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "MOT_V"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "MOT_W"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "OUTU"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "OUTV"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "OUTW"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "P6K_A"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PFC_FBD1"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PFC_FBD2"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PFC_FBD3"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PFC_IND1"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PFC_IND2"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PFC_IND3"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PREG1"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PREG2"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PREG3"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PREZ1"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PREZ2"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PREZ3"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PRE_G"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PRE_L"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PUMP_L"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "PUMP_SN"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "RECT_P"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "SURGE_PE"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "SW_PFC"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VBD1"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VBD2"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VBOOTU"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VBOOTV"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VBOOTW"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VBUS"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VBUS_EXT"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VIN_L_A"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VIN_L_B"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VIN_N_A"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VIN_N_B"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "VIP_D"
+      },
+      {
+        "netclass": "HV_mains",
+        "pattern": "XDIS"
+      },
+      {
+        "netclass": "Power_GND",
+        "pattern": "PGND"
+      },
+      {
+        "netclass": "Power_GND",
+        "pattern": "SH_*"
+      }
+    ]
+  },
+  "pcbnew": {
+    "last_paths": {},
+    "page_layout_descr_file": ""
+  },
+  "schematic": {
+    "meta": {
+      "version": 1
+    }
+  },
+  "sheets": [
+    [
+      "01a28193-96eb-5a30-929c-cc04ac09cd41",
+      "Root"
+    ],
+    [
+      "acde259b-e8a3-59fe-8bb9-a24988448b8d",
+      "1 AC input, protection, relays, mains sensing"
+    ],
+    [
+      "f6fe3b90-06c8-5585-af29-1e34646719b8",
+      "2 Rectifier and PFC (CCM, NCP1653, 390 V)"
+    ],
+    [
+      "106a71b7-169f-5405-a0fa-b4daf03a7cdf",
+      "3 Auxiliary supply (VIPer26 flyback, 1500 V pre-regulator)"
+    ],
+    [
+      "ac892e0e-4777-549e-bcb1-b287f583c91e",
+      "4 Inverter (STGIPS20K60 IPM), 3-shunt sensing"
+    ],
+    [
+      "dd12c1bf-5524-59e2-8732-4090aa3542d1",
+      "5 MCU STM32G431CBT6 (hot side)"
+    ],
+    [
+      "157c2f4f-74e8-57b7-b331-d2e48e2a3da9",
+      "6 Relay drivers, pump and drain outputs (220 VAC)"
+    ],
+    [
+      "64826f90-0846-5357-a379-c528dab37512",
+      "7 Isolated side: isolator, PHY MCU, 2-wire panel bus, RS-485 to battery module"
+    ],
+    [
+      "83fe4d66-1dd1-590a-88c3-1d1a35a73398",
+      "8 OPTION battery module (DNP in the mains-only version), mechanics, test points"
+    ]
+  ]
+}

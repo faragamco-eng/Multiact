@@ -1,6 +1,6 @@
 # BLDC cooler drive v2 — netlist (generated from schematic.py, do not edit)
 
-Parts: 241 · nets: 184 · check errors: 0
+Parts: 257 · nets: 188 · check errors: 0
 
 
 ## Sheet 1 AC input, protection, relays, mains sensing
@@ -12,11 +12,11 @@ Parts: 241 · nets: 184 · check errors: 0
 | RV1 | EPCOS S14K385 | S14K385 | 1→`AC_LF0`, 2→`AC_N` | 385 VAC: survives 380-440 V neutral loss |
 | RV2 | Device:Varistor | S14K385 | 1→`AC_LF0`, 2→`SURGE_PE` |  |
 | RV3 | Device:Varistor | S14K385 | 1→`AC_N`, 2→`SURGE_PE` |  |
-| GDT1 | Bourns 2038-60-SM (or equiv. 600 V) | GDT 600V | 1→`SURGE_PE`, 2→`PE` | footprint has 3 pads; pad 3 = NC |
+| GDT1 | axial 2-electrode GDT 600 V (e.g. Bourns 2026-60 / EPCOS EC600X) | GDT 600V | 1→`SURGE_PE`, 3→`PE` |  |
 | CX1 | X2 310VAC | 470nF X2 | 1→`AC_LF0`, 2→`AC_N` |  |
 | R1 | Device:R | 470k | 1→`AC_LF0`, 2→`XDIS` | X-cap discharge |
 | R2 | Device:R | 470k | 1→`XDIS`, 2→`AC_N` | X-cap discharge |
-| L1 | CM choke >= 10 A (verify footprint vs part) | 2x4.7mH 10A | 1→`AC_LF0`, 2→`AC_LF`, 3→`AC_N`, 4→`AC_NF` |  |
+| L1 | toroidal CM choke 2 x 4.7 mH, >= 10 A (e.g. Schaffner RN series); verify pin map | 2x4.7mH 10A | 1→`AC_LF0`, 2→`AC_LF`, 3→`AC_N`, 4→`AC_NF` |  |
 | CX2 | Device:C | 470nF X2 | 1→`AC_LF`, 2→`AC_NF` |  |
 | CY1 | Y2 300VAC | 2.2nF Y2 | 1→`AC_LF`, 2→`PE` |  |
 | CY2 | Y2 300VAC | 2.2nF Y2 | 1→`AC_NF`, 2→`PE` |  |
@@ -242,7 +242,7 @@ Parts: 241 · nets: 184 · check errors: 0
 
 | Ref | Part | Value | Pins → nets | Note |
 |---|---|---|---|---|
-| U7 | TI ISO7721DWR recommended (wide body, 8 mm creepage); D = narrow body | ISO7721D | 1/VCC1→`+3V3`, 2/OUTA→`UART_H_RX`, 3/INB→`UART_H_TX`, 4/GND1→`GND`, 5/GND2→`GND_S`, 6/OUTB→`UART_S_RX`, 7/INA→`UART_S_TX`, 8/VCC2→`+3V3S` | slot under the package; nothing hot-side may pass under the SELV half |
+| U7 | TI ISO7762DWR (reinforced 5 kVrms, SOIC-16 wide) | ISO7762DW | 1/Vcc1→`+3V3`, 2/INA→`UART_H_TX`, 3→`GND`, 4→`GND`, 5→`GND`, 6/OUTE→`UART_H_RX`, 7→`NC_ISO_OUTF`, 8/GND1→`GND`, 9/GND2→`GND_S`, 10→`GND_S`, 11/INE→`UART_S_TX`, 12→`NC_ISO_OUTD`, 13→`NC_ISO_OUTC`, 14→`NC_ISO_OUTB`, 15/OUTA→`UART_S_RX`, 16/Vcc2→`+3V3S` | ch A hot->SELV, ch E SELV->hot; unused inputs grounded; slot under the package, 8 mm creepage |
 | C52 | Device:C | 100nF | 1→`+3V3`, 2→`GND` |  |
 | C53 | Device:C | 100nF | 1→`+3V3S`, 2→`GND_S` |  |
 | U8 | ST STM32C011F6P6 | STM32C011F6P6 | 1/PB7→`UART_S_RX`, 2→`NC_S14`, 3→`NC_S15`, 4/VDD→`+3V3S`, 5/VSS→`GND_S`, 6/PF2→`NRST_S`, 7/PA0→`LED_S`, 8/PA1→`RS485_DE`, 9/PA2→`RS485_DI`, 10/PA3→`RS485_RO`, 11/PA4→`PB_TX`, 12/PA5→`PB_ISNS`, 13/PA6→`PB_VSNS`, 14→`NC_S7`, 15→`NC_S8`, 16→`NC_S16`, 17→`NC_S17`, 18/PA13→`SWDIO_S`, 19/PA14→`SWCLK_S`, 20/PB6→`UART_S_TX` |  |
@@ -271,27 +271,43 @@ Parts: 241 · nets: 184 · check errors: 0
 | R97 | Device:R | 100k 1% | 1→`PANEL_P`, 2→`PB_VSNS` |  |
 | R98 | Device:R | 10k 1% | 1→`PB_VSNS`, 2→`GND_S` |  |
 | J7 | Connector:Screw_Terminal_01x02 | PANEL 2-WIRE | 1→`PANEL_P`, 2→`PANEL_N` | SELV: 24 V mark / 16 V space; panel is polarity-free |
-| U11 | TI THVD1450DR | THVD1450D | 1/RO→`RS485_RO`, 2/~{RE}→`RS485_DE`, 3/DE→`RS485_DE`, 4/DI→`RS485_DI`, 5/GND→`GND_S`, 6/A→`RS485_A`, 7/B→`RS485_B`, 8/VCC→`+3V3S` |  |
-| C60 | Device:C | 100nF | 1→`+3V3S`, 2→`GND_S` |  |
-| R99 | Device:R | 120R | 1→`RS485_A`, 2→`RS485_T` | termination (DNP if not end of line) |
-| JP1 | Jumper:SolderJumper_2_Open | TERM | 1→`RS485_T`, 2→`RS485_B` |  |
-| J8 | Connector:Screw_Terminal_01x03 | BATT MODULE RS-485 | 1→`RS485_A`, 2→`RS485_B`, 3→`GND_S` |  |
+| U11 (DNP) | MaxLinear SP3485EN (3.3 V half duplex) | SP3485EN | 1/RO→`RS485_RO`, 2/~{RE}→`RS485_DE`, 3/DE→`RS485_DE`, 4/DI→`RS485_DI`, 5/GND→`GND_S`, 6/A→`RS485_A`, 7/B→`RS485_B`, 8/VCC→`+3V3S` | OPTION battery module |
+| C60 (DNP) | Device:C | 100nF | 1→`+3V3S`, 2→`GND_S` | OPTION battery module |
+| R99 (DNP) | Device:R | 120R | 1→`RS485_A`, 2→`RS485_T` | OPTION battery module: termination |
+| JP1 (DNP) | Jumper:SolderJumper_2_Open | TERM | 1→`RS485_T`, 2→`RS485_B` | OPTION battery module |
+| J8 (DNP) | Connector:Screw_Terminal_01x03 | BATT MODULE RS-485 | 1→`RS485_A`, 2→`RS485_B`, 3→`GND_S` | OPTION battery module |
 
-## Sheet 8 Battery module DC-bus connector (HV)
+## Sheet 8 OPTION battery module (DNP in the mains-only version), mechanics, test points
 
 | Ref | Part | Value | Pins → nets | Note |
 |---|---|---|---|---|
-| F4 | 5x20 ceramic, DC rated >= 500 V (e.g. Littelfuse 505 series) | 5A 500VDC | 1→`VBUS`, 2→`VBUS_EXT` |  |
-| J9 | Connector:Screw_Terminal_01x03 | BATT MODULE DC BUS | 1→`VBUS_EXT`, 2→`NC_J9`, 3→`PGND` | middle position left empty for creepage; module does its own pre-charge |
+| F4 (DNP) | 5x20 ceramic, DC rated >= 500 V (e.g. Littelfuse 505 series) | 5A 500VDC | 1→`VBUS`, 2→`VBUS_EXT` | OPTION battery module |
+| J9 (DNP) | Connector:Screw_Terminal_01x03 | BATT MODULE DC BUS | 1→`VBUS_EXT`, 2→`NC_J9`, 3→`PGND` | OPTION battery module; middle position empty for creepage; module does its own pre-charge |
+| H1 | Mechanical:MountingHole | M3 |  | non-plated: no creepage path from mounting screws |
+| H2 | Mechanical:MountingHole | M3 |  | non-plated: no creepage path from mounting screws |
+| H3 | Mechanical:MountingHole | M3 |  | non-plated: no creepage path from mounting screws |
+| H4 | Mechanical:MountingHole | M3 |  | non-plated: no creepage path from mounting screws |
+| FID1 | Mechanical:Fiducial | FID |  |  |
+| FID2 | Mechanical:Fiducial | FID |  |  |
+| FID3 | Mechanical:Fiducial | FID |  |  |
+| TP2 | Connector:TestPoint | +15V | 1→`+15V` |  |
+| TP3 | Connector:TestPoint | +3V3 | 1→`+3V3` |  |
+| TP4 | Connector:TestPoint | GND | 1→`GND` |  |
+| TP5 | Connector:TestPoint | PFC_DRV | 1→`PFC_DRV` |  |
+| TP6 | Connector:TestPoint | ISENSE_U | 1→`ISENSE_U` |  |
+| TP7 | Connector:TestPoint | UART_H_TX | 1→`UART_H_TX` |  |
+| TP8 | Connector:TestPoint | +3V3S | 1→`+3V3S` |  |
+| TP9 | Connector:TestPoint | GND_S | 1→`GND_S` |  |
+| TP10 | Connector:TestPoint | PANEL_P | 1→`PANEL_P` |  |
 
 ## Net index
 
 | Net | Nodes |
 |---|---|
-| `+15V` | R17.1 D16.1 C15.1 D17.2 R36.1 D18.1 U3.2 U3.3 C19.1 U5.5 C26.1 C27.1 R74.1 R77.1 R80.1 R83.1 |
-| `+3V3` | U3.1 L3.2 C21.1 FB1.1 R43.2 R47.2 R51.2 R52.2 U6.1 U6.24 U6.36 U6.48 C43.1 C44.1 C45.1 C46.1 J4.1 U7.1 C52.1 |
+| `+15V` | R17.1 D16.1 C15.1 D17.2 R36.1 D18.1 U3.2 U3.3 C19.1 U5.5 C26.1 C27.1 R74.1 R77.1 R80.1 R83.1 TP2.1 |
+| `+3V3` | U3.1 L3.2 C21.1 FB1.1 R43.2 R47.2 R51.2 R52.2 U6.1 U6.24 U6.36 U6.48 C43.1 C44.1 C45.1 C46.1 J4.1 U7.1 C52.1 TP3.1 |
 | `+3V3A` | D4.2 D5.2 FB1.2 C22.1 R60.2 R61.2 R62.2 R71.1 U6.20 U6.21 C47.1 C48.1 |
-| `+3V3S` | U4.5 C24.1 U7.8 C53.1 U8.4 C54.1 C55.1 J6.1 U11.8 C60.1 |
+| `+3V3S` | U4.5 C24.1 U7.16 C53.1 U8.4 C54.1 C55.1 J6.1 U11.8 C60.1 TP8.1 |
 | `AC_L` | J1.1 F1.1 |
 | `AC_LF` | L1.2 CX2.1 CY1.1 K1.11 K2.11 D1.2 D3.1 R3.1 |
 | `AC_LF0` | F1.2 RV1.1 RV2.1 CX1.1 R1.1 L1.1 |
@@ -307,14 +323,14 @@ Parts: 241 · nets: 184 · check errors: 0
 | `BUCK_SW` | U3.5 C20.2 L3.1 |
 | `DRAIN_L` | K4.14 J5.3 C51.1 |
 | `DRAIN_SN` | C51.2 R87.1 |
-| `GND` | R6.2 D4.1 C2.2 R10.2 D5.1 C3.2 R28.2 U3.4 C19.2 C21.2 C22.2 U5.8 C26.2 C27.2 R41.2 R45.2 R49.2 C36.2 C37.2 C38.2 C39.2 C40.2 NT1.2 R69.2 C41.2 J3.2 C42.2 U6.19 U6.23 U6.35 U6.47 C43.2 C44.2 C45.2 C46.2 C47.2 C48.2 C49.2 R72.2 LED2.1 J4.3 J4.5 J4.9 Q4.2 R76.2 Q5.2 R79.2 Q6.2 R82.2 Q7.2 R85.2 U7.4 C52.2 |
-| `GND_S` | T1.6 C23.2 U4.2 C24.2 C25.2 U7.5 C53.2 U8.5 C54.2 C55.2 C56.2 LED3.1 J6.5 R91.2 Q8.2 R94.2 C57.2 C58.2 R95.2 C59.2 R98.2 U11.5 C60.2 J8.3 |
+| `GND` | R6.2 D4.1 C2.2 R10.2 D5.1 C3.2 R28.2 U3.4 C19.2 C21.2 C22.2 U5.8 C26.2 C27.2 R41.2 R45.2 R49.2 C36.2 C37.2 C38.2 C39.2 C40.2 NT1.2 R69.2 C41.2 J3.2 C42.2 U6.19 U6.23 U6.35 U6.47 C43.2 C44.2 C45.2 C46.2 C47.2 C48.2 C49.2 R72.2 LED2.1 J4.3 J4.5 J4.9 Q4.2 R76.2 Q5.2 R79.2 Q6.2 R82.2 Q7.2 R85.2 U7.3 U7.4 U7.5 U7.8 C52.2 TP4.1 |
+| `GND_S` | T1.6 C23.2 U4.2 C24.2 C25.2 U7.9 U7.10 C53.2 U8.5 C54.2 C55.2 C56.2 LED3.1 J6.5 R91.2 Q8.2 R94.2 C57.2 C58.2 R95.2 C59.2 R98.2 U11.5 C60.2 J8.3 TP9.1 |
 | `HIN_U` | U5.4 R40.2 R41.1 |
 | `HIN_V` | U5.10 R44.2 R45.1 |
 | `HIN_W` | U5.14 R48.2 R49.1 |
 | `IPM_CIN` | U5.16 R63.2 R64.2 R65.2 C40.1 |
 | `IPM_SD` | U5.15 R52.1 C36.1 R53.1 |
-| `ISENSE_U` | R57.2 R60.1 C37.1 U6.9 |
+| `ISENSE_U` | R57.2 R60.1 C37.1 U6.9 TP6.1 |
 | `ISENSE_V` | R58.2 R61.1 C38.1 U6.15 |
 | `ISENSE_W` | R59.2 R62.1 C39.1 U6.16 |
 | `K1_A1` | K1.A1 R74.2 D21.1 |
@@ -346,6 +362,10 @@ Parts: 241 · nets: 184 · check errors: 0
 | `MOT_U` | U5.24 J2.1 |
 | `MOT_V` | U5.21 J2.2 |
 | `MOT_W` | U5.18 J2.3 |
+| `NC_ISO_OUTB` | U7.14 |
+| `NC_ISO_OUTC` | U7.13 |
+| `NC_ISO_OUTD` | U7.12 |
+| `NC_ISO_OUTF` | U7.7 |
 | `NC_J4_7` | J4.7 |
 | `NC_J4_8` | J4.8 |
 | `NC_J9` | J9.2 |
@@ -377,7 +397,7 @@ Parts: 241 · nets: 184 · check errors: 0
 | `OUTW` | U5.11 C32.2 C33.2 |
 | `P6K_A` | D14.1 D15.2 |
 | `PANEL_N` | D25.2 R95.1 R96.1 J7.2 |
-| `PANEL_P` | F3.2 D25.1 R97.1 J7.1 |
+| `PANEL_P` | F3.2 D25.1 R97.1 J7.1 TP10.1 |
 | `PB_ADJ` | U10.1 R90.2 R91.1 R92.1 |
 | `PB_CC` | U9.1 R89.2 U10.3 |
 | `PB_CCO` | U9.2 R89.1 |
@@ -387,9 +407,9 @@ Parts: 241 · nets: 184 · check errors: 0
 | `PB_TXD` | R92.2 Q8.3 |
 | `PB_TXG` | Q8.1 R93.2 R94.1 |
 | `PB_VSNS` | U8.13 R97.2 R98.1 |
-| `PE` | J1.3 GDT1.2 CY1.2 CY2.2 J2.4 |
+| `PE` | J1.3 GDT1.3 CY1.2 CY2.2 J2.4 |
 | `PFC_CS` | U1.4 R26.2 C9.1 |
-| `PFC_DRV` | R13.1 U1.7 |
+| `PFC_DRV` | R13.1 U1.7 TP5.1 |
 | `PFC_FB` | U1.1 R21.2 C7.1 Q2.3 |
 | `PFC_FBD1` | R18.2 R19.1 |
 | `PFC_FBD2` | R19.2 R20.1 |
@@ -442,10 +462,10 @@ Parts: 241 · nets: 184 · check errors: 0
 | `T_H15` | T1.4 D16.2 |
 | `T_S31` | T1.8 D20.2 |
 | `T_S5` | T1.7 D19.2 |
-| `UART_H_RX` | U6.44 U7.2 |
-| `UART_H_TX` | U6.43 U7.3 |
-| `UART_S_RX` | U7.6 U8.1 |
-| `UART_S_TX` | U7.7 U8.20 |
+| `UART_H_RX` | U6.44 U7.6 |
+| `UART_H_TX` | U6.43 U7.2 TP7.1 |
+| `UART_S_RX` | U7.15 U8.1 |
+| `UART_S_TX` | U7.11 U8.20 |
 | `V31S` | D20.1 C25.1 U9.3 C57.1 |
 | `V5S` | D19.1 C23.1 U4.1 U4.3 |
 | `VBD1` | R66.2 R67.1 |
