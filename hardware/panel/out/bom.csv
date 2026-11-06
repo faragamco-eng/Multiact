@@ -25,7 +25,7 @@ Qty,References,Value,MPN / description,Footprint,Populate
 1,L1,6.8uH 1A,Bourns SRN6045TA-6R8M,Inductor_SMD:L_Bourns_SRN6045TA,yes
 2,C8 C9,22uF 10V,,Capacitor_SMD:C_1206_3216Metric,yes
 1,D3,SS14,SS14,Diode_SMD:D_SMA,yes
-1,U4,ESP32-S3-WROOM-1-N8,Espressif ESP32-S3-WROOM-1-N8 (N8R8 for the touch version),RF_Module:ESP32-S3-WROOM-1,yes
+1,U4,ESP32-S3-WROOM-1-N8,Espressif ESP32-S3-WROOM-1-N8 (NOT an R8 variant: IO35-37 are used),RF_Module:ESP32-S3-WROOM-1,yes
 1,C10,10uF,,Capacitor_SMD:C_0805_2012Metric,yes
 1,C12,1uF,,Capacitor_SMD:C_0603_1608Metric,yes
 1,SW6,BOOT,,Button_Switch_THT:SW_PUSH_6mm,yes

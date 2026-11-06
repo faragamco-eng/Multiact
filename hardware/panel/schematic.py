@@ -114,23 +114,23 @@ P("D3", "Device:D_Schottky", "SS14", "Diode_SMD:D_SMA", {1: "VSTORE", 2: "USB_VB
 sheet("2 ESP32-S3 module and USB")
 # ========================================================================
 NC = lambda n: f"NC_{n}"
-ESP = {
+ESP = {   # signals leave the module on the side facing their destination (display right, keys below, bus left)
     1: ("GND", "GND"), 2: ("3V3", "+3V3"), 3: ("EN", "EN"),
-    4: ("IO4", "SEG_A_G"), 5: ("IO5", "SEG_B_G"), 6: ("IO6", "SEG_C_G"), 7: ("IO7", "SEG_D_G"),
-    8: ("IO15", "SEG_E_G"), 9: ("IO16", "SEG_F_G"), 10: ("IO17", "BUS_TX"), 11: ("IO18", "BUS_RX"),
-    12: ("IO8", "SEG_G_G"), 13: ("IO19", "USB_DN"), 14: ("IO20", "USB_DP"), 15: ("IO3", NC("IO3")),
-    16: ("IO46", NC("IO46")), 17: ("IO9", "SEG_DP_G"), 18: ("IO10", "DIG1"), 19: ("IO11", "DIG2"),
-    20: ("IO12", "DIG3"), 21: ("IO13", "DIG4"), 22: ("IO14", "DIG5"), 23: ("IO21", "BZ"),
-    24: ("IO47", "SDA"), 25: ("IO48", "SCL"), 26: ("IO45", NC("IO45")), 27: ("IO0", "BOOT"),
-    28: ("IO35", NC("IO35")), 29: ("IO36", NC("IO36")), 30: ("IO37", NC("IO37")),
-    31: ("IO38", "KEY_POWER"), 32: ("IO39", "KEY_UP"), 33: ("IO40", "KEY_DOWN"), 34: ("IO41", "KEY_MODE"),
-    35: ("IO42", "KEY_TIMER"), 36: ("RXD0", "U0_RX"), 37: ("TXD0", "U0_TX"), 38: ("IO2", NC("IO2")),
-    39: ("IO1", "BUS_ADC"), 40: ("GND", "GND"), 41: ("GND", "GND"),
+    4: ("IO4", "SDA"), 5: ("IO5", "SCL"), 6: ("IO6", "BUS_ADC"), 7: ("IO7", NC("IO7")),
+    8: ("IO15", NC("IO15")), 9: ("IO16", NC("IO16")), 10: ("IO17", "BUS_TX"), 11: ("IO18", "BUS_RX"),
+    12: ("IO8", NC("IO8")), 13: ("IO19", "USB_DN"), 14: ("IO20", "USB_DP"), 15: ("IO3", NC("IO3")),
+    16: ("IO46", NC("IO46")), 17: ("IO9", "BZ"), 18: ("IO10", "KEY_POWER"), 19: ("IO11", "KEY_UP"),
+    20: ("IO12", "KEY_DOWN"), 21: ("IO13", "KEY_MODE"), 22: ("IO14", "KEY_TIMER"), 23: ("IO21", "DIG5"),
+    24: ("IO47", "DIG4"), 25: ("IO48", "DIG3"), 26: ("IO45", NC("IO45")), 27: ("IO0", "BOOT"),
+    28: ("IO35", "DIG2"), 29: ("IO36", "DIG1"), 30: ("IO37", "SEG_DP_G"),
+    31: ("IO38", "SEG_G_G"), 32: ("IO39", "SEG_F_G"), 33: ("IO40", "SEG_E_G"), 34: ("IO41", "SEG_D_G"),
+    35: ("IO42", "SEG_C_G"), 36: ("RXD0", "U0_RX"), 37: ("TXD0", "U0_TX"), 38: ("IO2", "SEG_B_G"),
+    39: ("IO1", "SEG_A_G"), 40: ("GND", "GND"), 41: ("GND", "GND"),
 }
 P("U4", "RF_Module:ESP32-S3-WROOM-1", "ESP32-S3-WROOM-1-N8", "RF_Module:ESP32-S3-WROOM-1",
   {k: v[1] for k, v in ESP.items()}, names={k: v[0] for k, v in ESP.items()},
-  mpn="Espressif ESP32-S3-WROOM-1-N8 (N8R8 for the touch version)",
-  note="IO35-37 left free (octal PSRAM in the R8 variant); antenna over the board edge, no copper below")
+  mpn="Espressif ESP32-S3-WROOM-1-N8 (NOT an R8 variant: IO35-37 are used)",
+  note="antenna towards the board edge, no copper below the antenna")
 C("C10", "10uF", "+3V3", "GND", C0805)
 C("C11", "100nF", "+3V3", "GND")
 R("R13", "10k", "+3V3", "EN")

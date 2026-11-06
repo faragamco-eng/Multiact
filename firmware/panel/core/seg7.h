@@ -1,6 +1,6 @@
 /*
  * seg7.h - Text for the 4-digit 7-segment display of the basic panel
- * (hardware/panel: DS1 CC56-12, segments a..g,dp on IO4..IO9/IO15/IO16, digits on Q2..Q5).
+ * (hardware/panel: DS1 CC56-12, segments a..g,dp on IO1/IO2/IO42..IO37, digits on Q2..Q5).
  *
  *   "CO 7"  cool, speed 7      "FA10"  fan only, speed 10     "PU  "  pump only
  *   "Pr 2"  pre-wet, 2 min     "dr 4"  dry-out, 4 min         "E- 4"  alarm E4

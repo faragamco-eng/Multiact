@@ -2,10 +2,10 @@
  * ui_seg.c - Display, LED, key and buzzer driver of the basic panel (hardware/panel).
  * NOT COMPILED HERE (no ESP-IDF). Pin map = hardware/panel/schematic.py sheet 2.
  *
- *   segments a..g,dp : IO4 IO5 IO6 IO7 IO15 IO16 IO8 IO9  (high = on, 150 R)
- *   phases           : IO10..IO13 digits 1..4, IO14 status LEDs (high = on, 2N7002)
- *   keys             : IO38 POWER, IO39 UP, IO40 DOWN, IO41 MODE, IO42 TIMER (low = pressed)
- *   buzzer           : IO21 (LEDC 2.7 kHz)
+ *   segments a..g,dp : IO1 IO2 IO42 IO41 IO40 IO39 IO38 IO37  (high = on, 150 R)
+ *   phases           : IO36 IO35 IO48 IO47 digits 1..4, IO21 status LEDs (high = on, 2N7002)
+ *   keys             : IO10 POWER, IO11 UP, IO12 DOWN, IO13 MODE, IO14 TIMER (low = pressed)
+ *   buzzer           : IO9 (LEDC 2.7 kHz)
  * Multiplex 5 phases x 1 ms (200 Hz refresh, 20 % duty). Blink = 2 Hz on alarms.
  */
 #include <string.h>
@@ -17,9 +17,9 @@
 #include "seg7.h"
 #include "ui_seg.h"
 
-static const gpio_num_t SEG_PIN[8] = { 4, 5, 6, 7, 15, 16, 8, 9 };
-static const gpio_num_t PHASE_PIN[5] = { 10, 11, 12, 13, 14 };
-static const gpio_num_t KEY_PIN[5] = { 38, 39, 40, 41, 42 };
+static const gpio_num_t SEG_PIN[8] = { 1, 2, 42, 41, 40, 39, 38, 37 };
+static const gpio_num_t PHASE_PIN[5] = { 36, 35, 48, 47, 21 };
+static const gpio_num_t KEY_PIN[5] = { 10, 11, 12, 13, 14 };
 static volatile uint8_t frame[5];          /* segment bits per phase */
 static uint8_t phase;
 
@@ -43,7 +43,7 @@ void ui_seg_init(void)
     ledc_timer_config_t t = { .speed_mode = LEDC_LOW_SPEED_MODE, .duty_resolution = LEDC_TIMER_10_BIT,
                               .timer_num = LEDC_TIMER_0, .freq_hz = 2700, .clk_cfg = LEDC_AUTO_CLK };
     ledc_timer_config(&t);
-    ledc_channel_config_t c = { .gpio_num = 21, .speed_mode = LEDC_LOW_SPEED_MODE, .channel = LEDC_CHANNEL_0,
+    ledc_channel_config_t c = { .gpio_num = 9, .speed_mode = LEDC_LOW_SPEED_MODE, .channel = LEDC_CHANNEL_0,
                                 .timer_sel = LEDC_TIMER_0, .duty = 0 };
     ledc_channel_config(&c);
     const esp_timer_create_args_t a = { .callback = mux_cb, .dispatch_method = ESP_TIMER_ISR, .name = "mux" };

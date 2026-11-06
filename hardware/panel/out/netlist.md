@@ -44,7 +44,7 @@ Parts: 109 · nets: 73 · check errors: 0
 
 | Ref | Part | Value | Pins → nets | Note |
 |---|---|---|---|---|
-| U4 | Espressif ESP32-S3-WROOM-1-N8 (N8R8 for the touch version) | ESP32-S3-WROOM-1-N8 | 1/GND→`GND`, 2/3V3→`+3V3`, 3/EN→`EN`, 4/IO4→`SEG_A_G`, 5/IO5→`SEG_B_G`, 6/IO6→`SEG_C_G`, 7/IO7→`SEG_D_G`, 8/IO15→`SEG_E_G`, 9/IO16→`SEG_F_G`, 10/IO17→`BUS_TX`, 11/IO18→`BUS_RX`, 12/IO8→`SEG_G_G`, 13/IO19→`USB_DN`, 14/IO20→`USB_DP`, 15/IO3→`NC_IO3`, 16/IO46→`NC_IO46`, 17/IO9→`SEG_DP_G`, 18/IO10→`DIG1`, 19/IO11→`DIG2`, 20/IO12→`DIG3`, 21/IO13→`DIG4`, 22/IO14→`DIG5`, 23/IO21→`BZ`, 24/IO47→`SDA`, 25/IO48→`SCL`, 26/IO45→`NC_IO45`, 27/IO0→`BOOT`, 28/IO35→`NC_IO35`, 29/IO36→`NC_IO36`, 30/IO37→`NC_IO37`, 31/IO38→`KEY_POWER`, 32/IO39→`KEY_UP`, 33/IO40→`KEY_DOWN`, 34/IO41→`KEY_MODE`, 35/IO42→`KEY_TIMER`, 36/RXD0→`U0_RX`, 37/TXD0→`U0_TX`, 38/IO2→`NC_IO2`, 39/IO1→`BUS_ADC`, 40/GND→`GND`, 41/GND→`GND` | IO35-37 left free (octal PSRAM in the R8 variant); antenna over the board edge, no copper below |
+| U4 | Espressif ESP32-S3-WROOM-1-N8 (NOT an R8 variant: IO35-37 are used) | ESP32-S3-WROOM-1-N8 | 1/GND→`GND`, 2/3V3→`+3V3`, 3/EN→`EN`, 4/IO4→`SDA`, 5/IO5→`SCL`, 6/IO6→`BUS_ADC`, 7/IO7→`NC_IO7`, 8/IO15→`NC_IO15`, 9/IO16→`NC_IO16`, 10/IO17→`BUS_TX`, 11/IO18→`BUS_RX`, 12/IO8→`NC_IO8`, 13/IO19→`USB_DN`, 14/IO20→`USB_DP`, 15/IO3→`NC_IO3`, 16/IO46→`NC_IO46`, 17/IO9→`BZ`, 18/IO10→`KEY_POWER`, 19/IO11→`KEY_UP`, 20/IO12→`KEY_DOWN`, 21/IO13→`KEY_MODE`, 22/IO14→`KEY_TIMER`, 23/IO21→`DIG5`, 24/IO47→`DIG4`, 25/IO48→`DIG3`, 26/IO45→`NC_IO45`, 27/IO0→`BOOT`, 28/IO35→`DIG2`, 29/IO36→`DIG1`, 30/IO37→`SEG_DP_G`, 31/IO38→`SEG_G_G`, 32/IO39→`SEG_F_G`, 33/IO40→`SEG_E_G`, 34/IO41→`SEG_D_G`, 35/IO42→`SEG_C_G`, 36/RXD0→`U0_RX`, 37/TXD0→`U0_TX`, 38/IO2→`SEG_B_G`, 39/IO1→`SEG_A_G`, 40/GND→`GND`, 41/GND→`GND` | antenna towards the board edge, no copper below the antenna |
 | C10 | Device:C | 10uF | 1→`+3V3`, 2→`GND` |  |
 | C11 | Device:C | 100nF | 1→`+3V3`, 2→`GND` |  |
 | R13 | Device:R | 10k | 1→`+3V3`, 2→`EN` |  |
@@ -144,57 +144,57 @@ Parts: 109 · nets: 73 · check errors: 0
 | `BUS1F` | F1.2 D1.1 BR1.3 |
 | `BUS2` | J1.2 D1.2 BR1.4 |
 | `BUSR` | BR1.1 C1.1 R1.1 R11.1 U2.3 TP1.1 |
-| `BUS_ADC` | R7.2 U4.39 |
+| `BUS_ADC` | R7.2 U4.6 |
 | `BUS_RX` | R3.1 U1.4 R6.2 U4.11 TP6.1 |
 | `BUS_SNS` | R1.2 R2.1 C2.1 R3.2 U1.1 R7.1 |
 | `BUS_TX` | R8.1 U4.10 TP5.1 |
-| `BZ` | U4.23 Q7.1 R38.1 |
+| `BZ` | U4.17 Q7.1 R38.1 |
 | `BZ_DRV` | BZ1.2 Q7.3 D4.2 |
 | `CC_OUT` | U2.2 R12.1 |
-| `DIG1` | U4.18 Q2.1 R28.1 |
+| `DIG1` | U4.29 Q2.1 R28.1 |
 | `DIG1_K` | DS1.12 Q2.3 |
-| `DIG2` | U4.19 Q3.1 R29.1 |
+| `DIG2` | U4.28 Q3.1 R29.1 |
 | `DIG2_K` | DS1.9 Q3.3 |
-| `DIG3` | U4.20 Q4.1 R30.1 |
+| `DIG3` | U4.25 Q4.1 R30.1 |
 | `DIG3_K` | DS1.8 Q4.3 |
-| `DIG4` | U4.21 Q5.1 R31.1 |
+| `DIG4` | U4.24 Q5.1 R31.1 |
 | `DIG4_K` | DS1.6 Q5.3 |
-| `DIG5` | U4.22 Q6.1 R32.1 |
+| `DIG5` | U4.23 Q6.1 R32.1 |
 | `EN` | U4.3 R13.2 C12.1 TP9.1 |
 | `GND` | BR1.2 C1.2 R2.2 C2.2 R5.2 C3.2 U1.2 C4.2 R9.2 R10.2 D2.2 C5.2 C6.2 U3.4 C8.2 C9.2 U4.1 U4.40 U4.41 C10.2 C11.2 C12.2 SW6.2 J2.A1 J2.A12 J2.B1 J2.B12 J2.S1 R15.2 R16.2 U5.2 Q2.2 R28.2 Q3.2 R29.2 Q4.2 R30.2 Q5.2 R31.2 Q6.2 R32.2 SW1.2 C13.2 SW2.2 C14.2 SW3.2 C15.2 SW4.2 C16.2 SW5.2 C17.2 Q7.2 R38.2 U6.4 C18.2 TP4.1 |
-| `KEY_DOWN` | U4.33 SW3.1 R35.2 C15.1 |
-| `KEY_MODE` | U4.34 SW4.1 R36.2 C16.1 |
-| `KEY_POWER` | U4.31 SW1.1 R33.2 C13.1 |
-| `KEY_TIMER` | U4.35 SW5.1 R37.2 C17.1 |
-| `KEY_UP` | U4.32 SW2.1 R34.2 C14.1 |
+| `KEY_DOWN` | U4.20 SW3.1 R35.2 C15.1 |
+| `KEY_MODE` | U4.21 SW4.1 R36.2 C16.1 |
+| `KEY_POWER` | U4.18 SW1.1 R33.2 C13.1 |
+| `KEY_TIMER` | U4.22 SW5.1 R37.2 C17.1 |
+| `KEY_UP` | U4.19 SW2.1 R34.2 C14.1 |
 | `LED_K` | Q6.3 LED1.1 LED2.1 LED3.1 LED4.1 LED5.1 LED6.1 |
-| `NC_IO2` | U4.38 |
+| `NC_IO15` | U4.8 |
+| `NC_IO16` | U4.9 |
 | `NC_IO3` | U4.15 |
-| `NC_IO35` | U4.28 |
-| `NC_IO36` | U4.29 |
-| `NC_IO37` | U4.30 |
 | `NC_IO45` | U4.26 |
 | `NC_IO46` | U4.16 |
+| `NC_IO7` | U4.7 |
+| `NC_IO8` | U4.12 |
 | `NC_SBU1` | J2.A8 |
 | `NC_SBU2` | J2.B8 |
-| `SCL` | U4.25 U6.2 R40.2 |
-| `SDA` | U4.24 U6.1 R39.2 |
+| `SCL` | U4.5 U6.2 R40.2 |
+| `SDA` | U4.4 U6.1 R39.2 |
 | `SEG_A` | R20.2 DS1.11 LED1.2 |
-| `SEG_A_G` | U4.4 R20.1 |
+| `SEG_A_G` | U4.39 R20.1 |
 | `SEG_B` | R21.2 DS1.7 LED2.2 |
-| `SEG_B_G` | U4.5 R21.1 |
+| `SEG_B_G` | U4.38 R21.1 |
 | `SEG_C` | R22.2 DS1.4 LED3.2 |
-| `SEG_C_G` | U4.6 R22.1 |
+| `SEG_C_G` | U4.35 R22.1 |
 | `SEG_D` | R23.2 DS1.2 LED4.2 |
 | `SEG_DP` | R27.2 DS1.3 |
-| `SEG_DP_G` | U4.17 R27.1 |
-| `SEG_D_G` | U4.7 R23.1 |
+| `SEG_DP_G` | U4.30 R27.1 |
+| `SEG_D_G` | U4.34 R23.1 |
 | `SEG_E` | R24.2 DS1.1 LED5.2 |
-| `SEG_E_G` | U4.8 R24.1 |
+| `SEG_E_G` | U4.33 R24.1 |
 | `SEG_F` | R25.2 DS1.10 LED6.2 |
-| `SEG_F_G` | U4.9 R25.1 |
+| `SEG_F_G` | U4.32 R25.1 |
 | `SEG_G` | R26.2 DS1.5 |
-| `SEG_G_G` | U4.12 R26.1 |
+| `SEG_G_G` | U4.31 R26.1 |
 | `TX_B` | R8.2 R9.1 Q1.1 |
 | `TX_C` | Q1.2 R11.2 |
 | `TX_E` | Q1.3 R10.1 |
