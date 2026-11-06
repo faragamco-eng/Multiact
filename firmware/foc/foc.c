@@ -49,6 +49,7 @@ void foc_default_cfg(foc_cfg_t *c, float ts)
     c->vbus_regen = 420.0f;
     c->vbus_ov = 445.0f;
     c->vbus_uv = 200.0f;
+    c->vbus_droop = 340.0f;
     c->cur_bw = TWO_PI * 600.0f;
     c->spd_bw = TWO_PI * 2.0f;
     c->obs_gain = 1500.0f;
@@ -481,10 +482,32 @@ static void speed_loop(foc_t *f, float target)
             f->w_ref_ramp = back;
     }
 
+    /* power management (battery module / weak source):
+     *  - explicit limit p_lim set by the application
+     *  - autonomous droop: below vbus_droop the allowed power falls
+     *    linearly to zero at vbus_uv + 20 V. An overloaded source (module
+     *    in current limit) can't collapse the bus even without messages. */
+    float p_allow = f->p_lim > 0.0f ? f->p_lim : 1e9f;
+    if (f->vbus < f->cfg.vbus_droop) {
+        float k = (f->vbus - (f->cfg.vbus_uv + 20.0f)) / (f->cfg.vbus_droop - (f->cfg.vbus_uv + 20.0f));
+        k = CLAMP(k, 0.05f, 1.0f);
+        float p_now = f->p_lp > 50.0f ? f->p_lp : 50.0f;
+        if (k * p_now < p_allow) p_allow = k * p_now;
+    }
+    float i_lim_p = f->cfg.i_max;
+    float vq_abs = fabsf(f->vq) > 5.0f ? fabsf(f->vq) : 5.0f;
+    if (p_allow < 1e8f) i_lim_p = CLAMP(p_allow / (1.5f * vq_abs), 0.0f, f->cfg.i_max);
+    f->power_limited = f->p_lp > 0.97f * p_allow;
+    if (f->power_limited) {                   /* anti-windup on the reference */
+        float back = 0.99f * f->w_pll;
+        if ((target >= 0.0f && f->w_ref_ramp > back) || (target < 0.0f && f->w_ref_ramp < back))
+            f->w_ref_ramp = back;
+    }
+
     float e = f->w_ref_ramp - f->w_pll;
     f->int_s += f->ki_s * e * dt;
-    f->int_s = CLAMP(f->int_s, -f->cfg.i_max, f->cfg.i_max);
-    float iq = CLAMP(f->kp_s * e + f->int_s, -f->cfg.i_max, f->cfg.i_max);
+    f->int_s = CLAMP(f->int_s, -f->cfg.i_max, i_lim_p);
+    float iq = CLAMP(f->kp_s * e + f->int_s, -f->cfg.i_max, i_lim_p);
     if (regen) {                     /* no braking torque */
         if (f->w_pll > 0.0f && iq < 0.0f) iq = 0.0f;
         if (f->w_pll < 0.0f && iq > 0.0f) iq = 0.0f;
@@ -492,9 +515,15 @@ static void speed_loop(foc_t *f, float target)
     f->iq_ref = iq;
 }
 
+void foc_set_power_limit(foc_t *f, float watts) { f->p_lim = watts > 0.0f ? watts : 0.0f; }
+
 void foc_tick_1ms(foc_t *f)
 {
     f->ms_state++;
+    /* motor input power estimate (stator side), filtered 20 ms */
+    float p = 1.5f * (f->vd * f->id + f->vq * f->iq);
+    if (f->state == FOC_IDLE || f->state == FOC_FAULT) p = 0.0f;
+    f->p_lp += (p - f->p_lp) * 0.05f;
     if (f->state == FOC_FAULT) return;
 
     if (f->state != FOC_IDLE && f->vbus < f->cfg.vbus_uv) { fault(f, FOC_F_UNDERVOLT); return; }

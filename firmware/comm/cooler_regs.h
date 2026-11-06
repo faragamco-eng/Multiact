@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 #define COOLER_MB_ADDR      1u
-#define COOLER_PROTO_VER    1u
+#define COOLER_PROTO_VER    2u
 
 /* ---------------- holding registers (read/write) ---------------- */
 enum {
@@ -29,6 +29,11 @@ enum {
     HR_MAX_RPM        = 9,   /* 0 = auto, else mechanical rpm at 100 %    */
     HR_I_LIMIT_DA     = 10,  /* phase current limit, 0.1 A (10..120)      */
     HR_RESTORE_ON_PWR = 11,  /* 1 = resume last state after power return  */
+    /* battery / solar backup (protocol v2) */
+    HR_BATT_SPEED_MAX = 12,  /* 0..1000 permille: speed cap on battery     */
+    HR_BATT_PUMP      = 13,  /* 1 = keep pump running on battery          */
+    HR_BATT_RESERVE   = 14,  /* 5..80 %: stop the fan at this charge       */
+    HR_BATT_CHARGE_W  = 15,  /* 0..600 W: max charge power from mains      */
     HR_COUNT
 };
 
@@ -56,8 +61,23 @@ enum {
     IR_FLUX_UVS       = 19,  /* flux linkage, 0.1 mV*s (=1e-4 V*s/rad)     */
     IR_PUMP_STATE     = 20,
     IR_COMM_ERRORS    = 21,
+    /* battery / solar backup (protocol v2) */
+    IR_POWER_SOURCE   = 22,  /* power_source_t                             */
+    IR_BATT_SOC       = 23,  /* state of charge, %                         */
+    IR_BATT_DV        = 24,  /* battery voltage, 0.1 V                     */
+    IR_BATT_W         = 25,  /* battery power, W + 32768 (>32768 = discharge) */
+    IR_BATT_MIN_LEFT  = 26,  /* estimated runtime at the present load, min */
+    IR_SOLAR_W        = 27,  /* solar input power, W                       */
+    IR_MODULE_STATUS  = 28,  /* bit0 present, bit1 hot standby, bit2 charging, bit3 fault */
     IR_COUNT
 };
+
+typedef enum {
+    PS_MAINS = 0,            /* PFC supplies the bus                       */
+    PS_BATTERY = 1,          /* outage: battery module supplies the bus    */
+    PS_SOLAR = 2,            /* outage: solar (+battery) supplies the bus  */
+    PS_NONE = 3
+} power_source_t;
 
 typedef enum {
     DS_STANDBY = 0, DS_IDENTIFY, DS_STARTING, DS_RUNNING, DS_STOPPING,
@@ -68,8 +88,14 @@ typedef enum {
 enum {
     AL_NONE = 0, AL_VIN_HIGH = 1, AL_VIN_LOW = 2, AL_OVERCURRENT = 3,
     AL_LOCKED_ROTOR = 4, AL_MOTOR_HOT = 5, AL_DRIVE_HOT = 6,
-    AL_PHASE_LOSS = 7, AL_COMM_LOST = 8, AL_BUS_PFC = 9
+    AL_PHASE_LOSS = 7, AL_COMM_LOST = 8, AL_BUS_PFC = 9,
+    AL_BATT_LOW = 10,        /* E10: battery at reserve, fan stopped       */
+    AL_MODULE = 11           /* E11: battery module fault / no comms       */
 };
+
+/* Runtime estimate shown to the user (minutes). usable_wh = remaining
+ * energy above the reserve; load_w = battery discharge power. */
+uint16_t cooler_batt_minutes(float usable_wh, float load_w);
 
 /* Drive-side register image + command handling. */
 typedef struct {

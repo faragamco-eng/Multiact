@@ -43,6 +43,7 @@ typedef struct {
     float w_min_run;     /* below this in RUN -> locked rotor check      */
     float vbus_regen;    /* limit regeneration above this bus voltage    */
     float vbus_ov, vbus_uv;
+    float vbus_droop;    /* below this: reduce power (weak/overloaded source) */
     float cur_bw;        /* current loop bandwidth [rad/s]               */
     float spd_bw;        /* speed loop bandwidth [rad/s]                 */
     float obs_gain;      /* observer convergence gain [rad/s]            */
@@ -115,7 +116,9 @@ typedef struct {
     float    fa, fb;
     bool     vsat, volt_limited;  /* modulator saturated / speed limited by bus voltage */
     uint32_t vsat_ms;
-    uint32_t predicted_n;    /* periods with predicted (unsampled) current */          /* leaky flux integrator (psi identification) */       /* filtered observer speed during I/f   */        /* periods observer agrees with I/f */     /* periods at I/f target without handover */
+    uint32_t predicted_n;
+    float    p_lim, p_lp;      /* power limit (0 = none) / motor power estimate [W] */
+    bool     power_limited;    /* periods with predicted (unsampled) current */          /* leaky flux integrator (psi identification) */       /* filtered observer speed during I/f   */        /* periods observer agrees with I/f */     /* periods at I/f target without handover */
     bool   id_running;       /* doing the identification sequence */
     uint8_t psi_pass;
     float   settle_t, vq_lp, eq_lp;     /* R test: rotor settle detection */
@@ -132,6 +135,7 @@ void foc_run(foc_t *f, bool on);
 void foc_identify(foc_t *f);                       /* only from IDLE */
 void foc_clear_faults(foc_t *f);
 void foc_hw_fault(foc_t *f);
+void foc_set_power_limit(foc_t *f, float watts);   /* 0 = no limit (battery mode) */
 
 void foc_pwm_step(foc_t *f, const foc_meas_t *m, foc_out_t *o);
 void foc_tick_1ms(foc_t *f);

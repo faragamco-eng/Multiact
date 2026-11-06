@@ -42,6 +42,7 @@ static const double TS = 1.0 / 16000.0;
 static const int    NSUB = 8;
 static const double C_BUS = 660e-6, VBUS_REF = 390.0;
 static double T_DEAD = 1.0e-6;
+static double MOD_DELAY = 0.005;   /* battery module take-over (hot standby spec) */
 
 typedef struct {
     const motor_t *m;
@@ -52,6 +53,9 @@ typedef struct {
     double t;
     double i_abc[3];
     double energy_in;
+    /* source: mains (PFC) and/or 48 V battery module feeding the bus */
+    double t_out, t_back, p_mod, mod_int, mod_since, e_mod, vbus_min, p_mod_now;
+    bool   mod_active;
 } plant_t;
 
 static double gauss(void)
@@ -122,16 +126,45 @@ static void plant_period(plant_t *pl)
         pl->th_m += h * pl->wm;
 
         /* DC bus: PFC supplies power (cannot sink), inverter draws iinv */
+        bool mains = !(pl->t >= pl->t_out && pl->t < pl->t_back);
         double err = VBUS_REF - pl->vbus;
-        pl->pfc_int += h * 800.0 * err;
-        if (pl->pfc_int < 0) pl->pfc_int = 0;
-        if (pl->pfc_int > 1500) pl->pfc_int = 1500;
-        double p_pfc = 60.0 * err + pl->pfc_int;
-        if (p_pfc < 0) p_pfc = 0;
-        if (p_pfc > 1500) p_pfc = 1500;
+        double p_pfc = 0;
+        if (mains) {
+            pl->pfc_int += h * 800.0 * err;
+            if (pl->pfc_int < 0) pl->pfc_int = 0;
+            if (pl->pfc_int > 1500) pl->pfc_int = 1500;
+            p_pfc = 60.0 * err + pl->pfc_int;
+            if (p_pfc < 0) p_pfc = 0;
+            if (p_pfc > 1500) p_pfc = 1500;
+        } else {
+            pl->pfc_int = 0;
+        }
+        /* battery module: hot standby, regulates the bus at 370 V (below
+         * the PFC set-point, so mains has priority without messages),
+         * engages MOD_DELAY after the bus drops below 375 V, hard power cap */
+        double p_mod = 0;
+        if (pl->p_mod > 0) {
+            if (!pl->mod_active && pl->vbus < 375.0) {
+                if (pl->mod_since < 0) pl->mod_since = pl->t;
+                if (pl->t - pl->mod_since > MOD_DELAY) pl->mod_active = true;
+            }
+            if (pl->mod_active) {
+                double em = 370.0 - pl->vbus;
+                pl->mod_int += h * 400.0 * em;
+                if (pl->mod_int < 0) pl->mod_int = 0;
+                if (pl->mod_int > pl->p_mod) pl->mod_int = pl->p_mod;
+                p_mod = 40.0 * em + pl->mod_int;
+                if (p_mod < 0) p_mod = 0;
+                if (p_mod > pl->p_mod) p_mod = pl->p_mod;
+                if (mains && pl->vbus > 380.0) { pl->mod_active = false; pl->mod_since = -1; pl->mod_int = 0; }
+            }
+        }
+        pl->p_mod_now = p_mod;
         /* + 2 W permanent bus load (PFC controller, bleeder) */
-        pl->vbus += h * ((p_pfc - 2.0) / pl->vbus - iinv) / C_BUS;
-        pl->energy_in += h * p_pfc;
+        pl->vbus += h * ((p_pfc + p_mod - 2.0) / pl->vbus - iinv) / C_BUS;
+        pl->energy_in += h * (p_pfc + p_mod);
+        pl->e_mod += h * p_mod;
+        if (pl->t > 1.0 && pl->vbus < pl->vbus_min) pl->vbus_min = pl->vbus;
         pl->t += h;
     }
     plant_currents_abc(pl);
@@ -162,6 +195,8 @@ typedef struct {
     double t_stop;          /* run=false at this time (<0 never) */
     bool   preidentified;
     bool   fast_ramp;      /* 0..100 %% in 2 s instead of 20 s */
+    double t_outage, t_return, p_module;  /* mains outage window, module power (0 = none) */
+    double app_plim, app_speed;           /* app reaction 100 ms after outage (0 = none) */
     const char *csv;
 } scen_t;
 
@@ -174,6 +209,7 @@ typedef struct {
     double i_peak, vbus_max;
     double t_fault;
     double pin_w;           /* input power in window 1 */
+    double vbus_min, rpm_outage, p_mod_avg, rpm_end;
 } result_t;
 
 static foc_cfg_t make_cfg(const motor_t *m)
@@ -193,6 +229,10 @@ static result_t run(const motor_t *m, const scen_t *sc, const foc_motor_t *known
     plant_t pl = {0};
     pl.m = m; pl.vbus = VBUS_REF; pl.pfc_int = 0; pl.kf = m->kf;
     pl.wm = sc->wm0; pl.th_m = sc->th0;
+    pl.t_out = sc->p_module > 0 || sc->t_return > 0 ? sc->t_outage : 1e9;
+    pl.t_back = sc->t_return > 0 ? sc->t_return : 1e9;
+    pl.p_mod = sc->p_module; pl.mod_since = -1; pl.vbus_min = 1e9;
+    if (pl.t_out <= 0) { pl.vbus = 370.0; pl.mod_active = true; }
     foc_cfg_t cfg = make_cfg(m);
     if (sc->fast_ramp) cfg.accel = cfg.w_max / 2.0f;
     if (getenv("FOC_COMP")) cfg.v_deadtime = (float)atof(getenv("FOC_COMP"));
@@ -213,7 +253,7 @@ static result_t run(const motor_t *m, const scen_t *sc, const foc_motor_t *known
 
     foc_set_speed(&f, 1.0f);
     foc_run(&f, true);
-    double next_ms = 1e-3, acc1 = 0, acc2 = 0, p1 = 0; int n1 = 0, n2 = 0;
+    double next_ms = 1e-3, acc1 = 0, acc2 = 0, p1 = 0, acc_o = 0, pm_o = 0; int n1 = 0, n2 = 0, n_o = 0;
     double duty_next[3] = {0.5, 0.5, 0.5}; bool en_next = false;
     long k = 0;
     while (pl.t < sc->t_end) {
@@ -234,6 +274,12 @@ static result_t run(const motor_t *m, const scen_t *sc, const foc_motor_t *known
             if (sc->t_load > 0 && pl.t >= sc->t_load) pl.kf = m->kf * sc->load_k;
             if (sc->t_lock >= 0 && pl.t >= sc->t_lock) pl.locked = true;
             if (sc->t_stop >= 0 && pl.t >= sc->t_stop) foc_run(&f, false);
+            /* application layer reaction to the power-source change */
+            bool on_batt = pl.t >= sc->t_outage + 0.1 && (sc->t_return <= 0 || pl.t < sc->t_return);
+            if (sc->p_module > 0 && sc->app_plim > 0) {
+                if (on_batt) { foc_set_power_limit(&f, (float)sc->app_plim); if (sc->app_speed > 0) foc_set_speed(&f, (float)sc->app_speed); }
+                else if (sc->t_return > 0 && pl.t >= sc->t_return) { foc_set_power_limit(&f, 0); foc_set_speed(&f, 1.0f); }
+            }
             foc_tick_1ms(&f);
             if (f.state == FOC_RUN && !f.id_running && r.t_run < 0) r.t_run = pl.t;
             if (f.state == FOC_FAULT && r.t_fault < 0) r.t_fault = pl.t;
@@ -244,6 +290,7 @@ static result_t run(const motor_t *m, const scen_t *sc, const foc_motor_t *known
                 acc1 += rpm; n1++; p1 += 0;
             }
             if (pl.t > sc->t_end - 3) { acc2 += rpm; n2++; }
+            if (sc->t_return > 0 && pl.t > sc->t_return - 4 && pl.t < sc->t_return) { acc_o += rpm; pm_o += pl.p_mod_now; n_o++; }
             if (fabs(pl.vbus) > r.vbus_max) r.vbus_max = pl.vbus;
             if (fc && ((long)(pl.t * 1000.0 + 0.5) % 10) == 0) {
                 double the = fmod(pl.th_m * m->p, 2 * M_PI);
@@ -265,6 +312,10 @@ static result_t run(const motor_t *m, const scen_t *sc, const foc_motor_t *known
     r.final_state = f.state;
     r.i_peak = f.i_peak;
     r.pin_w = pl.energy_in / pl.t;
+    r.vbus_min = pl.vbus_min;
+    r.rpm_outage = n_o ? acc_o / n_o : NAN;
+    r.p_mod_avg = n_o ? pm_o / n_o : NAN;
+    r.rpm_end = n2 ? acc2 / n2 : NAN;
     return r;
 }
 
@@ -279,6 +330,7 @@ int main(int argc, char **argv)
     bool csv = argc > 1 && !strcmp(argv[1], "csv");
     srand(7);
     if (getenv("FOC_TDEAD")) T_DEAD = atof(getenv("FOC_TDEAD"));
+    if (getenv("FOC_MOD_DELAY")) MOD_DELAY = atof(getenv("FOC_MOD_DELAY"));
     const int NM = (int)(sizeof MOTORS / sizeof MOTORS[0]);
     foc_motor_t ident[8];
 
@@ -416,6 +468,40 @@ int main(int argc, char **argv)
         printf("  Vbus max %.0f V (regen limit 420 V, OV trip 445 V), faults 0x%02x, final err %+.2f%%\n",
                r.vbus_max, r.faults, r.rpm_err2);
         CHECK(r.faults == 0 && r.vbus_max < 440, "regeneration limiter");
+    }
+
+    printf("== 9. mains outage at full speed, 500 W battery module, NO message to the drive (bus droop only)\n");
+    {
+        scen_t sc = { .t_end = 75, .t_lock = -1, .th0 = 0.2, .t_stop = -1,
+                      .t_outage = 40, .t_return = 60, .p_module = 500, .csv = csv ? "outage" : NULL };
+        result_t r = run(&MOTORS[0], &sc, &ident[0]);
+        printf("  during outage: %.0f rpm (%.0f %%), module %.0f W, Vbus min %.0f V | after return %.0f rpm | faults 0x%02x\n",
+               r.rpm_outage, r.rpm_outage / 4.5, r.p_mod_avg, r.vbus_min, r.rpm_end, r.faults);
+        CHECK(r.faults == 0, "outage without messages faulted");
+        CHECK(r.vbus_min > 300, "bus collapsed");
+        CHECK(r.rpm_outage > 0.8 * 450 && r.p_mod_avg <= 500.5, "outage operating point");
+        CHECK(fabs(r.rpm_end - 450) < 9, "recovery after mains return");
+    }
+
+    printf("== 9b. same, application sets battery mode (speed cap 80 %%, power limit 420 W)\n");
+    {
+        scen_t sc = { .t_end = 75, .t_lock = -1, .th0 = 0.2, .t_stop = -1,
+                      .t_outage = 40, .t_return = 60, .p_module = 500, .app_plim = 420, .app_speed = 0.8 };
+        result_t r = run(&MOTORS[0], &sc, &ident[0]);
+        printf("  during outage: %.0f rpm (%.0f %%), module %.0f W, Vbus min %.0f V | after return %.0f rpm | faults 0x%02x\n",
+               r.rpm_outage, r.rpm_outage / 4.5, r.p_mod_avg, r.vbus_min, r.rpm_end, r.faults);
+        CHECK(r.faults == 0 && r.vbus_min > 330, "battery mode");
+        CHECK(fabs(r.rpm_outage - 0.8 * 450) < 9, "speed cap in battery mode");
+        CHECK(fabs(r.rpm_end - 450) < 9, "recovery after mains return");
+    }
+
+    printf("== 10. start on battery only (no mains), 500 W module, full speed requested\n");
+    {
+        scen_t sc = { .t_end = 50, .t_lock = -1, .th0 = 0.7, .t_stop = -1,
+                      .t_outage = 0, .t_return = -1, .p_module = 500 };
+        result_t r = run(&MOTORS[0], &sc, &ident[0]);
+        printf("  final %.0f rpm (%.0f %%), Vbus min %.0f V, faults 0x%02x\n", r.rpm_end, r.rpm_end / 4.5, r.vbus_min, r.faults);
+        CHECK(r.faults == 0 && r.rpm_end > 0.8 * 450 && r.vbus_min > 300, "battery-only start");
     }
 
     printf("== 8. motor not connected / open windings (motor A) -> identification refuses\n");

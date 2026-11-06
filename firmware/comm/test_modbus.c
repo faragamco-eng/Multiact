@@ -95,6 +95,20 @@ int main(void)
     CHECK(!cooler_comm_lost(&regs, 1000 + 59000));
     CHECK(cooler_comm_lost(&regs, 1000 + 61000));
 
+    /* protocol v2: battery registers */
+    uint8_t r6[] = {0x01, 0x03, 0x00, HR_BATT_SPEED_MAX, 0x00, 0x04};
+    CHECK(xfer(r6, 6) == 3 + 8 + 2);
+    CHECK(((mb.tx[3] << 8) | mb.tx[4]) == 800 && mb.tx[6] == 1 && mb.tx[8] == 15);
+    uint8_t w6[] = {0x01, 0x06, 0x00, HR_BATT_RESERVE, 0x00, 0x03};     /* 3 % < min 5 % */
+    CHECK(xfer(w6, 6) == 5 && mb.tx[2] == MB_EX_ILLEGAL_VALUE);
+    regs.ir[IR_POWER_SOURCE] = PS_BATTERY; regs.ir[IR_BATT_SOC] = 62;
+    uint8_t r7[] = {0x01, 0x04, 0x00, IR_POWER_SOURCE, 0x00, 0x02};
+    CHECK(xfer(r7, 6) == 3 + 4 + 2 && mb.tx[4] == PS_BATTERY && mb.tx[6] == 62);
+    CHECK(regs.ir[IR_PROTO_VER] == 2);
+    /* runtime: 2.3 kWh usable at 370 W -> 373 min */
+    CHECK(cooler_batt_minutes(2300.0f, 370.0f) == 372 || cooler_batt_minutes(2300.0f, 370.0f) == 373);
+    CHECK(cooler_batt_minutes(0.0f, 370.0f) == 0 && cooler_batt_minutes(500.0f, 0.0f) == 0xFFFF);
+
     printf("modbus tests: %s (%u ok frames, %u exceptions)\n", fails ? "FAIL" : "PASS",
            (unsigned)mb.frames_ok, (unsigned)mb.exceptions);
     return fails != 0;

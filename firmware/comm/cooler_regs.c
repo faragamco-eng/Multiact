@@ -19,6 +19,10 @@ static const range_t HR_RANGE[HR_COUNT] = {
     [HR_MAX_RPM]        = {0, 3000, 0},
     [HR_I_LIMIT_DA]     = {10, 120, 60},
     [HR_RESTORE_ON_PWR] = {0, 1, 1},
+    [HR_BATT_SPEED_MAX] = {0, 1000, 800},
+    [HR_BATT_PUMP]      = {0, 1, 1},
+    [HR_BATT_RESERVE]   = {5, 80, 15},
+    [HR_BATT_CHARGE_W]  = {0, 600, 250},
 };
 
 void cooler_regs_init(cooler_regs_t *c)
@@ -28,6 +32,8 @@ void cooler_regs_init(cooler_regs_t *c)
         c->hr[i] = HR_RANGE[i].def;
     c->ir[IR_PROTO_VER] = COOLER_PROTO_VER;
     c->ir[IR_MOTOR_ID] = 0xFFFFu;
+    c->ir[IR_POWER_SOURCE] = PS_MAINS;
+    c->ir[IR_BATT_W] = 32768u;
 }
 
 uint8_t cooler_read_holding(uint16_t a, uint16_t *v, void *ctx)
@@ -63,4 +69,12 @@ void cooler_comm_seen(cooler_regs_t *c, uint32_t now_ms) { c->last_valid_ms = no
 bool cooler_comm_lost(const cooler_regs_t *c, uint32_t now_ms)
 {
     return (now_ms - c->last_valid_ms) > (uint32_t)c->hr[HR_COMM_TIMEOUT_S] * 1000u;
+}
+
+uint16_t cooler_batt_minutes(float usable_wh, float load_w)
+{
+    if (usable_wh <= 0.0f) return 0u;
+    if (load_w < 5.0f) return 0xFFFFu;               /* idle: "not limited" */
+    float m = usable_wh / load_w * 60.0f;
+    return m > 65000.0f ? 65000u : (uint16_t)m;
 }
