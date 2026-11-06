@@ -18,6 +18,7 @@
 | [`docs/03_bringup_and_safety.md`](docs/03_bringup_and_safety.md) | راه‌اندازی سه‌مرحله‌ای، چک‌لیست PCB، عیب‌یابی |
 | [`docs/04_cooler_drive_architecture.md`](docs/04_cooler_drive_architecture.md) | **کولر آبی:** تحلیل موتورها (36S/40P)، PFC، FOC، شناسایی خودکار، آلارم‌ها، نوسانات برق، باس پنل، وای‌فای |
 | [`docs/05_panel_bus_modbus.md`](docs/05_panel_bus_modbus.md) | پروتکل Modbus RTU باس پنل و نقشه رجیسترها |
+| [`docs/06_foc_sensorless.md`](docs/06_foc_sensorless.md) | **FOC بدون سنسور + شناسایی خودکار** (R، L، شار، اینرسی، dead-time)، حفاظت قفل روتور، نتایج 110 موتور تصادفی |
 | [`hardware/netlist.md`](hardware/netlist.md) | شماتیک متنی برگه‌به‌برگه (پین‌های MCU از دیتابیس رسمی ST) |
 | [`hardware/bom.csv`](hardware/bom.csv) | لیست قطعات با پارت‌نامبر نمونه |
 | [`hardware/calc/`](hardware/calc/) | اسکریپت محاسبات (تلفات، هیت‌سینک، خازن، بوت‌استرپ، شنت، تقسیم‌کننده‌ها) و نتایج |
@@ -29,7 +30,8 @@
 cd firmware
 make cmsis          # یک بار: دریافت هدرهای CMSIS (STM32G4)
 make                # build/bldc310.elf/.bin/.hex  (arm-none-eabi-gcc)
-make test           # 5 سناریوی شبیه‌سازی مدار بسته + تست Modbus روی PC (gcc)
+make test           # شبیه‌سازی six-step + تست Modbus + آزمون‌های FOC روی PC (gcc)
+make test-foc-random  # FOC: 40 موتور تصادفی، شناسایی از صفر و اجرا
 make sweep          # مقاوم‌سازی استارت: 5 سناریو × 12 زاویه اولیه روتور
 make plots          # نمودارها در docs/img (نیاز به matplotlib)
 python3 hardware/calc/bldc_calc.py   # محاسبات طراحی (از ریشه مخزن)
