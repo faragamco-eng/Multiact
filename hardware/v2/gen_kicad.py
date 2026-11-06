@@ -12,6 +12,7 @@ Altium Designer: File > Import Wizard > KiCad design files.
     python3 gen_kicad.py --symbols <kicad-symbols 7.0.11> --footprints <kicad-footprints 7.0.11>
 """
 import argparse, collections, math, os, shutil, sys, uuid
+import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ap = argparse.ArgumentParser()
 ap.add_argument("--symbols", required=True)
@@ -254,31 +255,99 @@ def free(rect, m=0.6):
             return False
     return True
 
-by_region = collections.defaultdict(list)
-for p in S.PARTS:
-    if p["ref"] not in place:
-        by_region[region_of(p)].append(p)
-for reg, plist in by_region.items():
-    rx0, ry0, rx1, ry1 = REGIONS[reg]
-    plist.sort(key=lambda p: -(lambda b: (b[2] - b[0]) * (b[3] - b[1]))(courtyard(p["fp"], 0)))
-    for p in plist:
-        cx0, cy0, cx1, cy1 = courtyard(p["fp"], 0)
-        done = False
-        yy = ry0
-        while yy + (cy1 - cy0) <= ry1 and not done:
-            xx = rx0
-            while xx + (cx1 - cx0) <= rx1:
-                rect = (xx, yy, xx + cx1 - cx0, yy + cy1 - cy0)
-                m = 1.8 if is_hv(p) else 0.6
-                if free(rect, m):
-                    place[p["ref"]] = (round(xx - cx0, 3), round(yy - cy0, 3), 0)
-                    occupied.append((rect[0] - (m - 0.6) / 2, rect[1] - (m - 0.6) / 2, rect[2] + (m - 0.6) / 2, rect[3] + (m - 0.6) / 2))
-                    done = True
-                    break
-                xx += 0.5
-            yy += 0.5
-        if not done:
-            overflow.append((p["ref"], reg))
+def pad_offsets(fp, rot):
+    """pad number -> (x, y) relative to the footprint origin after rotation"""
+    f = FL.get(fp)
+    c, s_ = math.cos(math.radians(rot)), math.sin(math.radians(rot))
+    out = {}
+    for pd in find(f, "pad"):
+        at = first(pd, "at")
+        px, py = float(at[1]), float(at[2])
+        out.setdefault(str(pd[1]), (px * c + py * s_, -px * s_ + py * c))
+    return out
+
+if getattr(L, "PLACER", "grid") == "anchor":
+    # connectivity-driven placement: each part goes as close as possible to the pads it connects to
+    GAP = getattr(L, "GAP", 1.0)
+    GLOBAL = set(getattr(L, "GLOBAL_NETS", ("GND",)))
+    NEAR = getattr(L, "NEAR", {})
+    pin_xy = {}                                       # (ref, pin) -> absolute xy of placed parts
+    def note_placed(ref):
+        x, y, r = place[ref]
+        for pin, (dx, dy) in pad_offsets(parts_by_ref[ref]["fp"], r).items():
+            pin_xy[(ref, pin)] = (x + dx, y + dy)
+    for ref in list(place): note_placed(ref)
+    def anchors(p):
+        pts = []
+        for pin, net in p["pins"].items():
+            if net in GLOBAL or net.startswith("NC_"): continue
+            for q, qpin in nets_all[net]:
+                if q["ref"] != p["ref"] and (q["ref"], qpin) in pin_xy:
+                    pts.append((pin, pin_xy[(q["ref"], qpin)]))
+        if p["ref"] in NEAR:
+            r_, pn = NEAR[p["ref"]].split(".")
+            if (r_, pn) in pin_xy:
+                pts += [(pin, pin_xy[(r_, pn)]) for pin in p["pins"]]
+        return pts
+    todo = [p for p in S.PARTS if p["ref"] not in place]
+    while todo:
+        # the part with the most connections to already placed parts goes next
+        todo.sort(key=lambda p: -len(anchors(p)))
+        p = todo.pop(0)
+        an = anchors(p)
+        if not an:
+            rx0, ry0, rx1, ry1 = REGIONS[region_of(p)]
+            an = [(pin, ((rx0 + rx1) / 2, (ry0 + ry1) / 2)) for pin in p["pins"]] or [("", ((rx0 + rx1) / 2, (ry0 + ry1) / 2))]
+        tx = sum(a_[1][0] for a_ in an) / len(an); ty = sum(a_[1][1] for a_ in an) / len(an)
+        best = None
+        for rot in ((0, 90) if len(p["pins"]) <= 3 else (0,)):
+            cx0, cy0, cx1, cy1 = courtyard(p["fp"], rot)
+            offs = pad_offsets(p["fp"], rot)
+            for rad in np.arange(0.0, 40.0, 0.5):
+                found = False
+                n_ang = max(1, int(2 * math.pi * rad / 0.5))
+                for k in range(n_ang):
+                    x = round(tx + rad * math.cos(2 * math.pi * k / n_ang), 2)
+                    y = round(ty + rad * math.sin(2 * math.pi * k / n_ang), 2)
+                    rect = (x + cx0, y + cy0, x + cx1, y + cy1)
+                    if rect[0] < BX0 + 1 or rect[1] < BY0 + 1 or rect[2] > BX1 - 1 or rect[3] > BY1 - 1: continue
+                    if not free(rect, GAP): continue
+                    cost = sum(math.hypot(x + offs.get(pin, (0, 0))[0] - ax, y + offs.get(pin, (0, 0))[1] - ay) for pin, (ax, ay) in an)
+                    if best is None or cost < best[0]: best = (cost, x, y, rot, rect)
+                    found = True
+                if found: break
+        if best is None:
+            overflow.append((p["ref"], "board")); continue
+        _, x, y, rot, rect = best
+        place[p["ref"]] = (x, y, rot)
+        occupied.append(rect)
+        note_placed(p["ref"])
+else:
+    by_region = collections.defaultdict(list)
+    for p in S.PARTS:
+        if p["ref"] not in place:
+            by_region[region_of(p)].append(p)
+    for reg, plist in by_region.items():
+        rx0, ry0, rx1, ry1 = REGIONS[reg]
+        plist.sort(key=lambda p: -(lambda b: (b[2] - b[0]) * (b[3] - b[1]))(courtyard(p["fp"], 0)))
+        for p in plist:
+            cx0, cy0, cx1, cy1 = courtyard(p["fp"], 0)
+            done = False
+            yy = ry0
+            while yy + (cy1 - cy0) <= ry1 and not done:
+                xx = rx0
+                while xx + (cx1 - cx0) <= rx1:
+                    rect = (xx, yy, xx + cx1 - cx0, yy + cy1 - cy0)
+                    m = 1.8 if is_hv(p) else 0.6
+                    if free(rect, m):
+                        place[p["ref"]] = (round(xx - cx0, 3), round(yy - cy0, 3), 0)
+                        occupied.append((rect[0] - (m - 0.6) / 2, rect[1] - (m - 0.6) / 2, rect[2] + (m - 0.6) / 2, rect[3] + (m - 0.6) / 2))
+                        done = True
+                        break
+                    xx += 0.5
+                yy += 0.5
+            if not done:
+                overflow.append((p["ref"], reg))
 
 # build footprints
 def rotate_angles(e, rot):
@@ -286,8 +355,12 @@ def rotate_angles(e, rot):
         if isinstance(x, list) and x and x[0] in ("pad", "fp_text"):
             at = first(x, "at")
             if at is not None:
-                ang = float(at[3]) if len(at) > 3 and not isinstance(at[3], Sym) else 0.0
-                rest = at[4:] if len(at) > 4 else ([at[3]] if len(at) > 3 and isinstance(at[3], Sym) else [])
+                def num(v):
+                    try: return float(v)
+                    except (TypeError, ValueError): return None
+                has_ang = len(at) > 3 and num(at[3]) is not None      # numbers may be parsed as symbols
+                ang = num(at[3]) if has_ang else 0.0
+                rest = at[4:] if has_ang else at[3:]
                 at[:] = [at[0], at[1], at[2], (ang + rot) % 360] + rest
 
 fps = []
@@ -385,10 +458,14 @@ proj = {
              "diff_pair_gap": 0.25, "diff_pair_width": 0.2, "microvia_diameter": 0.3, "microvia_drill": 0.1,
              "wire_width": 6, "bus_width": 12, "line_style": 0, "schematic_color": "rgba(0, 0, 0, 0.000)",
              "pcb_color": "rgba(0, 0, 0, 0.000)"},
-        ],
+        ] + [dict({"diff_pair_gap": 0.25, "diff_pair_width": 0.2, "microvia_diameter": 0.3, "microvia_drill": 0.1,
+                   "wire_width": 6, "bus_width": 12, "line_style": 0, "schematic_color": "rgba(0, 0, 0, 0.000)",
+                   "pcb_color": "rgba(0, 0, 0, 0.000)"}, **{k: v for k, v in c.items() if k != "patterns"})
+             for c in getattr(L, "EXTRA_CLASSES", [])],
         "meta": {"version": 3},
         "netclass_patterns": [{"netclass": L.HV_CLASS, "pattern": n} for n in HV_NETS] +
-                             [{"netclass": "Power_GND", "pattern": pt} for pt in L.POWER_GND_PATS],
+                             [{"netclass": "Power_GND", "pattern": pt} for pt in L.POWER_GND_PATS] +
+                             [{"netclass": c["name"], "pattern": pt} for c in getattr(L, "EXTRA_CLASSES", []) for pt in c["patterns"]],
     },
     "pcbnew": {"last_paths": {}, "page_layout_descr_file": ""},
     "schematic": {"meta": {"version": 1}},
