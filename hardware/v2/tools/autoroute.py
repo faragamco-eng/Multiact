@@ -40,7 +40,12 @@ P = a.pitch
 LAYERS = [pcbnew.F_Cu, pcbnew.B_Cu]
 
 # ---------------------------------------------------------------- net classes (from the .kicad_pro)
-pro = json.load(open(os.path.splitext(a.out)[0] + ".kicad_pro"))      # project next to OUT
+PRO_PATH = os.path.splitext(a.out)[0] + ".kicad_pro"                 # project next to OUT
+PRO_TEXT = open(PRO_PATH).read()     # SaveBoard rewrites the project file: restore it after each save
+pro = json.loads(PRO_TEXT)
+def save(path, b):
+    pcbnew.SaveBoard(path, b)
+    open(PRO_PATH, "w").write(PRO_TEXT)
 cls_w = {c["name"]: c.get("track_width", 0.25) for c in pro["net_settings"]["classes"]}
 import fnmatch
 def net_width(name):
@@ -472,11 +477,11 @@ for net in a.pour:
         for x_, y_ in ((X0 + 0.3, Y0 + 0.3), (X1 - 0.3, Y0 + 0.3), (X1 - 0.3, Y1 - 0.3), (X0 + 0.3, Y1 - 0.3)):
             ol.Append(MM(x_), MM(y_))
         board.Add(z)
-pcbnew.SaveBoard(a.out, board)
+save(a.out, board)
 # fill the pours with the project's rules (.kicad_pro / .kicad_dru must sit next to OUT)
 board = pcbnew.LoadBoard(a.out)
 pcbnew.ZONE_FILLER(board).Fill(board.Zones())
-pcbnew.SaveBoard(a.out, board)
+save(a.out, board)
 board.BuildConnectivity()
 uc = board.GetConnectivity().GetUnconnectedCount(True) if hasattr(board.GetConnectivity(), "GetUnconnectedCount") else -1
 print(f"routed {len(order)} nets in {time.time() - t0:.0f} s; failed connections {len(fails)}; unconnected after pours {uc}")
