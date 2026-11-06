@@ -13,29 +13,29 @@ Altium Designer: File > Import Wizard > KiCad design files.
 """
 import argparse, collections, math, os, shutil, sys, uuid
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, "tools"))
-import schematic as S
-from sexpr import Sym, dump, find, first, q
-from kicadlib import SymbolLib, FootprintLib
-
 ap = argparse.ArgumentParser()
 ap.add_argument("--symbols", required=True)
 ap.add_argument("--footprints", required=True)
-ap.add_argument("--out", default=os.path.join(HERE, "out", "kicad"))
+ap.add_argument("--design", default=HERE, help="folder with schematic.py, layout.py and lib/")
+ap.add_argument("--out")
 a = ap.parse_args()
-OUT = a.out
+DESIGN = os.path.abspath(a.design)
+sys.path.insert(0, os.path.join(HERE, "tools")); sys.path.insert(0, DESIGN)
+import schematic as S
+import layout as L
+from sexpr import Sym, dump, find, first, q
+from kicadlib import SymbolLib, FootprintLib
+OUT = a.out or os.path.join(DESIGN, "out", "kicad")
 os.makedirs(OUT, exist_ok=True)
-LOCAL = os.path.join(HERE, "lib")
-SL, FL = SymbolLib(a.symbols, LOCAL), FootprintLib(a.footprints, LOCAL)
-PROJECT = "bldc_cooler_v2"
+LOCAL = os.path.join(DESIGN, "lib")
+SL, FL = SymbolLib(a.symbols, LOCAL), FootprintLib(a.footprints, LOCAL if os.path.isdir(LOCAL) else None)
+PROJECT = L.PROJECT
 NS = uuid.UUID("6f1d2a3b-0000-4000-8000-00000000c001")
 def U(*k): return str(uuid.uuid5(NS, "/".join(map(str, k))))
 def g(v): return round(round(v / 1.27) * 1.27, 4)          # 50 mil grid
 
-TITLE = [Sym("title_block"), [Sym("title"), "BLDC cooler motor drive v2 (220 VAC, PFC, sensorless FOC)"],
-         [Sym("date"), "2026-11-06"], [Sym("rev"), "2.0"], [Sym("company"), "Multiact"],
-         [Sym("comment"), 1, "Generated from hardware/v2/schematic.py - validated against KiCad 7.0.11 libs and ST pin data"],
-         [Sym("comment"), 2, "DANGER: mains-referenced except the SELV area (panel bus, RS-485)"]]
+TITLE = [Sym("title_block"), [Sym("title"), L.TITLE], [Sym("date"), L.DATE], [Sym("rev"), L.REV],
+         [Sym("company"), "Multiact"]] + [[Sym("comment"), i + 1, c] for i, c in enumerate(L.COMMENTS)]
 
 # ======================================================================
 # schematic
@@ -218,56 +218,15 @@ open(os.path.join(OUT, f"{PROJECT}.kicad_sch"), "w").write(dump(root) + "\n")
 # ======================================================================
 # PCB
 # ======================================================================
-BX0, BY0, BW, BH = 20.0, 20.0, 250.0, 180.0
+BX0, BY0, BW, BH = L.BOARD
 BX1, BY1 = BX0 + BW, BY0 + BH
-SLOT_X = 216.0          # vertical creepage slot (hot | SELV), runs under T1 and U7
-SLOT_Y = 84.0           # horizontal part of the SELV boundary
 netcode = {"": 0}
 for net in sorted(nets_all):
     netcode[net] = len(netcode)
 parts_by_ref = {p["ref"]: p for p in S.PARTS}
-
-HS_Y = BY1 - 7.0        # heatsink row (vertical TO-247/TO-220/GBU, tabs towards the bottom edge)
-FIXED = {
-    "J1": (27, 40, 270), "F1": (45, 28, 0), "L1": (40, 62, 0),
-    "K1": (34, 128, 0), "K2": (74, 128, 0),
-    "BR1": (40, HS_Y, 0), "Q3": (66, HS_Y, 0), "Q1": (90, HS_Y, 0), "D6": (112, HS_Y, 0),
-    "L2": (130, 48, 0), "C12": (110, 140, 0), "C13": (147, 140, 0), "C61": (184, 140, 0),
-    # discrete inverter: 6 x TO-247 on the heatsink, each driver socket right above its leg
-    **{f"Q{9+i}": (128 + 17.5 * i, HS_Y, 0) for i in range(6)},
-    "U5": (136, 166, 0), "U12": (168, 166, 0), "U13": (203, 166, 0),
-    "J9": (104, 112, 0), "F4": (122, 112, 0),
-    "J2": (238, 180, 0),
-    "T1": (SLOT_X - 7.6, 40, 0), "U7": (SLOT_X, 68, 0),
-    "U9": (232, 26, 0), "U10": (248, 26, 0), "J7": (263, 40, 90), "J8": (263, 64, 90),
-    "J5": (263, 112, 90), "K3": (226, 112, 0), "K4": (226, 128, 0), "F2": (224, 96, 0),
-    "H1": (BX0 + 5, BY0 + 5, 0), "H2": (BX1 - 5, BY0 + 5, 0), "H3": (BX0 + 5, BY1 - 5, 0), "H4": (BX1 - 5, BY1 - 5, 0),
-    "FID1": (BX0 + 12, BY0 + 4, 0), "FID2": (BX1 - 14, BY1 - 4, 0), "FID3": (BX0 + 12, BY1 - 4, 0),
-}
-REGIONS = {
-    "ac":   (24, 22, 96, 150),
-    "pfc":  (96, 76, 166, 124),
-    "aux":  (166, 22, SLOT_X - 11, 84),
-    "inv":  (124, 159, 234, 190),
-    "mcu":  (SLOT_X + 2, 88, 254, 158),
-    "selv": (SLOT_X + 4, 36, 256, 80),
-}
-def region_of(p):
-    s = p["sheet"][0]
-    ref = p["ref"]
-    if s == "1": return "ac"
-    if s == "2": return "pfc"
-    if s == "3":
-        return "selv" if ref in ("D19", "C23", "U4", "C24", "D20", "C25") else "aux"
-    if s == "4": return "inv"
-    if s in ("5", "6"): return "mcu"
-    if s == "7": return "mcu" if ref in ("C52",) else "selv"
-    if s == "8":
-        if ref.startswith("TP"):
-            n = p["pins"]["1"]
-            return "selv" if n in ("+3V3S", "GND_S", "PANEL_P") else "mcu"
-        return "pfc"
-    return "mcu"
+FIXED = L.fixed(BX0, BY0, BX1, BY1)
+REGIONS = L.REGIONS
+region_of = L.region_of
 
 def courtyard(fp, rot):
     x0, y0, x1, y1 = FL.bbox(fp)
@@ -277,11 +236,7 @@ def courtyard(fp, rot):
     return (min(p[0] for p in rp), min(p[1] for p in rp), max(p[0] for p in rp), max(p[1] for p in rp))
 
 import fnmatch
-HV_NETS = None
-HV_PATS = ["AC_*", "L_SW", "L_LOAD", "PRE_L", "PUMP_L", "DRAIN_L", "PUMP_SN", "DRAIN_SN", "RECT_P", "SW_PFC",
-           "VBUS", "VBUS_EXT", "AUX_RAW", "AUX_HV", "MOT_*", "OUTU", "OUTV", "OUTW", "VBOOT?", "VIP_D", "P6K_A",
-           "PRE_G", "XDIS", "SURGE_PE", "VIN_?_A", "VIN_?_B", "BLD1", "BLD2", "BLD3", "VBD1", "VBD2",
-           "PFC_FBD?", "PFC_IND?", "PREG?", "PREZ?", "VB_M?", "VBM1D", "HO_?", "GH_?"]
+HV_PATS = L.HV_PATS
 HV_NETS = sorted(n for n in nets_all if any(fnmatch.fnmatch(n, pt) for pt in HV_PATS))
 def is_hv(p):
     return any(n in HV_NETS for n in p["pins"].values())
@@ -386,24 +341,11 @@ def text(t, x, y, layer, h=2.0):
             [Sym("effects"), [Sym("font"), [Sym("size"), h, h], [Sym("thickness"), 0.3]]]]
 gr = [line(BX0, BY0, BX1, BY0, "Edge.Cuts"), line(BX1, BY0, BX1, BY1, "Edge.Cuts"),
       line(BX1, BY1, BX0, BY1, "Edge.Cuts"), line(BX0, BY1, BX0, BY0, "Edge.Cuts")]
-# 2 mm milled slot along the hot/SELV boundary (gaps where T1 and U7 bridge it are left as solid board
-# under the parts' own insulation; slot ends 10 mm from the components)
-SW = 1.0
-def slot(x0, y0, x1, y1):
-    return [line(x0, y0, x1, y0, "Edge.Cuts"), line(x1, y0, x1, y1, "Edge.Cuts"),
-            line(x1, y1, x0, y1, "Edge.Cuts"), line(x0, y1, x0, y0, "Edge.Cuts")]
-# one L-shaped milled slot (vertical under T1/U7, horizontal to near the right edge); bridges at both ends
-gr.append([Sym("gr_poly"), [Sym("pts")] + [[Sym("xy"), x_, y_] for x_, y_ in (
-    (SLOT_X - SW, BY0 + 6), (SLOT_X + SW, BY0 + 6), (SLOT_X + SW, SLOT_Y - SW), (BX1 - 8, SLOT_Y - SW),
-    (BX1 - 8, SLOT_Y + SW), (SLOT_X - SW, SLOT_Y + SW))],
-    [Sym("stroke"), [Sym("width"), 0.1], [Sym("type"), Sym("solid")]], [Sym("fill"), Sym("none")],
-    [Sym("layer"), "Edge.Cuts"], [Sym("tstamp"), U("slot")]])
-gr += [line(SLOT_X - 4, BY0, SLOT_X - 4, SLOT_Y + 4, "Dwgs.User", 0.15), line(SLOT_X - 4, SLOT_Y + 4, BX1, SLOT_Y + 4, "Dwgs.User", 0.15),
-       text("8 mm creepage: no copper within 4 mm of the slot (except T1 / U7 pads)", 150, SLOT_Y + 8, "Dwgs.User", 1.2)]
-gr += [text("HOT - MAINS POTENTIAL", 80, 22.5, "F.SilkS", 2.0), text("SELV", 245, 22.5, "F.SilkS", 2.5),
-       text("HEATSINK EDGE", 100, BY1 - 1.5, "F.SilkS", 1.5),
-       text("BATTERY OPTION (DNP)", 112, 106, "F.SilkS", 1.2),
-       text("Placement generated from schematic.py - routing to be done manually", 140, BY1 + 6, "Cmts.User", 1.5)]
+def poly(key, pts, layer):
+    return [Sym("gr_poly"), [Sym("pts")] + [[Sym("xy"), x_, y_] for x_, y_ in pts],
+            [Sym("stroke"), [Sym("width"), 0.1], [Sym("type"), Sym("solid")]], [Sym("fill"), Sym("none")],
+            [Sym("layer"), layer], [Sym("tstamp"), U(key)]]
+gr += L.graphics({"line": line, "text": text, "poly": poly}, BX0, BY0, BX1, BY1)
 
 LAYERS = [Sym("layers")] + [[i, n, Sym(t)] + ([u] if u else []) for i, n, t, u in [
     (0, "F.Cu", "signal", None), (31, "B.Cu", "signal", None), (32, "B.Adhes", "user", "B.Adhesive"),
@@ -415,7 +357,7 @@ LAYERS = [Sym("layers")] + [[i, n, Sym(t)] + ([u] if u else []) for i, n, t, u i
     (48, "B.Fab", "user", None), (49, "F.Fab", "user", None)]]
 pcb = [Sym("kicad_pcb"), [Sym("version"), 20221018], [Sym("generator"), Sym("pcbnew")],
        [Sym("general"), [Sym("thickness"), 1.6]], [Sym("paper"), "A3"],
-       [Sym("title_block"), [Sym("title"), "BLDC cooler drive v2 - placement"], [Sym("date"), "2026-11-06"], [Sym("rev"), "2.0"]],
+       [Sym("title_block"), [Sym("title"), L.PCB_TITLE], [Sym("date"), L.DATE], [Sym("rev"), L.REV]],
        LAYERS, [Sym("setup"), [Sym("pad_to_mask_clearance"), 0]]]
 pcb += [[Sym("net"), c, n] for n, c in sorted(netcode.items(), key=lambda kv: kv[1])]
 pcb += fps + gr
@@ -426,7 +368,8 @@ open(os.path.join(OUT, f"{PROJECT}.kicad_pcb"), "w").write(dump(pcb) + "\n")
 # ======================================================================
 import json
 proj = {
-    "board": {"design_settings": {"rules": {"min_clearance": 0.2, "min_track_width": 0.2}}},
+    "board": {"design_settings": {"rules": {"min_clearance": 0.2, "min_track_width": 0.2,
+                                            **getattr(L, "BOARD_RULES", {})}}},
     "meta": {"filename": f"{PROJECT}.kicad_pro", "version": 1},
     "net_settings": {
         "classes": [
@@ -434,7 +377,7 @@ proj = {
              "diff_pair_gap": 0.25, "diff_pair_width": 0.2, "microvia_diameter": 0.3, "microvia_drill": 0.1,
              "wire_width": 6, "bus_width": 12, "line_style": 0, "schematic_color": "rgba(0, 0, 0, 0.000)",
              "pcb_color": "rgba(0, 0, 0, 0.000)"},
-            {"name": "HV_mains", "clearance": 1.5, "track_width": 1.5, "via_diameter": 1.6, "via_drill": 0.8,
+            {"name": L.HV_CLASS, "clearance": L.HV_CLEARANCE, "track_width": 1.5, "via_diameter": 1.6, "via_drill": 0.8,
              "diff_pair_gap": 0.25, "diff_pair_width": 0.2, "microvia_diameter": 0.3, "microvia_drill": 0.1,
              "wire_width": 6, "bus_width": 12, "line_style": 0, "schematic_color": "rgba(194, 0, 0, 1.000)",
              "pcb_color": "rgba(194, 0, 0, 1.000)"},
@@ -444,8 +387,8 @@ proj = {
              "pcb_color": "rgba(0, 0, 0, 0.000)"},
         ],
         "meta": {"version": 3},
-        "netclass_patterns": [{"netclass": "HV_mains", "pattern": n} for n in HV_NETS] +
-                             [{"netclass": "Power_GND", "pattern": pt} for pt in ("PGND", "SH_*")],
+        "netclass_patterns": [{"netclass": L.HV_CLASS, "pattern": n} for n in HV_NETS] +
+                             [{"netclass": "Power_GND", "pattern": pt} for pt in L.POWER_GND_PATS],
     },
     "pcbnew": {"last_paths": {}, "page_layout_descr_file": ""},
     "schematic": {"meta": {"version": 1}},
@@ -455,17 +398,12 @@ json.dump(proj, open(os.path.join(OUT, f"{PROJECT}.kicad_pro"), "w"), indent=2)
 # custom DRC rules: package-internal pin spacing is set by the manufacturer; creepage to SELV is checked
 # against the slot (see Dwgs.User note); everything else uses the net classes above.
 DRU = ['(version 1)']
-for ref, mn in (("U5", 0.5), ("U12", 0.5), ("U13", 0.5), *((f"Q{9+i}", 1.0) for i in range(6)), ("U2", 0.6), ("T1", 1.0), ("Q1", 1.0), ("Q3", 1.0), ("D6", 1.0), ("BR1", 1.0),
-                ("U1", 0.25), ("U6", 0.15), ("U7", 0.2), ("K1", 1.0), ("K2", 1.0), ("K3", 1.0), ("K4", 1.0),
-                ("D4", 0.2), ("D5", 0.2), ("RV1", 1.0), ("CX1", 1.0), ("L1", 1.0),
-                # only volts across these parts although both nets float at bus potential
-                ("R107", 0.2), ("R108", 0.2), ("R111", 0.2), ("R112", 0.2), ("R115", 0.2), ("R116", 0.2),
-                ("C28", 0.2), ("C29", 0.2), ("C30", 0.2), ("C31", 0.2), ("C32", 0.2), ("C33", 0.2), ("LED1", 0.2)):
+for ref, mn in L.DRU_PITCH:
     DRU.append(f'(rule "package pitch {ref}" (condition "A.insideCourtyard(\'{ref}\') && B.insideCourtyard(\'{ref}\')")'
                f' (constraint clearance (min {mn}mm)))')
-DRU.append('(rule "SELV to hot" (condition "A.NetClass == \'HV_mains\' && B.Net == \'GND_S\'") (constraint clearance (min 8mm)))')
+DRU += L.DRU_EXTRA
 open(os.path.join(OUT, f"{PROJECT}.kicad_dru"), "w").write("\n".join(DRU) + "\n")
-shutil.copytree(LOCAL, os.path.join(OUT, "lib"), dirs_exist_ok=True)
+if os.path.isdir(LOCAL): shutil.copytree(LOCAL, os.path.join(OUT, "lib"), dirs_exist_ok=True)
 open(os.path.join(OUT, "sym-lib-table"), "w").write(
     '(sym_lib_table\n  (lib (name "Custom")(type "KiCad")(uri "${KIPRJMOD}/lib/Custom.kicad_sym")(options "")(descr "project"))\n)\n')
 open(os.path.join(OUT, "fp-lib-table"), "w").write(

@@ -4,7 +4,7 @@
 B      = build
 HOSTCC ?= gcc
 CFLAGS = -O1 -g -std=c11 -Wall -Wextra -Wshadow -Icore -I../comm -I../v2/app
-CORE   = core/panel.c core/mb_master.c core/drive_update.c core/json_api.c
+CORE   = core/panel.c core/mb_master.c core/drive_update.c core/json_api.c core/seg7.c
 DRIVE  = ../comm/modbus_slave.c ../comm/cooler_regs.c ../v2/app/fwu.c ../v2/app/crc32.c
 $(B)/test_panel: test/test_panel.c $(CORE) core/*.h $(DRIVE)
 	@mkdir -p $(B)

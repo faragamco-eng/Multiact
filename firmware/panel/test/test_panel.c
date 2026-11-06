@@ -9,6 +9,7 @@
 #include "panel.h"
 #include "drive_update.h"
 #include "json_api.h"
+#include "seg7.h"
 #include "mb_master.h"
 #include "modbus_slave.h"
 #include "cooler_regs.h"
@@ -134,12 +135,19 @@ static void t_sync_and_sequences(void)
     CHECK(R.hr[HR_RUN] == 0 && R.hr[HR_PUMP] == 1, "pre-wet: pump only");
     panel_view(&P, &v);
     CHECK(v.seg[0] == 'P' && v.seg[1] == '2', "display P2 (%s)", v.seg);
+    char d4[5];
+    seg7_text(&v, d4);
+    CHECK(!strcmp(d4, "Pr 2") && seg7_char('P') == 0x73 && (seg7_leds(&v) & SEG_B) && !(seg7_leds(&v) & SEG_C),
+          "4-digit text and LEDs during pre-wet (%s)", d4);
     run_s(120);
     CHECK(R.hr[HR_RUN] == 1 && R.hr[HR_PUMP] == 1, "fan starts after 2 min");
 
     panel_key(&P, KEY_UP, false); panel_key(&P, KEY_UP, false); panel_key(&P, KEY_UP, false);
     run_s(2);
     CHECK(P.step == 10 && R.hr[HR_SPEED_PERMILLE] == 1000, "speed keys (step %u, %u)", P.step, R.hr[HR_SPEED_PERMILLE]);
+    panel_view(&P, &v);
+    seg7_text(&v, d4);
+    CHECK(!strcmp(d4, "CO10"), "4-digit text running (%s)", d4);
     panel_key(&P, KEY_MODE, false);                          /* cool -> fan */
     run_s(2);
     CHECK(R.hr[HR_PUMP] == 0 && R.hr[HR_RUN] == 1, "fan-only mode");
@@ -167,6 +175,9 @@ static void t_alarm_comm_json(void)
     ui_view_t v;
     panel_view(&P, &v);
     CHECK(has_event("\"name\":\"E4\"") && !strcmp(v.seg, "E4") && v.blink, "alarm event + E4 (%s)", v.seg);
+    char d4[5];
+    seg7_text(&v, d4);
+    CHECK(!strcmp(d4, "E- 4"), "4-digit alarm text (%s)", d4);
     panel_key(&P, KEY_MODE, true);                           /* long MODE = acknowledge */
     run_s(2);
     CHECK(clear_seen == 1 && has_event("alarm_cleared"), "acknowledged");

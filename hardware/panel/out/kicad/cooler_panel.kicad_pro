@@ -1,0 +1,103 @@
+{
+  "board": {
+    "design_settings": {
+      "rules": {
+        "min_clearance": 0.2,
+        "min_track_width": 0.2,
+        "min_through_hole_diameter": 0.2,
+        "min_hole_clearance": 0.2
+      }
+    }
+  },
+  "meta": {
+    "filename": "cooler_panel.kicad_pro",
+    "version": 1
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "name": "Default",
+        "clearance": 0.2,
+        "track_width": 0.25,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)"
+      },
+      {
+        "name": "HV_unused",
+        "clearance": 0.2,
+        "track_width": 1.5,
+        "via_diameter": 1.6,
+        "via_drill": 0.8,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(194, 0, 0, 1.000)",
+        "pcb_color": "rgba(194, 0, 0, 1.000)"
+      },
+      {
+        "name": "Power_GND",
+        "clearance": 0.4,
+        "track_width": 2.0,
+        "via_diameter": 1.2,
+        "via_drill": 0.6,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)"
+      }
+    ],
+    "meta": {
+      "version": 3
+    },
+    "netclass_patterns": []
+  },
+  "pcbnew": {
+    "last_paths": {},
+    "page_layout_descr_file": ""
+  },
+  "schematic": {
+    "meta": {
+      "version": 1
+    }
+  },
+  "sheets": [
+    [
+      "01a28193-96eb-5a30-929c-cc04ac09cd41",
+      "Root"
+    ],
+    [
+      "acde259b-e8a3-59fe-8bb9-a24988448b8d",
+      "1 Bus interface and power"
+    ],
+    [
+      "f6fe3b90-06c8-5585-af29-1e34646719b8",
+      "2 ESP32-S3 module and USB"
+    ],
+    [
+      "106a71b7-169f-5405-a0fa-b4daf03a7cdf",
+      "3 Display, status LEDs, keys, buzzer, sensor"
+    ],
+    [
+      "ac892e0e-4777-549e-bcb1-b287f583c91e",
+      "4 Mechanics and test points"
+    ]
+  ]
+}

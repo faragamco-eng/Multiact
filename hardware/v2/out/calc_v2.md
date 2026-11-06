@@ -11,12 +11,12 @@
 | stored energy 1/2 L I^2 | 34 mJ | toroid ~ 46 mm OD |
 | PFC shunt 25 mOhm loss | 1.44 W | 2 x 50 mOhm 3 W 2512 in parallel |
 | MOSFET rms current | 5.1 A | 95 mOhm @ 100 C (x1.8): 4.4 W conduction |
-| bus capacitance | 400 uF / 600 V | 3 x Nichicon 1200 uF 200 V in series (owner stock) |
-| bus 100 Hz ripple at 1.2 kW | 24.5 V p-p | PFC loop must tolerate this |
-| hold-up 390 -> 300 V at 600 W | 21 ms | rides through short dips |
-| cap voltage at 445 V bus (OV trip) | 148 V | +/- 10 % balancing tolerance -> 163 V < 200 V |
-| balancing 68k per cap at 390 V | 0.25 W each, 1.9 mA | must be >> leakage difference; 1 W resistors |
-| imbalance alarm | VB_M1 outside VBUS/3 +/- 12 % | measured on PA5 (VBM_SENSE, 1:101) |
+| bus capacitance | 940 uF / 450 V | 2 x 470 uF 450 V 105 C snap-in in parallel (new) |
+| bus 100 Hz ripple at 1.2 kW | 10.4 V p-p |  |
+| hold-up 390 -> 300 V at 600 W | 49 ms | rides through 2 mains cycles |
+| capacitor ripple current (PFC 100 Hz + inverter) | ~3 A rms total | 2 x >= 2.5 A rating -> margin |
+| pre-charge energy in the PTC | 65 J | PTC must be rated >= 80 J |
+| bleeder 3 x 100k | 0.51 W | 390 V -> 60 V in 9 min |
 
 ### Auxiliary flyback (VIPer26LN, 60 kHz, EF20)
 

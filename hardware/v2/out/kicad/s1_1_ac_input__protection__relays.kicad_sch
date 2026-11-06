@@ -3470,7 +3470,7 @@
       (effects
         (font
           (size 1.27 1.27)) hide))
-    (property "MPN" "EPCOS B59xxxJ120 series (energy-rated for 660 uF @ 373 V)"
+    (property "MPN" "inrush PTC rated >= 80 J at 265 VAC (940 uF @ 373 V = 65 J), e.g. TDK/EPCOS J1xx series - verify"
       (at 414.02 46.99 0)
       (effects
         (font

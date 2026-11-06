@@ -102,7 +102,7 @@ P("K1", "Relay:FINDER-40.11", "Finder 40.11.9.012", "Relay_THT:Relay_SPDT_Finder
 P("K2", "Relay:FINDER-34.51", "Finder 34.51.7.012", "Relay_THT:Relay_SPDT_Finder_34.51_Vertical",
   {"A1": "K2_A1", "A2": "K2_DRV", "11": "AC_LF", "14": "PRE_L", "12": "NC_K2"}, mpn="Finder 34.51.7.012.0010")
 P("PTC1", "Device:Thermistor_PTC", "PTC 120R inrush", "Capacitor_THT:C_Disc_D11.0mm_W5.0mm_P7.50mm",
-  {1: "PRE_L", 2: "L_SW"}, mpn="EPCOS B59xxxJ120 series (energy-rated for 660 uF @ 373 V)",
+  {1: "PRE_L", 2: "L_SW"}, mpn="inrush PTC rated >= 80 J at 265 VAC (940 uF @ 373 V = 65 J), e.g. TDK/EPCOS J1xx series - verify",
   note="self-protecting if the pre-charge path stays closed into a fault")
 
 # Auxiliary rectifier BEFORE the relays (the controller must run while K1/K2 are open)
@@ -166,25 +166,17 @@ C("C10", "220pF", "PFC_VM", "PGND")
 C("C11", "1uF", "PFC_VCTRL", "PGND", C0805, "voltage-loop compensation (verify)")
 NMOS_SMD("Q2", "2N7002", "PFC_OFF", "PGND", "PFC_FB")      # MCU pulls FB/SD low -> PFC off
 R("R28", "100k", "PFC_OFF", "GND")
-# DC bus: 3 x Nichicon 1200 uF / 200 V in series (owner stock, reformed and tested before use)
-#   = 400 uF / 600 V, hold-up ~21 ms at 1.2 kW, 100 Hz ripple ~25 V p-p.  Balancing 68k 1 W per cap,
-#   lower mid-point measured by the MCU (VBM_SENSE) -> alarm on imbalance (aged / leaky capacitor).
+# DC bus: 2 x 470 uF / 450 V, 105 C long-life snap-in, in parallel (new parts)
+#   = 940 uF, hold-up ~48 ms (390 -> 300 V at 600 W), 100 Hz ripple ~10 V p-p at 1.2 kW
+#   Mains over-voltage above 450 V bus is prevented by the relay disconnect (E1), not by the caps.
 SNAP35 = "Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn"
-for k, (hi, lo) in enumerate((("VBUS", "VB_M2"), ("VB_M2", "VB_M1"), ("VB_M1", "PGND"))):
-    ref = ("C12", "C13", "C61")[k]
-    CP(ref, "1200uF 200V", hi, lo, SNAP35, mpn="Nichicon LS/LQ 1200 uF 200 V snap-in (3 in series)",
-       note="series stack; reform 2 h through 1k before first use, check ESR/leakage")
-    R(f"R{100+k}", "68k 1W", hi, lo, "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal",
-      "balancing resistor, one per capacitor")
-for k in range(3):   # bleeder + HV LED
-    R(f"R{29+k}", "150k", "VBUS" if k == 0 else f"BLD{k}", f"BLD{k+1}", R1206)
+for ref in ("C12", "C13"):
+    CP(ref, "470uF 450V", "VBUS", "PGND", SNAP35,
+       mpn="470 uF 450 V 105 C >= 5000 h snap-in D35 (e.g. Nichicon LGN/LGU, TDK B43544, Rubycon USR)",
+       note="ripple rating >= 2.5 A @ 100 Hz each")
+for k in range(3):   # bleeder + HV LED: 390 V -> 60 V in ~9 min (tau 4.7 min)
+    R(f"R{29+k}", "100k", "VBUS" if k == 0 else f"BLD{k}", f"BLD{k+1}", R1206)
 P("LED1", "Device:LED", "red HV", LED0805, {1: "PGND", 2: "BLD3"}, mpn="high-efficiency red, 'HIGH VOLTAGE'")
-# lower mid-point sense 1:101 (VB_M1 nominal 130 V -> 1.29 V; 200 V -> 1.98 V)
-R("R103", "330k 1%", "VB_M1", "VBM1D", R1206)
-R("R104", "330k 1%", "VBM1D", "VBM2D", R1206)
-R("R105", "6.65k 0.1%", "VBM2D", "GND")
-C("C62", "1nF", "VBM2D", "GND")
-R("R106", "1k", "VBM2D", "VBM_SENSE")
 
 # ========================================================================
 sheet("3 Auxiliary supply (VIPer26 flyback, 1500 V pre-regulator)")
@@ -319,7 +311,7 @@ MCU = {
     1: ("VBAT", "+3V3"), 2: ("PC13", "NC_PC13"), 3: ("PC14", "NC_PC14"), 4: ("PC15", "NC_PC15"),
     5: ("PF0", "NC_PF0"), 6: ("PF1", "NC_PF1"), 7: ("PG10", "NRST"),
     8: ("PA0", "VBUS_SENSE"), 9: ("PA1", "ISENSE_U"), 10: ("PA2", "VIN_L"), 11: ("PA3", "VIN_N"),
-    12: ("PA4", "TP_DAC"), 13: ("PA5", "VBM_SENSE"), 14: ("PA6", "NTC_HS"), 15: ("PA7", "ISENSE_V"),
+    12: ("PA4", "TP_DAC"), 13: ("PA5", "NC_PA5"), 14: ("PA6", "NTC_HS"), 15: ("PA7", "ISENSE_V"),
     16: ("PB0", "ISENSE_W"), 17: ("PB1", "NC_PB1"), 18: ("PB2", "NC_PB2"), 19: ("VSSA", "GND"),
     20: ("VREF+", "+3V3A"), 21: ("VDDA", "+3V3A"), 22: ("PB10", "K3_ON"), 23: ("VSS", "GND"), 24: ("VDD", "+3V3"),
     25: ("PB11", "K4_ON"), 26: ("PB12", "MCU_BKIN"), 27: ("PB13", "PWM_UL"), 28: ("PB14", "PWM_VL"),
@@ -333,7 +325,7 @@ P("U6", "MCU_ST_STM32G4:STM32G431CBTx", "STM32G431CBT6", "Package_QFP:LQFP-48_7x
   {k: v[1] for k, v in MCU.items()}, names={k: v[0] for k, v in MCU.items()}, mpn="ST STM32G431CBT6")
 # required alternate functions (validated against ST open pin data)
 MCU_FUNCS = {
-    "PA0": "ADC1_IN1", "PA5": "ADC2_IN13", "PA1": "OPAMP1_VINP", "PA2": "ADC1_IN3", "PA3": "ADC1_IN4", "PA6": "ADC2_IN3",
+    "PA0": "ADC1_IN1", "PA1": "OPAMP1_VINP", "PA2": "ADC1_IN3", "PA3": "ADC1_IN4", "PA6": "ADC2_IN3",
     "PA7": "OPAMP2_VINP", "PB0": "OPAMP3_VINP", "PA4": "DAC1_OUT1",
     "PA8": "TIM1_CH1", "PA9": "TIM1_CH2", "PA10": "TIM1_CH3", "PB13": "TIM1_CH1N", "PB14": "TIM1_CH2N",
     "PB15": "TIM1_CH3N", "PB12": "TIM1_BKIN", "PB6": "USART1_TX", "PB7": "USART1_RX",
@@ -467,3 +459,16 @@ for i in range(3):
 for i, n in enumerate(["+15V", "+3V3", "GND", "PFC_DRV", "ISENSE_U", "UART_H_TX", "+3V3S", "GND_S", "PANEL_P"]):
     P(f"TP{i+2}", "Connector:TestPoint", n, "TestPoint:TestPoint_Pad_D1.5mm", {1: n})
 # supply flags (schematic ERC only, no footprint)
+
+# ---------------------------------------------------------------- design checks (check_and_build.py)
+MCU_CHECKS = [("U6", "STM32G431C(6-8-B)Tx.xml", [MCU_FUNCS, MCU_FUNCS_EXTRA]),
+              ("U8", "STM32C011F(4-6)Px.xml", [PHY_FUNCS])]
+POWER_NETS = ["+15V", "+3V3", "+3V3A", "+3V3S", "GND", "GND_S", "PGND", "VBUS", "PE"]
+
+
+def _selv(n):
+    return (n.endswith("_S") or n in ("GND_S", "+3V3S", "V5S", "V31S", "T_S5", "T_S31")
+            or n.startswith(("PB_", "PANEL_", "RS485", "UART_S_", "LED3", "NC_S")))
+
+
+ISOLATION = (_selv, ("U7", "T1"))       # only the isolator and the transformer may bridge

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Compare a netlist exported by KiCad from the generated schematic with schematic.py."""
 import collections, os, sys
-HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, "tools"))
+HERE = os.environ.get("DESIGN_DIR", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)))); sys.path.insert(0, HERE)
 import schematic as S
 from sexpr import parse, find, first
 exp = parse(open(sys.argv[1]).read())[0]

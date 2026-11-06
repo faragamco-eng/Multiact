@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Every pad on the generated board must carry the net defined in schematic.py."""
 import os, sys, pcbnew
-HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = os.environ.get("DESIGN_DIR", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, HERE)
 import schematic as S
 b = pcbnew.LoadBoard(sys.argv[1])

@@ -1,0 +1,120 @@
+(kicad_sch
+  (version 20230121)
+  (generator eeschema)
+  (uuid "01a28193-96eb-5a30-929c-cc04ac09cd41")
+  (paper "A3")
+  (title_block
+    (title "Cooler control panel - basic (4-digit display, keys, Wi-Fi/BLE)")
+    (date "2026-11-06")
+    (rev "1.0")
+    (company "Multiact")
+    (comment 1 "Generated from hardware/panel/schematic.py - validated against KiCad 7.0.11 libs")
+    (comment 2 "SELV only: powered by the 2-wire panel bus of the drive (or USB for programming)"))
+  (lib_symbols)
+  (sheet
+    (at 25.4 39.37)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "acde259b-e8a3-59fe-8bb9-a24988448b8d")
+    (property "Sheetname" "1 Bus interface and power"
+      (at 25.4 38.67 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s1_1_bus_interface_and_power.kicad_sch"
+      (at 25.4 60.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "2")))))
+  (sheet
+    (at 120.65 39.37)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "f6fe3b90-06c8-5585-af29-1e34646719b8")
+    (property "Sheetname" "2 ESP32-S3 module and USB"
+      (at 120.65 38.67 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s2_2_esp32_s3_module_and_usb.kicad_sch"
+      (at 120.65 60.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "3")))))
+  (sheet
+    (at 215.9 39.37)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "106a71b7-169f-5405-a0fa-b4daf03a7cdf")
+    (property "Sheetname" "3 Display, status LEDs, keys, buzzer, sensor"
+      (at 215.9 38.67 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s3_3_display__status_leds__keys.kicad_sch"
+      (at 215.9 60.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "4")))))
+  (sheet
+    (at 25.4 74.93)
+    (size 76.2 20.32)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "ac892e0e-4777-549e-bcb1-b287f583c91e")
+    (property "Sheetname" "4 Mechanics and test points"
+      (at 25.4 74.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "s4_4_mechanics_and_test_points.kicad_sch"
+      (at 25.4 95.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41"
+          (page "5")))))
+  (sheet_instances
+    (path "/"
+      (page "1"))))

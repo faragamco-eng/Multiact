@@ -22,14 +22,13 @@ Irms_sh = P / (eta * Vac_min)
 row("PFC shunt 25 mOhm loss", f"{Irms_sh**2*0.025:.2f} W", "2 x 50 mOhm 3 W 2512 in parallel")
 Imos = P / (eta * Vac_min) * math.sqrt(1 - 8 * math.sqrt(2) * Vac_min / (3 * math.pi * Vout))
 row("MOSFET rms current", f"{Imos:.1f} A", f"95 mOhm @ 100 C (x1.8): {Imos**2*0.095*1.8:.1f} W conduction")
-C = 1200e-6 / 3
-row("bus capacitance", "400 uF / 600 V", "3 x Nichicon 1200 uF 200 V in series (owner stock)")
-row("bus 100 Hz ripple at 1.2 kW", f"{1200/(2*math.pi*50*C*Vout):.1f} V p-p", "PFC loop must tolerate this")
-row("hold-up 390 -> 300 V at 600 W", f"{0.5*C*(Vout**2-300**2)/600*1e3:.0f} ms", "rides through short dips")
-row("cap voltage at 445 V bus (OV trip)", f"{445/3:.0f} V", "+/- 10 % balancing tolerance -> 163 V < 200 V")
-row("balancing 68k per cap at 390 V", f"{(130**2)/68e3:.2f} W each, {130/68e3*1e3:.1f} mA",
-    "must be >> leakage difference; 1 W resistors")
-row("imbalance alarm", "VB_M1 outside VBUS/3 +/- 12 %", "measured on PA5 (VBM_SENSE, 1:101)")
+C = 940e-6
+row("bus capacitance", "940 uF / 450 V", "2 x 470 uF 450 V 105 C snap-in in parallel (new)")
+row("bus 100 Hz ripple at 1.2 kW", f"{1200/(2*math.pi*50*C*Vout):.1f} V p-p")
+row("hold-up 390 -> 300 V at 600 W", f"{0.5*C*(Vout**2-300**2)/600*1e3:.0f} ms", "rides through 2 mains cycles")
+row("capacitor ripple current (PFC 100 Hz + inverter)", "~3 A rms total", "2 x >= 2.5 A rating -> margin")
+row("pre-charge energy in the PTC", f"{0.5*C*373**2:.0f} J", "PTC must be rated >= 80 J")
+row("bleeder 3 x 100k", f"{390**2/300e3:.2f} W", f"390 V -> 60 V in {300e3*C*math.log(390/60)/60:.0f} min")
 
 # ---------------- aux flyback
 Pout = 2.25 + 0.3 + 3.7

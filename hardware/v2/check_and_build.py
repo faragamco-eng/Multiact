@@ -12,20 +12,23 @@ import argparse, collections, csv, os, re, sys
 import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(HERE, "tools"))
-import schematic as S
-from kicadlib import SymbolLib, FootprintLib
-
 ap = argparse.ArgumentParser()
 ap.add_argument("--symbols", required=True)
 ap.add_argument("--footprints", required=True)
-ap.add_argument("--pindata", required=True)
-ap.add_argument("--out", default=os.path.join(HERE, "out"))
+ap.add_argument("--pindata", help="ST open pin data (only needed when the design lists MCU_CHECKS)")
+ap.add_argument("--design", default=HERE, help="folder with schematic.py, layout.py and lib/")
+ap.add_argument("--out")
 a = ap.parse_args()
+DESIGN = os.path.abspath(a.design)
+sys.path.insert(0, os.path.join(HERE, "tools")); sys.path.insert(0, DESIGN)
+import schematic as S
+import layout as LY
+from kicadlib import SymbolLib, FootprintLib
+a.out = a.out or os.path.join(DESIGN, "out")
 os.makedirs(a.out, exist_ok=True)
-LOCAL = os.path.join(HERE, "lib")
-SL, FL = SymbolLib(a.symbols, LOCAL), FootprintLib(a.footprints, LOCAL)
+LOCAL = os.path.join(DESIGN, "lib")
+SL, FL = SymbolLib(a.symbols, LOCAL), FootprintLib(a.footprints, LOCAL if os.path.isdir(LOCAL) else None)
+PROJECT = LY.PROJECT
 
 errors, warnings = [], []
 err, warn = errors.append, warnings.append
@@ -42,7 +45,7 @@ for p in S.PARTS:
 for p in S.PARTS:
     lib, name = p["sym"].split(":")
     if lib == "Custom":
-        warn(f"{p['ref']}: project-local symbol {p['sym']} (hardware/v2/lib)")
+        warn(f"{p['ref']}: project-local symbol {p['sym']} (lib/)")
     if True:
         pins = SL.pins(lib, name)
         if pins is None:
@@ -75,8 +78,7 @@ def st_pins(xmlname):
     return {p.get("Position"): (p.get("Name"), {s.get("Name") for s in p if tag(s) == "Signal"})
             for p in t if tag(p) == "Pin"}
 
-for ref, xml, funcs in (("U6", "STM32G431C(6-8-B)Tx.xml", [S.MCU_FUNCS, S.MCU_FUNCS_EXTRA]),
-                        ("U8", "STM32C011F(4-6)Px.xml", [S.PHY_FUNCS])):
+for ref, xml, funcs in getattr(S, "MCU_CHECKS", []):
     stp = st_pins(xml)
     part = next(p for p in S.PARTS if p["ref"] == ref)
     sp = {x["number"]: x for x in SL.pins(*part["sym"].split(":"))}
@@ -105,16 +107,17 @@ for net, nodes in nets.items():
     if net.startswith("NC_") and len(nodes) > 1:
         err(f"net {net} is marked NC but has {len(nodes)} connections")
 for net in nets:
-    for pw in ["+15V", "+3V3", "+3V3A", "+3V3S", "GND", "GND_S", "PGND", "VBUS", "PE"]:
+    for pw in getattr(S, "POWER_NETS", ["GND"]):
         if net != pw and net.replace(" ", "").upper() == pw.upper():
             err(f"net {net} looks like a typo of {pw}")
-SELV = {n for n in nets if n.endswith("_S") or n in ("GND_S", "+3V3S", "V5S", "V31S", "T_S5", "T_S31")
-        or n.startswith(("PB_", "PANEL_", "RS485", "UART_S_", "LED3", "NC_S"))}
-for p in S.PARTS:
-    ns = {n for n in p["pins"].values() if not n.startswith("NC_")}
-    s_side, h_side = ns & SELV, ns - SELV
-    if s_side and h_side and p["ref"] not in ("U7", "T1"):
-        err(f"ISOLATION: {p['ref']} bridges SELV {sorted(s_side)} and hot {sorted(h_side)}")
+ISO = getattr(S, "ISOLATION", None)      # (selv_net(name) -> bool, refs allowed to bridge)
+if ISO:
+    SELV = {n for n in nets if ISO[0](n)}
+    for p in S.PARTS:
+        ns = {n for n in p["pins"].values() if not n.startswith("NC_")}
+        s_side, h_side = ns & SELV, ns - SELV
+        if s_side and h_side and p["ref"] not in ISO[1]:
+            err(f"ISOLATION: {p['ref']} bridges SELV {sorted(s_side)} and hot {sorted(h_side)}")
 
 with open(os.path.join(a.out, "check_report.txt"), "w") as f:
     f.write(f"parts {len(S.PARTS)}, nets {len(nets)}\nERRORS {len(errors)}\n")
@@ -123,8 +126,8 @@ with open(os.path.join(a.out, "check_report.txt"), "w") as f:
     f.writelines(f"  W {w}\n" for w in warnings)
 
 def q(s): return '"' + str(s).replace('"', "'") + '"'
-with open(os.path.join(a.out, "bldc_cooler_v2.net"), "w") as f:
-    f.write('(export (version "E")\n  (design (source "hardware/v2/schematic.py") (tool "check_and_build.py"))\n  (components\n')
+with open(os.path.join(a.out, f"{PROJECT}.net"), "w") as f:
+    f.write('(export (version "E")\n  (design (source "schematic.py") (tool "check_and_build.py"))\n  (components\n')
     for p in S.PARTS:
         lib, name = p["sym"].split(":")
         dnp = ' (field (name "DNP") "1")' if p["dnp"] else ""
@@ -140,7 +143,7 @@ with open(os.path.join(a.out, "bldc_cooler_v2.net"), "w") as f:
     f.write('  )\n)\n')
 
 # Protel / Altium netlist (Altium: PCB > Design > Import Changes / netlist import)
-with open(os.path.join(a.out, "bldc_cooler_v2_altium_protel.net"), "w") as f:
+with open(os.path.join(a.out, f"{PROJECT}_altium_protel.net"), "w") as f:
     for p in S.PARTS:
         f.write(f"[\n{p['ref']}\n{p['fp'].split(':')[1]}\n{p['value']}\n\n\n\n]\n")
     for net, nodes in sorted(nets.items()):
@@ -157,7 +160,7 @@ with open(os.path.join(a.out, "bom.csv"), "w", newline="") as f:
         w.writerow([len(rs), " ".join(rs), val, mpn, fp, "OPTION/DNP" if dnp else "yes"])
 
 with open(os.path.join(a.out, "netlist.md"), "w") as f:
-    f.write("# BLDC cooler drive v2 — netlist (generated from schematic.py, do not edit)\n\n")
+    f.write(f"# {LY.TITLE} — netlist (generated from schematic.py, do not edit)\n\n")
     f.write(f"Parts: {len(S.PARTS)} · nets: {len(nets)} · check errors: {len(errors)}\n\n")
     cur = None
     for p in S.PARTS:

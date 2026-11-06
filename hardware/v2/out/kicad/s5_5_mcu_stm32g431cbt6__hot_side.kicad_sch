@@ -1751,28 +1751,9 @@
       (effects
         (font
           (size 1.27 1.27)) hide)))
-  (wire
-    (pts
-      (xy 76.2 60.96)
-      (xy 78.74 60.96))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "c9e6803b-847c-55eb-abdd-bec3528cb6c3"))
-  (global_label "VBM_SENSE"
-    (shape passive)
-    (at 78.74 60.96 0)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify left))
-    (uuid "f303e84d-ec38-5f77-ba08-c49aacf50a42")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 78.74 60.96 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide)))
+  (no_connect
+    (at 76.2 60.96)
+    (uuid "7ff29222-d3a4-5c35-97bd-6ad44e5fb264"))
   (wire
     (pts
       (xy 76.2 63.5)

@@ -1,0 +1,1027 @@
+(kicad_sch
+  (version 20230121)
+  (generator eeschema)
+  (uuid "ac892e0e-4777-549e-bcb1-b287f583c91e")
+  (paper "A1")
+  (title_block
+    (title "4 Mechanics and test points")
+    (date "2026-11-06")
+    (rev "1.0")
+    (company "Multiact")
+    (comment 1 "Generated from hardware/panel/schematic.py - validated against KiCad 7.0.11 libs")
+    (comment 2 "SELV only: powered by the 2-wire panel bus of the drive (or USB for programming)"))
+  (lib_symbols
+    (symbol "Mechanical:MountingHole"
+      (pin_names
+        (offset 1.016))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "H"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "MountingHole"
+        (at 0 3.175 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "mounting hole"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Mounting Hole without connection"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "MountingHole*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "MountingHole_0_1"
+        (circle
+          (center 0 0)
+          (radius 1.27)
+          (stroke
+            (width 1.27)
+            (type default))
+          (fill
+            (type none)))))
+    (symbol "Mechanical:Fiducial"
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "FID"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "Fiducial"
+        (at 0 3.175 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "fiducial marker"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Fiducial Marker"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "Fiducial*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "Fiducial_0_1"
+        (circle
+          (center 0 0)
+          (radius 1.27)
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type background)))))
+    (symbol "Connector:TestPoint"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0.762) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "TP"
+        (at 0 6.858 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "TestPoint"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 5.08 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 5.08 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "test point tp"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "test point"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "Pin* Test*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "TestPoint_0_1"
+        (circle
+          (center 0 3.302)
+          (radius 0.762)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "TestPoint_1_1"
+        (pin passive line
+          (at 0 0 90)
+          (length 2.54)
+          (name "1"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27))))))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 27.94 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "28e014dd-9c8c-5361-ac76-1ae9b9106e0e")
+    (property "Reference" "H1"
+      (at 30.48 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 30.48 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 27.94 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 27.94 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 27.94 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "H1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 46.99 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "91353898-5e50-5748-9a17-bb6061600645")
+    (property "Reference" "H2"
+      (at 49.53 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 49.53 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 46.99 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 46.99 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 46.99 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "H2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 67.31 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a6324c33-c0ac-56d6-b51a-b9661c871cf2")
+    (property "Reference" "H3"
+      (at 69.85 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 69.85 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 67.31 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 67.31 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 67.31 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "H3")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 86.36 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b1ee988e-3875-5abf-b6fd-939ff6b3a8ba")
+    (property "Reference" "H4"
+      (at 88.9 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 88.9 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 86.36 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 86.36 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 86.36 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "H4")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:Fiducial")
+    (at 106.68 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "7d911cef-cca3-5d30-a150-97a83f031842")
+    (property "Reference" "FID1"
+      (at 109.22 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "FID"
+      (at 109.22 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Fiducial:Fiducial_1mm_Mask2mm"
+      (at 106.68 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 106.68 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 106.68 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "FID1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:Fiducial")
+    (at 125.73 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ddbf12e5-264e-5bf8-842a-88006437cd2d")
+    (property "Reference" "FID2"
+      (at 128.27 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "FID"
+      (at 128.27 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Fiducial:Fiducial_1mm_Mask2mm"
+      (at 125.73 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 125.73 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 125.73 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "FID2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:Fiducial")
+    (at 146.05 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "0bc6fe7b-229b-566a-b47e-422205f03187")
+    (property "Reference" "FID3"
+      (at 148.59 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "FID"
+      (at 148.59 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Fiducial:Fiducial_1mm_Mask2mm"
+      (at 146.05 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 146.05 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 146.05 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "FID3")
+          (unit 1)))))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 165.1 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "869dbec9-bcc5-5d6b-8fe9-ed2c237c26fa")
+    (property "Reference" "TP1"
+      (at 167.64 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "BUSR"
+      (at 167.64 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 165.1 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 165.1 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 165.1 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "b05e041a-2369-5e17-999f-b00ba0961ee3"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP1")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 165.1 35.56)
+      (xy 165.1 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "819abecd-b552-53c9-a454-732365c2ecea"))
+  (global_label "BUSR"
+    (shape passive)
+    (at 165.1 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "ea5e8fcb-5fb5-5647-b796-6fb12d96efbb")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 165.1 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 186.69 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "bfe7d83b-f862-5b0f-b89b-66154a6e1c23")
+    (property "Reference" "TP2"
+      (at 189.23 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "VSTORE"
+      (at 189.23 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 186.69 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 186.69 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 186.69 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "f7bf68e7-c447-589b-9c64-e3891b2d1e68"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP2")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 186.69 35.56)
+      (xy 186.69 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "793e2ccb-c0d2-5a95-a1b6-8b4787acc3a1"))
+  (global_label "VSTORE"
+    (shape passive)
+    (at 186.69 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "8ae8134d-a12f-5475-ac00-fa8eebd846a8")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 186.69 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 208.28 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "86ccb876-a898-5a41-b0ce-036f5dbbaf2c")
+    (property "Reference" "TP3"
+      (at 210.82 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "+3V3"
+      (at 210.82 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 208.28 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 208.28 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 208.28 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "d4c8dd68-6531-505d-b6cb-357b3ce61653"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP3")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 208.28 35.56)
+      (xy 208.28 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "fbe771ae-c787-5f1f-9de0-ceeb88d02bf9"))
+  (global_label "+3V3"
+    (shape passive)
+    (at 208.28 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "9a79c2b6-b06e-5b68-a561-fc80db669d29")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 208.28 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 228.6 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ea679db1-e803-5e5c-8b3f-b241683ced5e")
+    (property "Reference" "TP4"
+      (at 231.14 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "GND"
+      (at 231.14 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 228.6 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 228.6 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 228.6 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "81b4a790-6f19-5f5e-8b8b-485b3d1d72ee"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP4")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 228.6 35.56)
+      (xy 228.6 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0c38dcfe-8271-5b45-aa10-20fb51dd44ac"))
+  (global_label "GND"
+    (shape passive)
+    (at 228.6 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "2f6b3ab4-2e03-5c08-89fe-1228962878c7")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 228.6 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 250.19 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "453e9f5f-6c58-5af0-8fec-01223c3c51cc")
+    (property "Reference" "TP5"
+      (at 252.73 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "BUS_TX"
+      (at 252.73 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 250.19 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 250.19 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 250.19 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "2fb209dd-e72a-5023-8f4e-aef9255fb2bd"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP5")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 250.19 35.56)
+      (xy 250.19 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e30d3303-b9a3-56fc-b67c-d3d60860537a"))
+  (global_label "BUS_TX"
+    (shape passive)
+    (at 250.19 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "6c6abade-decf-5cf1-90a2-e88bfe6d36aa")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 250.19 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 271.78 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "002a915e-b049-54d8-b701-a6eb6f090e62")
+    (property "Reference" "TP6"
+      (at 274.32 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "BUS_RX"
+      (at 274.32 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 271.78 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 271.78 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 271.78 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "f00fab84-9e86-5f4c-8aeb-a3d6171b8f63"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP6")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 271.78 35.56)
+      (xy 271.78 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "8a36aa2e-0318-52bb-8c78-d1829b7fabb4"))
+  (global_label "BUS_RX"
+    (shape passive)
+    (at 271.78 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "31783683-04b7-54f7-840d-e8e2cbadc196")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 271.78 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 292.1 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "4e6b1ca2-1aa0-5a71-91bf-e7a52053d115")
+    (property "Reference" "TP7"
+      (at 294.64 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "U0_TX"
+      (at 294.64 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 292.1 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 292.1 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 292.1 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "120904ae-0d59-56a8-acb2-2b8f56a9f31b"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP7")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 292.1 35.56)
+      (xy 292.1 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a8cb01df-5659-5165-855e-45a8ad2cc196"))
+  (global_label "U0_TX"
+    (shape passive)
+    (at 292.1 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "9e2505a8-ae91-5343-a989-e4c271698859")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 292.1 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 313.69 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "85196a77-9ef6-52ed-9148-48049a4dfa50")
+    (property "Reference" "TP8"
+      (at 316.23 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "U0_RX"
+      (at 316.23 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 313.69 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 313.69 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 313.69 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "52156ee5-7e5c-5ab1-9ca6-bcda6bbf04c4"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP8")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 313.69 35.56)
+      (xy 313.69 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e2922dc8-4aa5-5014-8eb0-427f24f63edd"))
+  (global_label "U0_RX"
+    (shape passive)
+    (at 313.69 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "bfde700a-118c-55df-9e95-9ee83a4c8c07")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 313.69 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (symbol
+    (lib_id "Connector:TestPoint")
+    (at 335.28 35.56 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "729235c9-a16b-5a28-8c05-859bd4c220e8")
+    (property "Reference" "TP9"
+      (at 337.82 34.29 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "EN"
+      (at 337.82 36.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+      (at 335.28 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 335.28 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "MPN" ""
+      (at 335.28 35.56 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "44ea795b-6964-5b28-8ebd-baac9157b60e"))
+    (instances
+      (project "cooler_panel"
+        (path "/01a28193-96eb-5a30-929c-cc04ac09cd41/ac892e0e-4777-549e-bcb1-b287f583c91e"
+          (reference "TP9")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 335.28 35.56)
+      (xy 335.28 38.1))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5a9442a7-e0e1-525f-bef2-8a5777f7a99b"))
+  (global_label "EN"
+    (shape passive)
+    (at 335.28 38.1 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "efa8d06e-dc80-5370-84cd-a6b29c3cfbf3")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 335.28 38.1 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))))

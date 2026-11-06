@@ -17,7 +17,7 @@ void drive_default_cfg(drive_cfg_t *c)
     c->vbus_ov = 445.0f;        c->vbus_pfc_ok = 360.0f;
     c->t_hs_derate = 85.0f;     c->t_hs_stop = 100.0f;   c->t_hs_return = 80.0f;
     c->t_mot_derate = 130.0f;   c->t_mot_stop = 150.0f;  c->t_mot_return = 110.0f;
-    c->cap_tol = 0.12f;
+    c->cap_tol = 0.0f;           /* 0: parallel bus capacitors (board v2.0). 0.12 for a series stack */
     c->pfc_idle_off_ms = 30000u;
 }
 
@@ -244,7 +244,8 @@ void drive_tick_1ms(drive_t *d, const drive_in_t *in, drive_out_t *o)
         raise_event(d, in, AL_BUS_PFC, AD_BUS_OV, SCHED_OC, 3);
 
     /* ---- series capacitor balance (aged / leaky capacitor) */
-    if (in->vbus > 200.0f && fabsf(in->vcap_low - in->vbus / 3.0f) > c->cap_tol * in->vbus / 3.0f) {
+    if (c->cap_tol > 0.0f && in->vbus > 200.0f &&
+        fabsf(in->vcap_low - in->vbus / 3.0f) > c->cap_tol * in->vbus / 3.0f) {
         if (++d->cap_bad_ms == 2000u) {
             d->latched = false;              /* more important than any other alarm */
             raise_event(d, in, AL_BUS_PFC, AD_CAP_IMBALANCE, 0, 0);

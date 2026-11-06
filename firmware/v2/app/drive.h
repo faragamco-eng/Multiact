@@ -84,7 +84,7 @@ typedef struct {
     float vbus_ov, vbus_pfc_ok;
     float t_hs_derate, t_hs_stop, t_hs_return;
     float t_mot_derate, t_mot_stop, t_mot_return;
-    float cap_tol;                       /* allowed deviation from VBUS/3     */
+    float cap_tol;                       /* series caps: allowed deviation from VBUS/3 (0 = off) */
     uint32_t pfc_idle_off_ms;
 } drive_cfg_t;
 

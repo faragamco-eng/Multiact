@@ -248,10 +248,6 @@
       },
       {
         "netclass": "HV_mains",
-        "pattern": "VBM1D"
-      },
-      {
-        "netclass": "HV_mains",
         "pattern": "VBOOTU"
       },
       {
@@ -269,14 +265,6 @@
       {
         "netclass": "HV_mains",
         "pattern": "VBUS_EXT"
-      },
-      {
-        "netclass": "HV_mains",
-        "pattern": "VB_M1"
-      },
-      {
-        "netclass": "HV_mains",
-        "pattern": "VB_M2"
       },
       {
         "netclass": "HV_mains",

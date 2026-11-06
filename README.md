@@ -22,7 +22,8 @@
 | [`docs/07_battery_solar_backup.md`](docs/07_battery_solar_backup.md) | **برق اضطراری:** ماژول باتری ۴۸ V (DAB دوطرفه) + ورودی خورشیدی روی باس DC، زمان کارکرد، نتایج شبیه‌سازی قطع برق |
 | [`docs/08_firmware_v2.md`](docs/08_firmware_v2.md) | **فریمور برد v2:** ترتیب روشن شدن، اضافه‌ولتاژ 440 V، قطع برق، آلارم‌ها و تلاش مجدد، ذخیره پارامتر، بوت‌لودر و به‌روزرسانی از پنل، PHY باس پنل |
 | [`docs/09_panel_and_app.md`](docs/09_panel_and_app.md) | **پنل و اپ:** تاچ یا کلید، منطق کولر (پیش‌خیس/خشک کردن)، BLE/Wi-Fi/MQTT، پیام‌های JSON، OTA، گزارش و درخواست گارانتی |
-| [`hardware/v2/`](hardware/v2/) | **شماتیک و برد v2 (KiCad/Altium)**: PFC، اینورتر گسسته قابل تعمیر، خازن‌های سری، باس پنل ایزوله |
+| [`hardware/v2/`](hardware/v2/) | **شماتیک و برد v2 (KiCad/Altium)**: PFC، اینورتر گسسته قابل تعمیر، باس پنل ایزوله |
+| [`hardware/panel/`](hardware/panel/) | **شماتیک و برد پنل پایه (KiCad/Altium)**: ESP32-S3، نمایشگر ۴ رقمی، ۵ کلید، رابط باس دوسیمه با جریان ثابت |
 | [`hardware/v2/`](hardware/v2/README.md) | **شماتیک نسخه ۲** (PFC، FOC سه‌شنت، تغذیه مقاوم 440 VAC، رله پمپ/تخلیه، باس پنل ایزوله، RS-485 ماژول باتری) — بررسی‌شده با کتابخانه KiCad و داده ST، نت‌لیست قابل import در KiCad |
 | [`hardware/netlist.md`](hardware/netlist.md) | (نسخه ۱، جایگزین شده) شماتیک متنی برگه‌به‌برگه (پین‌های MCU از دیتابیس رسمی ST) |
 | [`hardware/bom.csv`](hardware/bom.csv) | لیست قطعات با پارت‌نامبر نمونه |

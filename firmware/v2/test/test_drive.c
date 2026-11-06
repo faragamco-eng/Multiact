@@ -315,8 +315,9 @@ static void t_overcurrent(void)
 
 static void t_cap_imbalance(void)
 {
-    printf("series capacitor imbalance\n");
+    printf("series capacitor imbalance (option for a 3-series stack)\n");
     boot();
+    D.cfg.cap_tol = 0.12f;
     set_hr(HR_RUN, 1);
     run_s(10);
     P.vcap_low_k = 1.25;                     /* lowest cap carries 25 % too much */

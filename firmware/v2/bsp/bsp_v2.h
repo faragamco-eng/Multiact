@@ -8,7 +8,7 @@
  *   PB0  ISENSE_W    OPAMP3/COMP4                 PB6/PB7 USART1 -> ISO7762 -> PHY MCU (115200 8N1)
  *   PA2  VIN_L       ADC1_IN3    1:301           PB4 K1 main, PB5 K2 precharge, PB10 K3 pump, PB11 K4 drain
  *   PA3  VIN_N       ADC1_IN4    1:301           PA11 PFC_OFF (high = PFC off), PA12 LED
- *   PA5  VBM_SENSE   ADC2_IN13   1:100.3 (lowest bus capacitor)
+ *   PA5  not connected (was the series-capacitor mid-point sense)
  *   PA6  NTC_HS      ADC2_IN3    10k pull-up, NTC 10k B3435
  *   PA4  TP_DAC      DAC1_OUT1   debug signal
  */

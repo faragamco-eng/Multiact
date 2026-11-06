@@ -537,15 +537,7 @@ R_0603_1608Metric
 [
 C12
 CP_Radial_D35.0mm_P10.00mm_SnapIn
-1200uF 200V
-
-
-
-]
-[
-R100
-R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal
-68k 1W
+470uF 450V
 
 
 
@@ -553,31 +545,7 @@ R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal
 [
 C13
 CP_Radial_D35.0mm_P10.00mm_SnapIn
-1200uF 200V
-
-
-
-]
-[
-R101
-R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal
-68k 1W
-
-
-
-]
-[
-C61
-CP_Radial_D35.0mm_P10.00mm_SnapIn
-1200uF 200V
-
-
-
-]
-[
-R102
-R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal
-68k 1W
+470uF 450V
 
 
 
@@ -585,7 +553,7 @@ R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal
 [
 R29
 R_1206_3216Metric
-150k
+100k
 
 
 
@@ -593,7 +561,7 @@ R_1206_3216Metric
 [
 R30
 R_1206_3216Metric
-150k
+100k
 
 
 
@@ -601,7 +569,7 @@ R_1206_3216Metric
 [
 R31
 R_1206_3216Metric
-150k
+100k
 
 
 
@@ -610,46 +578,6 @@ R_1206_3216Metric
 LED1
 LED_0805_2012Metric
 red HV
-
-
-
-]
-[
-R103
-R_1206_3216Metric
-330k 1%
-
-
-
-]
-[
-R104
-R_1206_3216Metric
-330k 1%
-
-
-
-]
-[
-R105
-R_0603_1608Metric
-6.65k 0.1%
-
-
-
-]
-[
-C62
-C_0603_1608Metric
-1nF
-
-
-
-]
-[
-R106
-R_0603_1608Metric
-1k
 
 
 
@@ -2628,8 +2556,6 @@ R10-2
 D5-1
 C3-2
 R28-2
-R105-2
-C62-2
 U3-4
 C19-2
 C21-2
@@ -3180,8 +3106,8 @@ R27-2
 C10-2
 C11-2
 Q2-2
-C61-2
-R102-2
+C12-2
+C13-2
 LED1-1
 D12-2
 C14-2
@@ -3468,23 +3394,6 @@ C41-1
 R70-1
 )
 (
-VBM1D
-R103-2
-R104-1
-)
-(
-VBM2D
-R104-2
-R105-1
-C62-1
-R106-1
-)
-(
-VBM_SENSE
-R106-2
-U6-13
-)
-(
 VBOOTU
 U5-8
 D26-1
@@ -3512,7 +3421,7 @@ D6-1
 D7-1
 R18-1
 C12-1
-R100-1
+C13-1
 R29-1
 Q9-2
 Q11-2
@@ -3533,21 +3442,6 @@ J9-1
 VBUS_SENSE
 R70-2
 U6-8
-)
-(
-VB_M1
-C13-2
-R101-2
-C61-1
-R102-1
-R103-1
-)
-(
-VB_M2
-C12-2
-R100-2
-C13-1
-R101-1
 )
 (
 VIN_L

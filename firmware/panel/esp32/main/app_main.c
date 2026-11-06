@@ -43,6 +43,7 @@
 #include "json_api.h"
 #include "drive_update.h"
 #include "bus_uart.h"
+#include "ui_seg.h"
 
 static const char *TAG = "panel";
 #define MANUFACTURER_API "https://service.example-cooler.ir/api/v1"   /* placeholder: manufacturer server */
@@ -91,6 +92,27 @@ static void bus_task(void *arg)
         panel_tick(&P, (uint32_t)(esp_timer_get_time() / 1000), mow);
         xSemaphoreGive(P_lock);
         vTaskDelayUntil(&last, 1);                /* CONFIG_FREERTOS_HZ=1000 */
+    }
+}
+
+/* ------------------------------------------------------------ display + keys (basic panel) */
+static void ui_task(void *arg)
+{
+    uint16_t last_alarm = 0;
+    for (;;) {
+        uint32_t now = (uint32_t)(esp_timer_get_time() / 1000);
+        bool lp;
+        int k = ui_seg_key(now, &lp);
+        ui_view_t v;
+        xSemaphoreTake(P_lock, portMAX_DELAY);
+        if (k >= 0) panel_key(&P, (pkey_t)k, lp);
+        panel_view(&P, &v);
+        xSemaphoreGive(P_lock);
+        ui_seg_show(&v, now);
+        if (k >= 0) ui_seg_beep(lp ? 120 : 25);
+        if (v.alarm && v.alarm != last_alarm) ui_seg_beep(400);
+        last_alarm = v.alarm;
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
 
@@ -253,7 +275,8 @@ void app_main(void)
     panel_init(&P, bus_uart_send, on_event, NULL);
     xTaskCreate(bus_task, "bus", 4096, NULL, 10, NULL);
     xTaskCreate(state_push_task, "push", 4096, NULL, 3, NULL);
-    /* ui_task: 7-segment/LED + keys (C3 version) or LVGL touch screen (S3 version) - next phase */
+    ui_seg_init();
+    xTaskCreate(ui_task, "ui", 3072, NULL, 5, NULL);    /* touch version: LVGL task instead */
 
     esp_netif_init();
     esp_event_loop_create_default();
@@ -275,6 +298,10 @@ void app_main(void)
         wifi_prov_mgr_deinit();
         esp_wifi_set_mode(WIFI_MODE_STA);
         esp_wifi_start();
+        /* bus power budget (hardware/panel/README.md): modem sleep, TX power capped at 15 dBm so
+         * transmit bursts stay within what the 1000 uF VSTORE capacitor can bridge */
+        esp_wifi_set_ps(WIFI_PS_MIN_MODEM);
+        esp_wifi_set_max_tx_power(60);                           /* 0.25 dBm units */
         esp_wifi_connect();
     }
 }

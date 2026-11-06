@@ -12,7 +12,7 @@
  *   OPAMP1/2/3  PGA x4 on PA1/PA7/PB0, outputs internal to ADC1/ADC2
  *   COMP1/2/4   same pins vs VREFINT (1.21 V = ~40 A in a low-side shunt)
  *   ADC1 inj.  I_U (OPAMP1), VBUS, VIN_L, VIN_N
- *   ADC2 inj.  I_V (OPAMP2), I_W (OPAMP3), NTC, VBM
+ *   ADC2 inj.  I_V (OPAMP2), I_W (OPAMP3), NTC
  *   USART1 115200 8N1 with receiver timeout (Modbus 3.5 char gap)
  *   IWDG   250 ms
  *
@@ -27,7 +27,6 @@
 #define ADC_VREF      3.3f
 #define ADC_FS        4095.0f
 #define K_VBUS        ((990.0f + 6.65f) / 6.65f)
-#define K_VBM         ((660.0f + 6.65f) / 6.65f)
 #define K_VIN         ((3000.0f + 10.0f) / 10.0f)
 #define SHUNT_OHM     0.025f
 #define SHIFT_GAIN    (10.0f / 11.0f)
@@ -234,15 +233,15 @@ static void analog_init(void)
     adc_enable(ADC2);
     adc_smp(ADC1, CH_OPAMP1, SMP_6C5); adc_smp(ADC2, CH_OPAMP2, SMP_6C5); adc_smp(ADC2, CH_OPAMP3, SMP_6C5);
     adc_smp(ADC1, 1, SMP_47C5); adc_smp(ADC1, 3, SMP_47C5); adc_smp(ADC1, 4, SMP_47C5);
-    adc_smp(ADC2, 3, SMP_47C5); adc_smp(ADC2, 13, SMP_47C5);
+    adc_smp(ADC2, 3, SMP_47C5);
     ADC1->CFGR |= ADC_CFGR_JQDIS;
     ADC2->CFGR |= ADC_CFGR_JQDIS;
     ADC1->JSQR = (3u << ADC_JSQR_JL_Pos) | (JEXT_TIM1_TRGO2 << ADC_JSQR_JEXTSEL_Pos) | (1u << ADC_JSQR_JEXTEN_Pos) |
                  (CH_OPAMP1 << ADC_JSQR_JSQ1_Pos) | (1u << ADC_JSQR_JSQ2_Pos) |
                  (3u << ADC_JSQR_JSQ3_Pos) | (4u << ADC_JSQR_JSQ4_Pos);
-    ADC2->JSQR = (3u << ADC_JSQR_JL_Pos) | (JEXT_TIM1_TRGO2 << ADC_JSQR_JEXTSEL_Pos) | (1u << ADC_JSQR_JEXTEN_Pos) |
+    ADC2->JSQR = (2u << ADC_JSQR_JL_Pos) | (JEXT_TIM1_TRGO2 << ADC_JSQR_JEXTSEL_Pos) | (1u << ADC_JSQR_JEXTEN_Pos) |
                  (CH_OPAMP2 << ADC_JSQR_JSQ1_Pos) | (CH_OPAMP3 << ADC_JSQR_JSQ2_Pos) |
-                 (3u << ADC_JSQR_JSQ3_Pos) | (13u << ADC_JSQR_JSQ4_Pos);
+                 (3u << ADC_JSQR_JSQ3_Pos);
     ADC1->ISR = ADC_ISR_JEOS;
     ADC1->IER = ADC_IER_JEOSIE;                             /* ADC1 sequence is the longer one */
     NVIC_SetPriority(ADC1_2_IRQn, IRQPRI_PWM);
@@ -289,7 +288,7 @@ void ADC1_2_IRQHandler(void)
     m.vin_n = adc_v(ADC1->JDR4) * K_VIN;
     s_tlp += (ntc_degc(adc_v(ADC2->JDR3)) - s_tlp) * 0.001f;
     m.t_hs = s_tlp;
-    m.vcap_low = adc_v(ADC2->JDR4) * K_VBM;
+    m.vcap_low = 0.0f;                                     /* parallel bus capacitors: no mid-point */
     bsp_pwm_isr(&m);
 }
 

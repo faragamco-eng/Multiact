@@ -1,6 +1,6 @@
-# BLDC cooler drive v2 — netlist (generated from schematic.py, do not edit)
+# BLDC cooler motor drive v2 (220 VAC, PFC, sensorless FOC) — netlist (generated from schematic.py, do not edit)
 
-Parts: 298 · nets: 203 · check errors: 0
+Parts: 289 · nets: 199 · check errors: 0
 
 
 ## Sheet 1 AC input, protection, relays, mains sensing
@@ -22,7 +22,7 @@ Parts: 298 · nets: 203 · check errors: 0
 | CY2 | Y2 300VAC | 2.2nF Y2 | 1→`AC_NF`, 2→`PE` |  |
 | K1 | Finder 40.11.9.012.0000 (10 A, 12 V coil) | Finder 40.11.9.012 | A1→`K1_A1`, A2→`K1_DRV`, 11→`AC_LF`, 14→`L_SW`, 12→`NC_K1` | opens on Vin > 280 V within one half cycle |
 | K2 | Finder 34.51.7.012.0010 | Finder 34.51.7.012 | A1→`K2_A1`, A2→`K2_DRV`, 11→`AC_LF`, 14→`PRE_L`, 12→`NC_K2` |  |
-| PTC1 | EPCOS B59xxxJ120 series (energy-rated for 660 uF @ 373 V) | PTC 120R inrush | 1→`PRE_L`, 2→`L_SW` | self-protecting if the pre-charge path stays closed into a fault |
+| PTC1 | inrush PTC rated >= 80 J at 265 VAC (940 uF @ 373 V = 65 J), e.g. TDK/EPCOS J1xx series - verify | PTC 120R inrush | 1→`PRE_L`, 2→`L_SW` | self-protecting if the pre-charge path stays closed into a fault |
 | D1 | 1N4007 | 1N4007 | 1→`AUX_RAW`, 2→`AC_LF` |  |
 | D2 | 1N4007 | 1N4007 | 1→`AUX_RAW`, 2→`AC_NF` |  |
 | D3 | 1N4007 | 1N4007 | 1→`AC_LF`, 2→`PGND` |  |
@@ -79,21 +79,12 @@ Parts: 298 · nets: 203 · check errors: 0
 | C11 | Device:C | 1uF | 1→`PFC_VCTRL`, 2→`PGND` | voltage-loop compensation (verify) |
 | Q2 | 2N7002 | 2N7002 | 1/G→`PFC_OFF`, 2/S→`PGND`, 3/D→`PFC_FB` |  |
 | R28 | Device:R | 100k | 1→`PFC_OFF`, 2→`GND` |  |
-| C12 | Nichicon LS/LQ 1200 uF 200 V snap-in (3 in series) | 1200uF 200V | 1→`VBUS`, 2→`VB_M2` | series stack; reform 2 h through 1k before first use, check ESR/leakage |
-| R100 | Device:R | 68k 1W | 1→`VBUS`, 2→`VB_M2` | balancing resistor, one per capacitor |
-| C13 | Nichicon LS/LQ 1200 uF 200 V snap-in (3 in series) | 1200uF 200V | 1→`VB_M2`, 2→`VB_M1` | series stack; reform 2 h through 1k before first use, check ESR/leakage |
-| R101 | Device:R | 68k 1W | 1→`VB_M2`, 2→`VB_M1` | balancing resistor, one per capacitor |
-| C61 | Nichicon LS/LQ 1200 uF 200 V snap-in (3 in series) | 1200uF 200V | 1→`VB_M1`, 2→`PGND` | series stack; reform 2 h through 1k before first use, check ESR/leakage |
-| R102 | Device:R | 68k 1W | 1→`VB_M1`, 2→`PGND` | balancing resistor, one per capacitor |
-| R29 | Device:R | 150k | 1→`VBUS`, 2→`BLD1` |  |
-| R30 | Device:R | 150k | 1→`BLD1`, 2→`BLD2` |  |
-| R31 | Device:R | 150k | 1→`BLD2`, 2→`BLD3` |  |
+| C12 | 470 uF 450 V 105 C >= 5000 h snap-in D35 (e.g. Nichicon LGN/LGU, TDK B43544, Rubycon USR) | 470uF 450V | 1→`VBUS`, 2→`PGND` | ripple rating >= 2.5 A @ 100 Hz each |
+| C13 | 470 uF 450 V 105 C >= 5000 h snap-in D35 (e.g. Nichicon LGN/LGU, TDK B43544, Rubycon USR) | 470uF 450V | 1→`VBUS`, 2→`PGND` | ripple rating >= 2.5 A @ 100 Hz each |
+| R29 | Device:R | 100k | 1→`VBUS`, 2→`BLD1` |  |
+| R30 | Device:R | 100k | 1→`BLD1`, 2→`BLD2` |  |
+| R31 | Device:R | 100k | 1→`BLD2`, 2→`BLD3` |  |
 | LED1 | high-efficiency red, 'HIGH VOLTAGE' | red HV | 1→`PGND`, 2→`BLD3` |  |
-| R103 | Device:R | 330k 1% | 1→`VB_M1`, 2→`VBM1D` |  |
-| R104 | Device:R | 330k 1% | 1→`VBM1D`, 2→`VBM2D` |  |
-| R105 | Device:R | 6.65k 0.1% | 1→`VBM2D`, 2→`GND` |  |
-| C62 | Device:C | 1nF | 1→`VBM2D`, 2→`GND` |  |
-| R106 | Device:R | 1k | 1→`VBM2D`, 2→`VBM_SENSE` |  |
 
 ## Sheet 3 Auxiliary supply (VIPer26 flyback, 1500 V pre-regulator)
 
@@ -232,7 +223,7 @@ Parts: 298 · nets: 203 · check errors: 0
 
 | Ref | Part | Value | Pins → nets | Note |
 |---|---|---|---|---|
-| U6 | ST STM32G431CBT6 | STM32G431CBT6 | 1/VBAT→`+3V3`, 2/PC13→`NC_PC13`, 3/PC14→`NC_PC14`, 4/PC15→`NC_PC15`, 5/PF0→`NC_PF0`, 6/PF1→`NC_PF1`, 7/PG10→`NRST`, 8/PA0→`VBUS_SENSE`, 9/PA1→`ISENSE_U`, 10/PA2→`VIN_L`, 11/PA3→`VIN_N`, 12/PA4→`TP_DAC`, 13/PA5→`VBM_SENSE`, 14/PA6→`NTC_HS`, 15/PA7→`ISENSE_V`, 16/PB0→`ISENSE_W`, 17/PB1→`NC_PB1`, 18/PB2→`NC_PB2`, 19/VSSA→`GND`, 20/VREF+→`+3V3A`, 21/VDDA→`+3V3A`, 22/PB10→`K3_ON`, 23/VSS→`GND`, 24/VDD→`+3V3`, 25/PB11→`K4_ON`, 26/PB12→`MCU_BKIN`, 27/PB13→`PWM_UL`, 28/PB14→`PWM_VL`, 29/PB15→`PWM_WL`, 30/PA8→`PWM_UH`, 31/PA9→`PWM_VH`, 32/PA10→`PWM_WH`, 33/PA11→`PFC_OFF`, 34/PA12→`LED_STAT`, 35/VSS→`GND`, 36/VDD→`+3V3`, 37/PA13→`SWDIO`, 38/PA14→`SWCLK`, 39/PA15→`NC_PA15`, 40/PB3→`SWO`, 41/PB4→`K1_ON`, 42/PB5→`K2_ON`, 43/PB6→`UART_H_TX`, 44/PB7→`UART_H_RX`, 45/PB8→`BOOT0`, 46/PB9→`NC_PB9`, 47/VSS→`GND`, 48/VDD→`+3V3` |  |
+| U6 | ST STM32G431CBT6 | STM32G431CBT6 | 1/VBAT→`+3V3`, 2/PC13→`NC_PC13`, 3/PC14→`NC_PC14`, 4/PC15→`NC_PC15`, 5/PF0→`NC_PF0`, 6/PF1→`NC_PF1`, 7/PG10→`NRST`, 8/PA0→`VBUS_SENSE`, 9/PA1→`ISENSE_U`, 10/PA2→`VIN_L`, 11/PA3→`VIN_N`, 12/PA4→`TP_DAC`, 13/PA5→`NC_PA5`, 14/PA6→`NTC_HS`, 15/PA7→`ISENSE_V`, 16/PB0→`ISENSE_W`, 17/PB1→`NC_PB1`, 18/PB2→`NC_PB2`, 19/VSSA→`GND`, 20/VREF+→`+3V3A`, 21/VDDA→`+3V3A`, 22/PB10→`K3_ON`, 23/VSS→`GND`, 24/VDD→`+3V3`, 25/PB11→`K4_ON`, 26/PB12→`MCU_BKIN`, 27/PB13→`PWM_UL`, 28/PB14→`PWM_VL`, 29/PB15→`PWM_WL`, 30/PA8→`PWM_UH`, 31/PA9→`PWM_VH`, 32/PA10→`PWM_WH`, 33/PA11→`PFC_OFF`, 34/PA12→`LED_STAT`, 35/VSS→`GND`, 36/VDD→`+3V3`, 37/PA13→`SWDIO`, 38/PA14→`SWCLK`, 39/PA15→`NC_PA15`, 40/PB3→`SWO`, 41/PB4→`K1_ON`, 42/PB5→`K2_ON`, 43/PB6→`UART_H_TX`, 44/PB7→`UART_H_RX`, 45/PB8→`BOOT0`, 46/PB9→`NC_PB9`, 47/VSS→`GND`, 48/VDD→`+3V3` |  |
 | C43 | Device:C | 100nF | 1→`+3V3`, 2→`GND` |  |
 | C44 | Device:C | 100nF | 1→`+3V3`, 2→`GND` |  |
 | C45 | Device:C | 100nF | 1→`+3V3`, 2→`GND` |  |
@@ -373,7 +364,7 @@ Parts: 298 · nets: 203 · check errors: 0
 | `GL_U` | Q10.1 R109.2 R110.1 |
 | `GL_V` | Q12.1 R113.2 R114.1 |
 | `GL_W` | Q14.1 R117.2 R118.1 |
-| `GND` | R6.2 D4.1 C2.2 R10.2 D5.1 C3.2 R28.2 R105.2 C62.2 U3.4 C19.2 C21.2 C22.2 C26.2 C27.2 R41.2 R43.2 R45.2 R47.2 R49.2 R51.2 C69.2 J10.2 C37.2 C38.2 C39.2 NT1.2 R69.2 C41.2 J3.2 C42.2 U6.19 U6.23 U6.35 U6.47 C43.2 C44.2 C45.2 C46.2 C47.2 C48.2 C49.2 R72.2 LED2.1 J4.3 J4.5 J4.9 Q4.2 R76.2 Q5.2 R79.2 Q6.2 R82.2 Q7.2 R85.2 U7.3 U7.4 U7.5 U7.8 C52.2 TP4.1 |
+| `GND` | R6.2 D4.1 C2.2 R10.2 D5.1 C3.2 R28.2 U3.4 C19.2 C21.2 C22.2 C26.2 C27.2 R41.2 R43.2 R45.2 R47.2 R49.2 R51.2 C69.2 J10.2 C37.2 C38.2 C39.2 NT1.2 R69.2 C41.2 J3.2 C42.2 U6.19 U6.23 U6.35 U6.47 C43.2 C44.2 C45.2 C46.2 C47.2 C48.2 C49.2 R72.2 LED2.1 J4.3 J4.5 J4.9 Q4.2 R76.2 Q5.2 R79.2 Q6.2 R82.2 Q7.2 R85.2 U7.3 U7.4 U7.5 U7.8 C52.2 TP4.1 |
 | `GND_S` | T1.6 C23.2 U4.2 C24.2 C25.2 U7.9 U7.10 C53.2 U8.5 C54.2 C55.2 C56.2 LED3.1 J6.5 R91.2 Q8.2 R94.2 C57.2 C58.2 R95.2 C59.2 R98.2 U11.5 C60.2 J8.3 TP9.1 |
 | `HIN_U` | U5.1 R40.2 R41.1 |
 | `HIN_V` | U12.1 R44.2 R45.1 |
@@ -426,6 +417,7 @@ Parts: 298 · nets: 203 · check errors: 0
 | `NC_K3` | K3.12 |
 | `NC_K4` | K4.12 |
 | `NC_PA15` | U6.39 |
+| `NC_PA5` | U6.13 |
 | `NC_PB1` | U6.17 |
 | `NC_PB2` | U6.18 |
 | `NC_PB9` | U6.46 |
@@ -475,7 +467,7 @@ Parts: 298 · nets: 203 · check errors: 0
 | `PFC_VCC` | U1.8 R17.2 C5.1 C6.1 |
 | `PFC_VCTRL` | U1.2 C11.1 |
 | `PFC_VM` | U1.5 R27.1 C10.1 |
-| `PGND` | D3.2 C1.2 Q1.3 R14.2 D8.2 R15.2 R16.2 U1.6 C5.2 C6.2 C7.2 C8.2 C9.2 R27.2 C10.2 C11.2 Q2.2 C61.2 R102.2 LED1.1 D12.2 C14.2 T1.5 U2.1 C15.2 C16.2 R37.2 C17.2 C18.2 R39.2 D18.2 U5.3 C63.2 C64.2 U12.3 C65.2 C66.2 U13.3 C67.2 C68.2 C34.2 C35.2 C40.2 C36.2 R54.2 R55.2 R56.2 NT1.1 J9.3 |
+| `PGND` | D3.2 C1.2 Q1.3 R14.2 D8.2 R15.2 R16.2 U1.6 C5.2 C6.2 C7.2 C8.2 C9.2 R27.2 C10.2 C11.2 Q2.2 C12.2 C13.2 LED1.1 D12.2 C14.2 T1.5 U2.1 C15.2 C16.2 R37.2 C17.2 C18.2 R39.2 D18.2 U5.3 C63.2 C64.2 U12.3 C65.2 C66.2 U13.3 C67.2 C68.2 C34.2 C35.2 C40.2 C36.2 R54.2 R55.2 R56.2 NT1.1 J9.3 |
 | `PREG1` | R32.2 R33.1 |
 | `PREG2` | R33.2 R34.1 |
 | `PREG3` | R34.2 R35.1 |
@@ -522,17 +514,12 @@ Parts: 298 · nets: 203 · check errors: 0
 | `VBD1` | R66.2 R67.1 |
 | `VBD2` | R67.2 R68.1 |
 | `VBD3` | R68.2 R69.1 C41.1 R70.1 |
-| `VBM1D` | R103.2 R104.1 |
-| `VBM2D` | R104.2 R105.1 C62.1 R106.1 |
-| `VBM_SENSE` | R106.2 U6.13 |
 | `VBOOTU` | U5.8 D26.1 C28.1 C29.1 |
 | `VBOOTV` | U12.8 D27.1 C30.1 C31.1 |
 | `VBOOTW` | U13.8 D28.1 C32.1 C33.1 |
-| `VBUS` | D29.2 D6.1 D7.1 R18.1 C12.1 R100.1 R29.1 Q9.2 Q11.2 Q13.2 C34.1 C35.1 C40.1 C36.1 R66.1 F4.1 |
+| `VBUS` | D29.2 D6.1 D7.1 R18.1 C12.1 C13.1 R29.1 Q9.2 Q11.2 Q13.2 C34.1 C35.1 C40.1 C36.1 R66.1 F4.1 |
 | `VBUS_EXT` | F4.2 J9.1 |
 | `VBUS_SENSE` | R70.2 U6.8 |
-| `VB_M1` | C13.2 R101.2 C61.1 R102.1 R103.1 |
-| `VB_M2` | C12.2 R100.2 C13.1 R101.1 |
 | `VIN_L` | R11.2 U6.10 |
 | `VIN_L_A` | R3.2 R4.1 |
 | `VIN_L_B` | R4.2 R5.1 |

@@ -11,15 +11,15 @@ Qty,References,Value,MPN / description,Footprint,Populate
 2,CY1 CY2,2.2nF Y2,Y2 300VAC,Capacitor_THT:C_Disc_D11.0mm_W5.0mm_P7.50mm,yes
 1,K1,Finder 40.11.9.012,"Finder 40.11.9.012.0000 (10 A, 12 V coil)",Relay_THT:Relay_SPDT_Finder_40.11,yes
 3,K2 K3 K4,Finder 34.51.7.012,Finder 34.51.7.012.0010,Relay_THT:Relay_SPDT_Finder_34.51_Vertical,yes
-1,PTC1,PTC 120R inrush,EPCOS B59xxxJ120 series (energy-rated for 660 uF @ 373 V),Capacitor_THT:C_Disc_D11.0mm_W5.0mm_P7.50mm,yes
+1,PTC1,PTC 120R inrush,"inrush PTC rated >= 80 J at 265 VAC (940 uF @ 373 V = 65 J), e.g. TDK/EPCOS J1xx series - verify",Capacitor_THT:C_Disc_D11.0mm_W5.0mm_P7.50mm,yes
 3,D1 D2 D3,1N4007,1N4007,Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal,yes
 4,C1 C35 C40 C36,100nF 630V,,Capacitor_THT:C_Rect_L18.0mm_W6.0mm_P15.00mm_FKS3_FKP3,yes
 1,D29,UF4007,UF4007 (1000 V),Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal,yes
 14,R3 R4 R5 R7 R8 R9 R22 R23 R24 R25 R32 R33 R34 R35,1M,,Resistor_SMD:R_1206_3216Metric,yes
 5,R6 R10 R60 R61 R62,10k 0.1%,,Resistor_SMD:R_0603_1608Metric,yes
 2,D4 D5,BAT54S,BAT54S,Package_TO_SOT_SMD:SOT-23,yes
-6,C2 C3 C7 C8 C62 C41,1nF,,Capacitor_SMD:C_0603_1608Metric,yes
-8,R11 R12 R106 R53 R70 R73 R88 R96,1k,,Resistor_SMD:R_0603_1608Metric,yes
+5,C2 C3 C7 C8 C41,1nF,,Capacitor_SMD:C_0603_1608Metric,yes
+7,R11 R12 R53 R70 R73 R88 R96,1k,,Resistor_SMD:R_0603_1608Metric,yes
 1,BR1,GBU1010,GBU1010 (10 A 1000 V) on heatsink,Diode_THT:Diode_Bridge_Vishay_GBU,yes
 2,C4 C34,1uF 630V,,Capacitor_THT:C_Rect_L26.5mm_W8.5mm_P22.50mm_MKS4,yes
 1,L2,470uH 13A,"toroid ~46 mm OD (e.g. Kool Mu 0077083A7 or High Flux 58083), 470 uH at 11 A, Isat >= 13 A",Inductor_THT:L_Toroid_Vertical_L46.0mm_W19.1mm_P21.80mm_Bourns_5700,yes
@@ -41,12 +41,9 @@ Qty,References,Value,MPN / description,Footprint,Populate
 1,C11,1uF,,Capacitor_SMD:C_0805_2012Metric,yes
 6,Q2 Q4 Q5 Q6 Q7 Q8,2N7002,2N7002,Package_TO_SOT_SMD:SOT-23,yes
 6,R28 R76 R79 R82 R85 R94,100k,,Resistor_SMD:R_0603_1608Metric,yes
-3,C12 C13 C61,1200uF 200V,Nichicon LS/LQ 1200 uF 200 V snap-in (3 in series),Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn,yes
-3,R100 R101 R102,68k 1W,,Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal,yes
-3,R29 R30 R31,150k,,Resistor_SMD:R_1206_3216Metric,yes
+2,C12 C13,470uF 450V,"470 uF 450 V 105 C >= 5000 h snap-in D35 (e.g. Nichicon LGN/LGU, TDK B43544, Rubycon USR)",Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn,yes
+3,R29 R30 R31,100k,,Resistor_SMD:R_1206_3216Metric,yes
 1,LED1,red HV,"high-efficiency red, 'HIGH VOLTAGE'",LED_SMD:LED_0805_2012Metric,yes
-5,R103 R104 R66 R67 R68,330k 1%,,Resistor_SMD:R_1206_3216Metric,yes
-2,R105 R69,6.65k 0.1%,,Resistor_SMD:R_0603_1608Metric,yes
 1,Q3,1500V 4A,"ST STW4N150 (on main heatsink, insulated)",Package_TO_SOT_THT:TO-247-3_Vertical,yes
 4,D9 D10 D11 D12,1N4764A 100V,1N4764A,Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal,yes
 1,D13,BZT52C15,BZT52C15,Diode_SMD:D_SOD-123,yes
@@ -88,6 +85,8 @@ Qty,References,Value,MPN / description,Footprint,Populate
 3,C37 C38 C39,470pF C0G,,Capacitor_SMD:C_0603_1608Metric,yes
 1,NT1,STAR,,NetTie:NetTie-2_SMD_Pad0.5mm,yes
 1,J2,MOTOR U/V/W/PE,,"TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal",yes
+3,R66 R67 R68,330k 1%,,Resistor_SMD:R_1206_3216Metric,yes
+1,R69,6.65k 0.1%,,Resistor_SMD:R_0603_1608Metric,yes
 1,J3,NTC 10k B3435,screw-lug NTC 10k B3435 on heatsink,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,yes
 1,U6,STM32G431CBT6,ST STM32G431CBT6,Package_QFP:LQFP-48_7x7mm_P0.5mm,yes
 1,C46,4.7uF,,Capacitor_SMD:C_0805_2012Metric,yes
