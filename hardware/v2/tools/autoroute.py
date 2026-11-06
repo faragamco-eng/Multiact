@@ -435,12 +435,23 @@ def blockers(net, p, q):
     dh[:] = saved[3]
     if not path: return None
     nc = code(net)
-    inv = {v: k for k, v in netcode.items()}
+    # geometric blame: every track / via of another net that comes within clearance of the free path
+    px = np.array([X0 + i * P for _, j, i in path]); py = np.array([Y0 + j * P for _, j, i in path])
+    pl = np.array([l for l, _, _ in path])
+    reach = CLR + 0.125 + MARGIN
     found = set()
-    for li, j, i in path:
-        if n1[li][j, i] != nc and d1[li][j, i] < CLR + 0.2 and n1[li][j, i] > 0:
-            m = inv.get(int(n1[li][j, i]))
-            if m in tracks_of_net or m in vias_of_net: found.add(m)
+    for other, trs in tracks_of_net.items():
+        if other == net: continue
+        for li, ax, ay, bx, by, w, t in trs:
+            m = pl == li
+            if not m.any(): continue
+            if (seg_dist(px[m], py[m], ax, ay, bx, by) < reach + w / 2).any():
+                found.add(other); break
+    for other, vs in vias_of_net.items():
+        if other == net or other in found: continue
+        for x_, y_, v in vs:
+            if (np.hypot(px - x_, py - y_) < reach + VIA_D / 2).any():
+                found.add(other); break
     return found
 
 ripped_count = {}
