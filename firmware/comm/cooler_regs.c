@@ -1,0 +1,66 @@
+/*
+ * cooler_regs.c - Register image of the drive with range checking.
+ */
+#include "cooler_regs.h"
+#include "modbus_slave.h"
+
+typedef struct { uint16_t min, max, def; } range_t;
+
+static const range_t HR_RANGE[HR_COUNT] = {
+    [HR_RUN]            = {0, 1, 0},
+    [HR_SPEED_PERMILLE] = {0, 1000, 500},
+    [HR_PUMP]           = {0, 1, 0},
+    [HR_AUX]            = {0, 1, 0},
+    [HR_ACCEL_S]        = {1, 120, 20},
+    [HR_IDENTIFY]       = {0, 1, 0},
+    [HR_CLEAR_ALARM]    = {0, 1, 0},
+    [HR_COMM_TIMEOUT_S] = {10, 600, 60},
+    [HR_POLE_PAIRS]     = {0, 30, 0},
+    [HR_MAX_RPM]        = {0, 3000, 0},
+    [HR_I_LIMIT_DA]     = {10, 120, 60},
+    [HR_RESTORE_ON_PWR] = {0, 1, 1},
+};
+
+void cooler_regs_init(cooler_regs_t *c)
+{
+    *c = (cooler_regs_t){0};
+    for (unsigned i = 0; i < HR_COUNT; i++)
+        c->hr[i] = HR_RANGE[i].def;
+    c->ir[IR_PROTO_VER] = COOLER_PROTO_VER;
+    c->ir[IR_MOTOR_ID] = 0xFFFFu;
+}
+
+uint8_t cooler_read_holding(uint16_t a, uint16_t *v, void *ctx)
+{
+    cooler_regs_t *c = ctx;
+    if (a >= HR_COUNT) return MB_EX_ILLEGAL_ADDRESS;
+    *v = c->hr[a];
+    return 0;
+}
+
+uint8_t cooler_read_input(uint16_t a, uint16_t *v, void *ctx)
+{
+    cooler_regs_t *c = ctx;
+    if (a >= IR_COUNT) return MB_EX_ILLEGAL_ADDRESS;
+    *v = c->ir[a];
+    return 0;
+}
+
+uint8_t cooler_write_holding(uint16_t a, uint16_t v, void *ctx)
+{
+    cooler_regs_t *c = ctx;
+    if (a >= HR_COUNT) return MB_EX_ILLEGAL_ADDRESS;
+    if (v < HR_RANGE[a].min || v > HR_RANGE[a].max) return MB_EX_ILLEGAL_VALUE;
+    /* command registers trigger an action and read back as 0 */
+    if (a == HR_IDENTIFY)    { if (v) c->identify_req = true; return 0; }
+    if (a == HR_CLEAR_ALARM) { if (v) c->clear_req = true;    return 0; }
+    c->hr[a] = v;
+    return 0;
+}
+
+void cooler_comm_seen(cooler_regs_t *c, uint32_t now_ms) { c->last_valid_ms = now_ms; }
+
+bool cooler_comm_lost(const cooler_regs_t *c, uint32_t now_ms)
+{
+    return (now_ms - c->last_valid_ms) > (uint32_t)c->hr[HR_COMM_TIMEOUT_S] * 1000u;
+}

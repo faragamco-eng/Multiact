@@ -1,7 +1,7 @@
 # BLDC-310 firmware - STM32G431CBT6
 #   make cmsis   fetch CMSIS headers/startup (once)
 #   make         build build/bldc310.elf/.bin/.hex
-#   make test    build + run the host closed-loop simulator scenarios
+#   make test    build + run the host closed-loop simulator scenarios + comm tests
 #   make sweep   start-up robustness: 5 scenarios x 12 initial rotor angles
 #   make plots   run the simulator with CSV output and plot (needs matplotlib)
 #   make flash   program with st-flash (optional)
@@ -52,9 +52,16 @@ $(BUILD)/motor_sim: sim/motor_sim.c core/sixstep.c core/sixstep.h inc/app_config
 	@mkdir -p $(BUILD)
 	$(SIMCC) -O2 -Wall -Wextra -Iinc -Icore sim/motor_sim.c core/sixstep.c -lm -o $@
 
-test: $(BUILD)/motor_sim
+test: $(BUILD)/motor_sim test-comm
 	@fail=0; for s in default heavy reverse inertia lowbus; do \
 	  ./$(BUILD)/motor_sim $$s || fail=1; done; exit $$fail
+
+$(BUILD)/test_modbus: comm/test_modbus.c comm/modbus_slave.c comm/cooler_regs.c comm/modbus_slave.h comm/cooler_regs.h
+	@mkdir -p $(BUILD)
+	$(SIMCC) -O2 -Wall -Wextra -Wconversion -Icomm comm/test_modbus.c comm/modbus_slave.c comm/cooler_regs.c -o $@
+
+test-comm: $(BUILD)/test_modbus
+	./$(BUILD)/test_modbus
 
 sweep: $(BUILD)/motor_sim
 	python3 sim/sweep.py
@@ -69,4 +76,4 @@ flash: $(BUILD)/bldc310.elf
 clean:
 	rm -rf $(BUILD)
 
-.PHONY: all cmsis test sweep plots flash clean
+.PHONY: all cmsis test test-comm sweep plots flash clean

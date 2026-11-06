@@ -1,5 +1,8 @@
 # BLDC-310 — برد درایور و کنترل موتور BLDC (310 V DC، Sensorless)
 
+> **کاربرد هدف: موتور Direct-drive کولر آبی 8000 تا 11000 (outer rotor، 1.2 kW، 450 rpm).** معماری نسخه ۲
+> (PFC، FOC، شناسایی خودکار، باس دوسیمه پنل، وای‌فای) در [`docs/04_cooler_drive_architecture.md`](docs/04_cooler_drive_architecture.md) است.
+
 درایور موتور BLDC تک‌فاز ورودی 230 VAC (باس DC حدود 310 V)، توان نامی 750 W، با **STM32G431** و
 **IPM 600 V / 15 A**، به روش **Six-step sensorless (BEMF zero-crossing)**.
 
@@ -13,6 +16,8 @@
 | [`docs/01_hardware_design.md`](docs/01_hardware_design.md) | مشخصات، بلوک دیاگرام، انتخاب قطعات، طبقه قدرت، حفاظت سه‌لایه، اندازه‌گیری، تغذیه، چیدمان |
 | [`docs/02_firmware_design.md`](docs/02_firmware_design.md) | الگوریتم sensorless، ماشین حالت، استارت، نتایج شبیه‌سازی، راهنمای تیونینگ |
 | [`docs/03_bringup_and_safety.md`](docs/03_bringup_and_safety.md) | راه‌اندازی سه‌مرحله‌ای، چک‌لیست PCB، عیب‌یابی |
+| [`docs/04_cooler_drive_architecture.md`](docs/04_cooler_drive_architecture.md) | **کولر آبی:** تحلیل موتورها (36S/40P)، PFC، FOC، شناسایی خودکار، آلارم‌ها، نوسانات برق، باس پنل، وای‌فای |
+| [`docs/05_panel_bus_modbus.md`](docs/05_panel_bus_modbus.md) | پروتکل Modbus RTU باس پنل و نقشه رجیسترها |
 | [`hardware/netlist.md`](hardware/netlist.md) | شماتیک متنی برگه‌به‌برگه (پین‌های MCU از دیتابیس رسمی ST) |
 | [`hardware/bom.csv`](hardware/bom.csv) | لیست قطعات با پارت‌نامبر نمونه |
 | [`hardware/calc/`](hardware/calc/) | اسکریپت محاسبات (تلفات، هیت‌سینک، خازن، بوت‌استرپ، شنت، تقسیم‌کننده‌ها) و نتایج |
@@ -24,7 +29,7 @@
 cd firmware
 make cmsis          # یک بار: دریافت هدرهای CMSIS (STM32G4)
 make                # build/bldc310.elf/.bin/.hex  (arm-none-eabi-gcc)
-make test           # 5 سناریوی شبیه‌سازی مدار بسته روی PC (gcc)
+make test           # 5 سناریوی شبیه‌سازی مدار بسته + تست Modbus روی PC (gcc)
 make sweep          # مقاوم‌سازی استارت: 5 سناریو × 12 زاویه اولیه روتور
 make plots          # نمودارها در docs/img (نیاز به matplotlib)
 python3 hardware/calc/bldc_calc.py   # محاسبات طراحی (از ریشه مخزن)
