@@ -1,0 +1,7 @@
+parts 241, nets 184
+ERRORS 0
+WARNINGS 4
+  W GDT1: footprint pads without net: ['3']
+  W T1: custom symbol Custom:FLYBACK_EF20 (not validated against the KiCad library)
+  W T1: footprint pads without net: ['10', '9']
+  W U4: footprint pads without net: ['4']

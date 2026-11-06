@@ -20,7 +20,8 @@
 | [`docs/05_panel_bus_modbus.md`](docs/05_panel_bus_modbus.md) | پروتکل Modbus RTU باس پنل و نقشه رجیسترها |
 | [`docs/06_foc_sensorless.md`](docs/06_foc_sensorless.md) | **FOC بدون سنسور + شناسایی خودکار** (R، L، شار، اینرسی، dead-time)، حفاظت قفل روتور، نتایج 110 موتور تصادفی |
 | [`docs/07_battery_solar_backup.md`](docs/07_battery_solar_backup.md) | **برق اضطراری:** ماژول باتری ۴۸ V (DAB دوطرفه) + ورودی خورشیدی روی باس DC، زمان کارکرد، نتایج شبیه‌سازی قطع برق |
-| [`hardware/netlist.md`](hardware/netlist.md) | شماتیک متنی برگه‌به‌برگه (پین‌های MCU از دیتابیس رسمی ST) |
+| [`hardware/v2/`](hardware/v2/README.md) | **شماتیک نسخه ۲** (PFC، FOC سه‌شنت، تغذیه مقاوم 440 VAC، رله پمپ/تخلیه، باس پنل ایزوله، RS-485 ماژول باتری) — بررسی‌شده با کتابخانه KiCad و داده ST، نت‌لیست قابل import در KiCad |
+| [`hardware/netlist.md`](hardware/netlist.md) | (نسخه ۱، جایگزین شده) شماتیک متنی برگه‌به‌برگه (پین‌های MCU از دیتابیس رسمی ST) |
 | [`hardware/bom.csv`](hardware/bom.csv) | لیست قطعات با پارت‌نامبر نمونه |
 | [`hardware/calc/`](hardware/calc/) | اسکریپت محاسبات (تلفات، هیت‌سینک، خازن، بوت‌استرپ، شنت، تقسیم‌کننده‌ها) و نتایج |
 | [`firmware/`](firmware/) | فریمور C (هسته کنترل قابل حمل + BSP رجیستری) و شبیه‌ساز مدار بسته |
