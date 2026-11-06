@@ -391,6 +391,15 @@ for p in S.PARTS:
         out.append([Sym("attr"), Sym("through_hole") if "THT" in p["fp"] or "Terminal" in p["fp"] else Sym("smd"),
                     Sym("exclude_from_bom")])
     if r: rotate_angles(out, r)
+    # zones inside footprints (e.g. antenna keep-outs) are stored in BOARD coordinates in a .kicad_pcb
+    c_, s__ = math.cos(math.radians(r)), math.sin(math.radians(r))
+    for z in [e for e in out if isinstance(e, list) and e and e[0] == "zone"]:
+        for pol in find(z, "polygon"):
+            for pts in find(pol, "pts"):
+                for xy_ in find(pts, "xy"):
+                    px, py = float(xy_[1]), float(xy_[2])
+                    xy_[1] = round(x + px * c_ + py * s__, 4)
+                    xy_[2] = round(y - px * s__ + py * c_, 4)
     # unique ids for every item inside the footprint (library copies share them -> KIID collisions)
     cnt = [0]
     def reid(e):
