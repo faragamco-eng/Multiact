@@ -14,6 +14,7 @@ Qty,References,Value,MPN / description,Footprint,Populate
 1,PTC1,PTC 120R inrush,EPCOS B59xxxJ120 series (energy-rated for 660 uF @ 373 V),Capacitor_THT:C_Disc_D11.0mm_W5.0mm_P7.50mm,yes
 3,D1 D2 D3,1N4007,1N4007,Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal,yes
 4,C1 C35 C40 C36,100nF 630V,,Capacitor_THT:C_Rect_L18.0mm_W6.0mm_P15.00mm_FKS3_FKP3,yes
+1,D29,UF4007,UF4007 (1000 V),Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal,yes
 14,R3 R4 R5 R7 R8 R9 R22 R23 R24 R25 R32 R33 R34 R35,1M,,Resistor_SMD:R_1206_3216Metric,yes
 5,R6 R10 R60 R61 R62,10k 0.1%,,Resistor_SMD:R_0603_1608Metric,yes
 2,D4 D5,BAT54S,BAT54S,Package_TO_SOT_SMD:SOT-23,yes

@@ -159,6 +159,14 @@ C_Rect_L18.0mm_W6.0mm_P15.00mm_FKS3_FKP3
 
 ]
 [
+D29
+D_DO-41_SOD81_P10.16mm_Horizontal
+UF4007
+
+
+
+]
+[
 R3
 R_1206_3216Metric
 1M
@@ -2514,6 +2522,7 @@ AUX_RAW
 D1-1
 D2-1
 C1-1
+D29-1
 Q3-2
 R32-1
 )
@@ -3498,6 +3507,7 @@ C33-1
 )
 (
 VBUS
+D29-2
 D6-1
 D7-1
 R18-1

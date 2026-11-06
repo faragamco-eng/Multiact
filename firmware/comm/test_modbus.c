@@ -104,7 +104,7 @@ int main(void)
     regs.ir[IR_POWER_SOURCE] = PS_BATTERY; regs.ir[IR_BATT_SOC] = 62;
     uint8_t r7[] = {0x01, 0x04, 0x00, IR_POWER_SOURCE, 0x00, 0x02};
     CHECK(xfer(r7, 6) == 3 + 4 + 2 && mb.tx[4] == PS_BATTERY && mb.tx[6] == 62);
-    CHECK(regs.ir[IR_PROTO_VER] == 2);
+    CHECK(regs.ir[IR_PROTO_VER] == COOLER_PROTO_VER);
     /* runtime: 2.3 kWh usable at 370 W -> 373 min */
     CHECK(cooler_batt_minutes(2300.0f, 370.0f) == 372 || cooler_batt_minutes(2300.0f, 370.0f) == 373);
     CHECK(cooler_batt_minutes(0.0f, 370.0f) == 0 && cooler_batt_minutes(500.0f, 0.0f) == 0xFFFF);

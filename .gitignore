@@ -7,3 +7,4 @@ firmware/cmsis/
 __pycache__/
 .libcache/
 hardware/v2/out/sch_export.net
+firmware/v2/build/

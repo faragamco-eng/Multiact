@@ -1,6 +1,6 @@
 # BLDC cooler drive v2 — netlist (generated from schematic.py, do not edit)
 
-Parts: 297 · nets: 203 · check errors: 0
+Parts: 298 · nets: 203 · check errors: 0
 
 
 ## Sheet 1 AC input, protection, relays, mains sensing
@@ -27,6 +27,7 @@ Parts: 297 · nets: 203 · check errors: 0
 | D2 | 1N4007 | 1N4007 | 1→`AUX_RAW`, 2→`AC_NF` |  |
 | D3 | 1N4007 | 1N4007 | 1→`AC_LF`, 2→`PGND` |  |
 | C1 | Device:C | 100nF 630V | 1→`AUX_RAW`, 2→`PGND` |  |
+| D29 | UF4007 (1000 V) | UF4007 | 1→`AUX_RAW`, 2→`VBUS` |  |
 | R3 | Device:R | 1M | 1→`AC_LF`, 2→`VIN_L_A` | 1206 200 V each, 3 in series |
 | R4 | Device:R | 1M | 1→`VIN_L_A`, 2→`VIN_L_B` |  |
 | R5 | Device:R | 1M | 1→`VIN_L_B`, 2→`VIN_L_C` |  |
@@ -354,7 +355,7 @@ Parts: 297 · nets: 203 · check errors: 0
 | `AC_N` | J1.2 RV1.2 RV3.1 CX1.2 R2.2 L1.3 |
 | `AC_NF` | L1.4 CX2.2 CY2.1 D2.2 R7.1 BR1.3 J5.2 J5.4 R86.2 R87.2 |
 | `AUX_HV` | Q3.3 D13.2 C14.1 T1.1 D15.1 |
-| `AUX_RAW` | D1.1 D2.1 C1.1 Q3.2 R32.1 |
+| `AUX_RAW` | D1.1 D2.1 C1.1 D29.1 Q3.2 R32.1 |
 | `BLD1` | R29.2 R30.1 |
 | `BLD2` | R30.2 R31.1 |
 | `BLD3` | R31.2 LED1.2 |
@@ -527,7 +528,7 @@ Parts: 297 · nets: 203 · check errors: 0
 | `VBOOTU` | U5.8 D26.1 C28.1 C29.1 |
 | `VBOOTV` | U12.8 D27.1 C30.1 C31.1 |
 | `VBOOTW` | U13.8 D28.1 C32.1 C33.1 |
-| `VBUS` | D6.1 D7.1 R18.1 C12.1 R100.1 R29.1 Q9.2 Q11.2 Q13.2 C34.1 C35.1 C40.1 C36.1 R66.1 F4.1 |
+| `VBUS` | D29.2 D6.1 D7.1 R18.1 C12.1 R100.1 R29.1 Q9.2 Q11.2 Q13.2 C34.1 C35.1 C40.1 C36.1 R66.1 F4.1 |
 | `VBUS_EXT` | F4.2 J9.1 |
 | `VBUS_SENSE` | R70.2 U6.8 |
 | `VB_M1` | C13.2 R101.2 C61.1 R102.1 R103.1 |

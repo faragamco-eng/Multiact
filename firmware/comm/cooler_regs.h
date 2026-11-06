@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 #define COOLER_MB_ADDR      1u
-#define COOLER_PROTO_VER    2u
+#define COOLER_PROTO_VER    3u
 
 /* ---------------- holding registers (read/write) ---------------- */
 enum {
@@ -69,7 +69,56 @@ enum {
     IR_BATT_MIN_LEFT  = 26,  /* estimated runtime at the present load, min */
     IR_SOLAR_W        = 27,  /* solar input power, W                       */
     IR_MODULE_STATUS  = 28,  /* bit0 present, bit1 hot standby, bit2 charging, bit3 fault */
+    /* protocol v3: v2 board (discrete inverter, series bus capacitors) */
+    IR_ALARM_DETAIL   = 29,  /* sub-code of the active alarm, see AD_*     */
+    IR_VCAP_LOW_V     = 30,  /* voltage of the lowest bus capacitor, V     */
+    IR_MAINS_DHZ      = 31,  /* mains frequency, 0.1 Hz                    */
+    IR_STARTS         = 32,  /* motor start counter (saturating)           */
+    IR_OUTAGES        = 33,  /* mains outage counter (saturating)          */
+    IR_SERIAL_LO      = 34,  /* board serial number (factory parameter)    */
+    IR_SERIAL_HI      = 35,
+    IR_HW_REV         = 36,  /* 0x0200 = board v2.0                        */
+    IR_LOG_COUNT      = 37,  /* events stored in the log (0..LOG_LEN)      */
+    IR_LOG_SEQ        = 38,  /* sequence number of the newest event        */
+    IR_POWER_STATE    = 39,  /* pwr_state_t (mains / precharge / bus)      */
     IR_COUNT
+};
+
+/* Event log: input registers IR_LOG_BASE + 8*k, k = 0 newest .. LOG_LEN-1.
+ * Each record: code, detail, run-minutes lo, hi, vin [V], vbus [V],
+ * current [0.01 A], heatsink temp [degC + 40]. */
+#define IR_LOG_BASE   0x0100u
+#define LOG_LEN       16u
+#define LOG_REC_REGS  8u
+
+/* Firmware update window (protocol v3). The panel streams a drive image:
+ *   HR FWU_SIZE/CRC -> FWU_CMD=BEGIN -> repeated FC16 writes of
+ *   {FWU_OFS_LO, FWU_OFS_HI, data[FWU_DATA_REGS]} -> FWU_CMD=COMMIT.
+ * The drive refuses BEGIN while the motor runs. Status in IR FWU_*. */
+#define HR_FWU_BASE   0x0200u
+enum {
+    HR_FWU_CMD     = HR_FWU_BASE + 0,   /* 1 begin, 2 commit, 3 abort        */
+    HR_FWU_SIZE_LO = HR_FWU_BASE + 1,
+    HR_FWU_SIZE_HI = HR_FWU_BASE + 2,
+    HR_FWU_CRC_LO  = HR_FWU_BASE + 3,   /* CRC-32 (IEEE) of the whole image  */
+    HR_FWU_CRC_HI  = HR_FWU_BASE + 4,
+    HR_FWU_OFS_LO  = HR_FWU_BASE + 14,  /* byte offset of the following data */
+    HR_FWU_OFS_HI  = HR_FWU_BASE + 15,
+    HR_FWU_DATA    = HR_FWU_BASE + 16,  /* FWU_DATA_REGS registers, big-endian bytes */
+};
+#define FWU_DATA_REGS 48u
+enum { IR_FWU_STATE = 0x0200, IR_FWU_RX_LO, IR_FWU_RX_HI, IR_FWU_ERROR };
+enum { FWU_CMD_BEGIN = 1, FWU_CMD_COMMIT = 2, FWU_CMD_ABORT = 3 };
+
+/* IR_ALARM_DETAIL values */
+enum {
+    AD_NONE = 0,
+    AD_OC_SOFTWARE = 1, AD_OC_COMPARATOR = 2,          /* E3 */
+    AD_HS_SWITCH = 3,                                  /* E6: thermal switch opened */
+    AD_BUS_OV = 4, AD_BUS_UV = 5, AD_PRECHARGE = 6,    /* E9 */
+    AD_CAP_IMBALANCE = 7, AD_PFC_NO_BOOST = 8,         /* E9 */
+    AD_START_FAIL = 9, AD_PHASE_LOSS = 10, AD_ID_FAIL = 11, /* E7 */
+    AD_LATCHED = 0x80                                  /* OR-ed: retries used up */
 };
 
 typedef enum {
@@ -93,6 +142,15 @@ enum {
     AL_MODULE = 11           /* E11: battery module fault / no comms       */
 };
 
+typedef enum {
+    PWR_WAIT_MAINS = 0,      /* relays open, waiting for valid mains        */
+    PWR_PRECHARGE = 1,       /* K2 + PTC charging the bus                   */
+    PWR_BUS_RECT = 2,        /* K1 closed, PFC off (bus = rectified peak)   */
+    PWR_BUS_PFC = 3,         /* K1 closed, PFC regulating 390 V             */
+    PWR_OV_OPEN = 4,         /* mains over-voltage: relays opened           */
+    PWR_OUTAGE = 5           /* mains lost (battery module may supply bus)  */
+} pwr_state_t;
+
 /* Runtime estimate shown to the user (minutes). usable_wh = remaining
  * energy above the reserve; load_w = battery discharge power. */
 uint16_t cooler_batt_minutes(float usable_wh, float load_w);
@@ -104,7 +162,16 @@ typedef struct {
     uint32_t last_valid_ms;      /* time of last frame addressed to us */
     bool     identify_req;
     bool     clear_req;
+    bool     hr_dirty;           /* a persistent setting changed (-> save) */
+    uint16_t log[LOG_LEN][LOG_REC_REGS];
+    /* optional handler for registers outside the base map (firmware update) */
+    uint8_t (*ext_write)(uint16_t a, uint16_t v, void *ctx);
+    uint8_t (*ext_read)(uint16_t a, uint16_t *v, bool input, void *ctx);
+    void    *ext_ctx;
 } cooler_regs_t;
+
+/* add an event to the log (newest first) */
+void cooler_log(cooler_regs_t *c, const uint16_t rec[LOG_REC_REGS]);
 
 void cooler_regs_init(cooler_regs_t *c);
 /* Modbus callbacks (ctx = cooler_regs_t*) */

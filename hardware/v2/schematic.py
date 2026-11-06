@@ -110,6 +110,9 @@ D("D1", "1N4007", "AUX_RAW", "AC_LF", DO41)
 D("D2", "1N4007", "AUX_RAW", "AC_NF", DO41)
 D("D3", "1N4007", "AC_LF", "PGND", DO41)       # completes the bridge with BR1(N) when K1 is open
 P("C1", "Device:C", "100nF 630V", "Capacitor_THT:C_Rect_L18.0mm_W6.0mm_P15.00mm_FKS3_FKP3", {1: "AUX_RAW", 2: "PGND"})
+# DC bus also feeds the aux supply: seconds of hold-up after an outage (state saved to flash,
+# controlled shutdown) and the controller keeps running from the battery module (option)
+D("D29", "UF4007", "AUX_RAW", "VBUS", DO41, mpn="UF4007 (1000 V)")
 
 # Mains sensing (both lines vs ground, 1:301) -> |Vin| waveform, rms, zero cross, outage
 for i, (src, net) in enumerate([("AC_LF", "VIN_L"), ("AC_NF", "VIN_N")]):
