@@ -54,7 +54,7 @@ EXTRA_CLASSES = [
 DRU_PITCH = [("U4", 0.15)]
 DRU_EXTRA = ['(rule "USB-C locating pegs" (condition "A.insideCourtyard(\'J2\')") (constraint hole_clearance (min 0.1mm)))',
              # GND pads are connected by tracks as well; one thermal spoke to the pour is enough
-             '(rule "pour spokes" (condition "A.Type == \'Zone\'") (constraint min_resolved_spokes (min 1)))']
+             '(rule "pour spokes" (condition "A.Type == \'Zone\'") (constraint min_resolved_spokes 1))']
 # the ESP32-S3 module footprint has 0.2 mm thermal vias in its ground pad
 BOARD_RULES = {"min_through_hole_diameter": 0.2, "min_hole_clearance": 0.2}
 
